@@ -21,15 +21,6 @@ end
 '''
 match_indent = true
 
-# Fix Card:load()
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''self.VT.h = self.T.H'''
-position = "at"
-payload = '''self.VT.h = self.T.h'''
-match_indent = true
-
 # Fix SMODS incorrect challenge saving
 [[patches]]
 [patches.pattern]

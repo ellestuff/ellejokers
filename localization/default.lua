@@ -161,6 +161,13 @@ return {
 					"a random other {C:attention}Joker"
 				}
 			},
+			j_elle_discarded = {
+				name = 'Discarded Prototypes',
+				text = {
+					"{C:attention}Debuffed{} cards give",
+					"{C:money}$#1#{} when discarded"
+				}
+			},
 			
 			-- Other stuff
 			j_elle_drago = {
@@ -239,9 +246,25 @@ return {
 					caption..'"I have a suggestion."'
 				}
 			},
+			j_elle_diamond_pickaxe = {
+				name = "Diamond Pickaxe",
+				text = {
+					"{C:attention}Eternal{} Jokers can be sold",
+					"by {C:attention}paying{} {C:white,X:money}X#1#{} the sell cost"
+				}
+			},
 			
 			-- Jess's Minecraft Idea
 			j_elle_cobble_gen = {
+				name = 'Cobblestone Generator',
+				text = {
+					"When blind selected, turn Joker",
+					"to the left into {C:attention}Cobblestone",
+					"{C:green}#1# in #2#{} chance to turn itself",
+					"into an {C:attention}Eternal Obsidian{} instead"
+				}
+			},
+			j_elle_cobble_gen_old = {
 				name = 'Cobblestone Generator',
 				text = {
 					"{C:attention}Sell{} this Joker to create",
@@ -416,10 +439,13 @@ return {
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
 			c_elle_forcefem = "Forcefem!",
-			c_elle_shopless = "Shopless"
+			c_elle_shopless = "Shopless",
+			c_elle_unlockable = "Unlockable"
 		},
 		v_text = {
-			ch_c_elle_no_shop = { "Shop is {C:attention}skipped{} at end of round" }
+			ch_c_elle_no_shop = { "Shop is {C:attention}skipped{} at end of round" },
+			ch_c_elle_not_all = { "Instantly {C:attention}lose{} the run if initial scoring hand is only {C:attention}#1#s" },
+			ch_c_elle_untested = { "{C:inactive}This challenge has not been tested and may be {C:red}impossible" }
 		}
 	}
 }

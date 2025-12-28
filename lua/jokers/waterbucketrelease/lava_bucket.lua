@@ -34,7 +34,9 @@ bucket.calculate = function(self, card, context)
 		end
 		if obsidian then
 			play_sound("elle_fizz", 1, 0.6)
-			change_joker_ability(card,"j_elle_obsidian")
+			change_joker_ability(card,"j_elle_obsidian",{calculate = function(self, card)
+				card.eternal = true
+			end})
 		end
 	end
 end

@@ -65,6 +65,7 @@ local jokers = {
 	"cassie",
 	"cassie_stasis",
 	"41",
+	"discarded",
 	
 			-- Jess's Minecraft Idea
 	"waterbucketrelease/cobble_gen",
@@ -82,6 +83,7 @@ local jokers = {
 	"nitro",
 	"eraser",
 	"suggestion",
+	"diamond_pickaxe",
 	
 			-- Legendaries
 	"twy",
@@ -91,6 +93,12 @@ local jokers = {
 local blinds = {"cassie_39"}
 
 --		[[ Atlases ]]
+SMODS.Atlas{
+    key = "modicon",
+    path = "modicon.png",
+    px = 34,
+    py = 34,
+}
 SMODS.Atlas {
 	key = "jokers",
 	path = "jokers.png",
@@ -226,4 +234,8 @@ end
 
 for i, v in ipairs(blinds) do
 	assert(SMODS.load_file("lua/blinds/"..v..".lua"))()
+end
+
+SMODS.current_mod.calculate = function(self,context)
+	elle_challenge_mod_calc(self,context)
 end

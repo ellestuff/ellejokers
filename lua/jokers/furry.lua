@@ -67,7 +67,7 @@ furry.slime_upgrade = {
 		local sarah = find_joker("j_elle_sarah")[1]
 		
 		if sarah then
-			transform_joker(find_joker("j_elle_cassie")[1],"j_elle_cassie2")
+			transform_joker(find_joker("j_elle_cassie")[1],"j_elle_cassie2",{end_sound='slice1'})
 			transform_joker(sarah,"j_elle_mint")
 		end
 	end,

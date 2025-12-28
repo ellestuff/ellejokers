@@ -14,13 +14,13 @@ local cassie = SMODS.Joker {
 }
 
 -- You are not without consequences
-local eternal_hook = SMODS.is_eternal
-function SMODS.is_eternal(card, ...)
-	local eh = eternal_hook(card, ...)
+local csc_hook = Card.can_sell_card
+function Card:can_sell_card(context, ...)
+	local csc = csc_hook(self, context, ...)
 	
-	if (card.config.center_key == "j_elle_cassie2") then return true end
+	if (self.config.center_key == "j_elle_cassie2") then return false end
 	
-	return eh
+	return csc
 end
 
 -- Hide the cost
