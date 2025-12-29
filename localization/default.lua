@@ -377,7 +377,7 @@ return {
 				name = 'Upgrade',
 				text = {
 					"Have {C:red}Sarah{}",
-					"and {C:red}Cassie{}"
+					"or {C:red}Cassie{}"
 				}
 			},
 			slime_upgr_j_elle_sophie = {

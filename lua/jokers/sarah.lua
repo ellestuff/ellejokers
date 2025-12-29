@@ -10,7 +10,6 @@ local sarah = SMODS.Joker {
 	rarity = 2,
 	atlas = 'jokers',
 	pos = { x = 4, y = 2 },
-	in_pool = function(self) return false end,
 	cost = 7
 }
 

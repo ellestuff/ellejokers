@@ -2,7 +2,10 @@ local cassie = SMODS.Joker {
 	key = 'cassie2',
 	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = table_create_badge(elle_badges.mall) end end,
 	config = { extra = { cracked = false } },
-	loc_vars = function(self, info_queue, card) return { vars = { } } end,
+	loc_vars = function(self, info_queue, card) 
+		info_queue[#info_queue+1] = {set = "Other", key = "elle_upgr_no_shop"}
+		return { vars = { } }
+	end,
 	rarity = 1,
 	atlas = 'jokers',
 	pos = { x = 2, y = 4 },
