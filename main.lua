@@ -33,13 +33,16 @@
 --		- MoreFluff
 --			- Custom Colour card crashes game on round end
 
+ellejokers = {}
+
 --		[[ File List ]]
 local files = {
 	"skins",
 	"consumables",
 	"misc",
 	"http",
-	"challenges"
+	"challenges",
+	"popup_shop"
 }
 
 -- Only add LobCorp's blindexpander if the mod isn't present
