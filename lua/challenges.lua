@@ -25,7 +25,7 @@ SMODS.Challenge {
 	}
 }
 
-SMODS.Challenge {
+--[[SMODS.Challenge {
 	key = "forcefem",
 	rules = {
 		custom = {
@@ -48,7 +48,7 @@ SMODS.Challenge {
 			{id="bl_plant",type="blind"}
 		}
 	}
-}
+}]]
 
 local shopless = SMODS.Challenge {
 	key = "shopless",

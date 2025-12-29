@@ -97,8 +97,6 @@ local function becca_visible_reroll(booster)
 			--print("added booster")
 		end
 	end
-	
-	G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) -- Save the game :)
 end
 
 -- Copied very loosely from HotPot
@@ -108,12 +106,15 @@ local function reload_becca_areas()
         if G.GAME.elle_rebecca.data[key] then
 			--print("data found")
 			G[key]:load(G.GAME.elle_rebecca.data[key])
+			
 			--print(#G[key].cards.." cards")
             for k, v in ipairs(G[key].cards) do
                 create_shop_card_ui(v)
-                if v.ability.consumeable then v:start_materialize() end
+                v:start_materialize()
+				G.GAME.used_jokers[v.config.center.key] = true
             end
             G.GAME.elle_rebecca.data[key] = nil
+			
         end
     end
 end
@@ -152,15 +153,6 @@ do -- Game hooks
 		end
 		
 		local uc = uc_hook(e)
-		
-		-- Save the card being removed
-		if (from_becca) then
-			G.E_MANAGER:add_event(Event({ func = function()
-				G.FUNCS.exit_overlay_menu()
-				save_run()
-			return true end}))
-		end
-		
 		return uc
 	end
 	
@@ -172,6 +164,7 @@ do -- Game hooks
 		if self.area == G.elle_becca_shop_consumables and self.children.buy_and_use_button then
 			self.children.buy_and_use_button:remove()
 			self.children.buy_and_use_button = nil
+			
 		end
 		
 		return hl
@@ -181,7 +174,7 @@ do -- Game hooks
 	local car = CardArea.remove
 	function CardArea:remove()
 		for _, key in ipairs(becca_cardareas) do
-			if self == G[key] then G.GAME.elle_rebecca.data[key] = self:save() save_run() end
+			if self == G[key] then G.GAME.elle_rebecca.data[key] = self:save() end
 		end
 		car(self)
 	end
@@ -214,7 +207,7 @@ do -- Game hooks
 		eom(...)
 		if (G.GAME.elle_rebecca.open) then
 			G.GAME.elle_rebecca.open = false
-			G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) -- Save the game :)
+			--if G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED then G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) end -- Save the game :)
 		end
 	end
 end
