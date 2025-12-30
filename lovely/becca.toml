@@ -11,7 +11,7 @@ pattern = '''G.STATE = G.STATES.SHOP'''
 position = "after"
 payload = '''
 -- ellejokers. - Shopless challenge modifier
-if (G.GAME.modifiers.elle_no_shop) then
+if (G.GAME.modifiers.elle_no_shop or ellejokers.skip_shop) then
 	-- Stocking Stuffer stuff(er)
 	G.E_MANAGER:add_event(Event({
 		trigger = 'after',

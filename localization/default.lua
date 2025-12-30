@@ -129,7 +129,7 @@ return {
 				name = 'Rebecca',
 				text = {
 					"Go to a separate {C:attention}Shop",
-					"{C:attention}Restocks{} at end of Ante"
+					"{C:inactive}(Restocks at end of Ante)"
 				}
 			},
 			j_elle_cassie = {
@@ -192,6 +192,14 @@ return {
 					"if played hand contains",
 					"a {C:attention}Full House",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+				}
+			},
+			j_elle_spamton = {
+				name = '[[{V:1}BIG {V:2}SHOP{}]]',
+				text = {
+					"* ENTER MY {C:attention}[[Home-made",
+					"{C:attention}Storefront Site]]",
+					"{C:inactive}(Restocks at end of Ante)"
 				}
 			},
 			j_elle_polyamory = {
@@ -356,16 +364,6 @@ return {
 			}
 		},
 		Other = {
-			elle_rebecca_challenge = {
-				name = "Warning!",
-				text = {
-					"Rebecca's shop contents may",
-					"{C:red}not save{} when closing the game",
-					"This is only in {C:red}challenge runs",
-					"and is likely a SMODS issue"
-				}
-			},
-			
 			slime_upgr_j_elle_chloe = {
 				name = 'Upgrade..?',
 				text = {

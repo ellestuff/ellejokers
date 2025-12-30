@@ -43,25 +43,6 @@ ellejokers.popup_shop = {
 			end
 		end
 	end
-	
-	--[[
-		for _, key in ipairs(becca_cardareas) do
-			--print(key)
-			if G.GAME.elle_rebecca.data[key] then
-				--print("data found")
-				G[key]:load(G.GAME.elle_rebecca.data[key])
-				
-				--print(#G[key].cards.." cards")
-				for k, v in ipairs(G[key].cards) do
-					create_shop_card_ui(v)
-					v:start_materialize()
-					G.GAME.used_jokers[v.config.center.key] = true
-				end
-				G.GAME.elle_rebecca.data[key] = nil
-				
-			end
-		end
-	]]
 }
 
 -- Init game hook - initialize game variables
@@ -73,19 +54,22 @@ function Game:init_game_object()
 	g.elle_popup_shops = {
 		-- Rebecca Shop
 		rebecca = {
-			default_reroll = 4,
-			reroll = 4,
-			reroll_cost = 2,
-			reset_on_open = true,
-			data = {},
-			first_open=true
+			default_reroll = 4, -- Reroll cost when shop resets
+			reroll = 4, -- Actual reroll cost
+			reroll_cost = 2, -- Cost increase amount
+			reset_on_open = true, -- Whether opening the shop will reroll contents
+			data = {}, -- This isn't saving for some reason???
+			first_open = true -- If it's the first time opening the shop
 		},
 		
 		-- [[BIG SHOP]]
 		spamton = {
 			reset_on_open = true,
+			default_reroll = 4,
+			reroll = 4,
+			reroll_cost = 2,
 			data = {},
-			first_open=true
+			first_open = true
 		}
 	}
 	return g

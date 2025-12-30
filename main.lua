@@ -33,7 +33,9 @@
 --		- MoreFluff
 --			- Custom Colour card crashes game on round end
 
-ellejokers = {}
+ellejokers = {
+	skip_shop = false
+}
 
 --		[[ File List ]]
 local files = {
@@ -81,6 +83,7 @@ local jokers = {
 	"drago",
 	"vivian",
 	"carpet",
+	"spamton",
 	"polyamory",
 	"bf",
 	"nitro",
