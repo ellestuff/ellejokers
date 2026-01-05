@@ -156,9 +156,10 @@ return {
 			j_elle_p41 = {
 				name = 'Prototype #1#41',
 				text = {
-					"If scoring hand contains",
-					"an {C:attention}Ace{} and {C:attention}4{}, retrigger",
-					"a random other {C:attention}Joker"
+					"If played hand contains",
+					"a scoring {C:attention}Ace{} and {C:attention}4{},",
+					"Copy abilities of {C:attention}Jokers",
+                    "to the left and right",
 				}
 			},
 			j_elle_discarded = {
@@ -432,7 +433,9 @@ return {
 			elle_rebecca_joker = "JOKERS",
 			elle_rebecca_consumable = "CONSUMABLES",
 			elle_rebecca_reroll = "Reroll All",
-			elle_rebecca_restock = "Restocked!"
+			elle_shop_restock = "Restocked!",
+			
+			elle_41_activate = "Yeah~!"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
