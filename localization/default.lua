@@ -413,6 +413,23 @@ return {
                 }
             }
 		},
+		Voucher = {
+			v_elle_mixup = {
+				name = "Mix-up",
+				text={
+					"{C:common}Common{}, {C:uncommon}Uncommon{}, and",
+					"{C:rare}Rare{} Jokers are {C:attention}equally",
+					"{C:attention}likely{} to appear"
+				}
+			},
+			v_elle_breakthrough = {
+				name = "Breakthrough",
+				text={
+					"{C:legendary}Legendary{} Jokers can",
+					"appear in {C:attention}Shop"
+				}
+			}
+		},
 		Passives = {
 			psv_elle_familiar = {
 				name = "Familiar Face",

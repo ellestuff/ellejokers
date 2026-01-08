@@ -136,6 +136,12 @@ SMODS.Atlas {
 	py = 95
 }
 SMODS.Atlas {
+	key = "vouchers",
+	path = "vouchers.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
 	key = "tag",
 	path = "tags.png",
 	px = 34,
@@ -197,7 +203,7 @@ elle_badges = {
 to_big = to_big or function(x) return x end
 to_number = to_number or function(x) return x end
 
--- Add spearmint animations
+-- Add joker animations
 local upd = Game.update
 anim_elle_spearmint_dt = 0
 anim_elle_spearmint_f = 0
