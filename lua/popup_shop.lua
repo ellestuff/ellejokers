@@ -39,7 +39,6 @@ ellejokers.popup_shop = {
 					G.GAME.used_jokers[v.config.center.key] = true
 				end
 				G.GAME.elle_popup_shops[shop].data[key] = nil
-				
 			end
 		end
 	end
@@ -58,7 +57,7 @@ function Game:init_game_object()
 			reroll = 4, -- Actual reroll cost
 			reroll_cost = 2, -- Cost increase amount
 			reset_on_open = true, -- Whether opening the shop will reroll contents
-			data = {}, -- This isn't saving for some reason???
+			data = {}, -- Store shop contents while shop is closed
 			first_open = true -- If it's the first time opening the shop
 		},
 		

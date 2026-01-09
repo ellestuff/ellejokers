@@ -19,11 +19,8 @@ local cassie = SMODS.Joker {
 -- You are not without consequences
 local csc_hook = Card.can_sell_card
 function Card:can_sell_card(context, ...)
-	local csc = csc_hook(self, context, ...)
-	
 	if (self.config.center_key == "j_elle_cassie2") then return false end
-	
-	return csc
+	return csc_hook(self, context, ...)
 end
 
 -- Hide the cost

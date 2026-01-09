@@ -119,7 +119,7 @@ function create_UIbox_becca()
 	-- Reload areas if not first time opening
 	if not G.GAME.elle_popup_shops.rebecca.first_open then
 		ellejokers.popup_shop.load_shop_areas("rebecca")
-		save_run()
+		--save_run()
 	else G.GAME.elle_popup_shops.rebecca.first_open = false end
 
 
