@@ -284,7 +284,6 @@ return {
 			j_elle_water_bucket = {
 				name = 'Water Bucket',
 				text = {
-					"{C:chips}+#1#{} Chips",
 					"When blind selected,",
 					"if there is a single Joker",
 					"between this and {C:attention}Lava Bucket{},",
@@ -402,6 +401,16 @@ return {
 					"be obtained through",
 					"{C:attention}Upgrading"
 				}
+			},
+			
+			elle_protected = {
+				name = 'Protected',
+				text = {
+					"Instantly {C:red}lose{} the",
+					"run when this",
+					"card is {C:attention}changed{},",
+					"{C:attention}sold{}, or {C:attention}destroyed"
+				}
 			}
 		},
 		Tag = {
@@ -456,14 +465,17 @@ return {
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
-			c_elle_forcefem = "Forcefem!",
 			c_elle_shopless = "Shopless",
-			c_elle_unlockable = "Unlockable"
+			c_elle_cobbled = "Cobbled",
+			c_elle_pay2play = "Pay 2 Play"
 		},
 		v_text = {
 			ch_c_elle_no_shop = { "Shop is {C:attention}skipped{} at end of round" },
 			ch_c_elle_not_all = { "Instantly {C:attention}lose{} the run if initial scoring hand is only {C:attention}#1#s" },
 			ch_c_elle_untested = { "{C:inactive}This challenge has not been tested and may be {C:red}impossible" }
+		},
+		labels = {
+			elle_protected="Protected"
 		}
 	}
 }

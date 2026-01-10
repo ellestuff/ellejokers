@@ -142,6 +142,12 @@ SMODS.Atlas {
 	py = 95
 }
 SMODS.Atlas {
+	key = "stickers",
+	path = "stickers.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
 	key = "tag",
 	path = "tags.png",
 	px = 34,

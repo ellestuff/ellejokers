@@ -5,7 +5,6 @@ local gen = SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = G.P_CENTERS.j_elle_cobblestone
 		info_queue[#info_queue+1] = G.P_CENTERS.j_elle_obsidian
-		info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'} 
 		
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'elle_cobble_gen')
 		return { vars = { numerator, denominator } }
@@ -25,9 +24,9 @@ gen.calculate = function(self, card, context)
 		
 		if card_pos>1 then
 			if SMODS.pseudorandom_probability(card, 'elle_cobble_gen', 1, card.ability.extra.odds) then
-				transform_joker(card, "j_elle_obsidian",{end_sound="elle_fizz"})
+				change_joker_ability(card,"j_elle_obsidian",{calculate = function(self, card) play_sound("elle_fizz", 1, 0.6) end})
 			else
-				transform_joker(G.jokers.cards[card_pos-1], "j_elle_cobblestone", {vars={value=G.jokers.cards[card_pos-1].sell_cost},end_sound="elle_fizz"})
+				change_joker_ability(G.jokers.cards[card_pos-1], "j_elle_cobblestone", {vars={value=G.jokers.cards[card_pos-1].sell_cost},end_sound="elle_fizz"})
 			end
 		end
 	end

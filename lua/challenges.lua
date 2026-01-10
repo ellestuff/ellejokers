@@ -78,23 +78,33 @@ local shopless = SMODS.Challenge {
 if Cryptid then shopless.restrictions.banned_cards[#shopless.restrictions.banned_cards+1] = {id="c_cry_run"} end
 
 SMODS.Challenge {
-	key = "unlockable",
+	key = "cobbled",
 	rules = {
 		custom = {
 			{id = "elle_untested"}
 		}
 	},
 	jokers = {
-		{
-			id = "j_elle_diamond_pickaxe",
-			eternal=true,
-			edition="negative"
-		},
-		{ id = "j_egg", eternal=true },
-		{ id = "j_egg", eternal=true },
-		{ id = "j_egg", eternal=true },
-		{ id = "j_egg", eternal=true },
-		{ id = "j_egg", eternal=true }
+		{ id = "j_elle_water_bucket", stickers={"elle_protected"} },
+		{ id = "j_elle_cobblestone" },
+		{ id = "j_elle_lava_bucket", stickers={"elle_protected"} }
+	}
+}
+
+SMODS.Challenge {
+	key = "pay2play",
+	rules = {
+		custom = {
+			{id = "elle_untested"}
+		}
+	},
+	jokers = {
+		{ id = "j_elle_diamond_pickaxe", eternal=true, edition="negative", ability={extra={ mult = 1 }} },
+		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 16 }} },
+		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 32 }} },
+		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 48 }} },
+		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 64 }} },
+		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 80 }} },
 	}
 }
 
