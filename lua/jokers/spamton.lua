@@ -201,7 +201,7 @@ end
 local oldsetcost = Card.set_cost
 function Card:set_cost()
     local g = oldsetcost(self)
-    if self.area == G.elle_spamton_shop then
+    if self.area and self.area == G.elle_spamton_shop then
 		self.cost = math.max(pseudorandom("elle_spamton_price_" .. self.sort_id, 0, 100), 0.001)
     end
     return g
