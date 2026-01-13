@@ -143,7 +143,6 @@ function G.FUNCS.elle_spamton_reroll(e)
 	stop_use() -- This was in the vanilla reroll callback for some reason
 	ease_dollars(-G.GAME.elle_popup_shops.spamton.reroll)
 	G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function()
-		print("rerolling :)")
 		
 		play_sound('coin2')
 		play_sound('other1')
@@ -178,7 +177,6 @@ function G.FUNCS.elle_spamton_big_reroll(e)
 	stop_use() -- This was in the vanilla reroll callback for some reason
 	ease_dollars(-G.GAME.elle_popup_shops.spamton.reroll2)
 	G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function()
-		print("rerolling but 2 :)")
 		
 		play_sound('coin2')
 		play_sound('other1')
@@ -207,17 +205,19 @@ function Card:set_cost()
     return g
 end
 
-local cost_dt = 0.2
+local cost_rate = 0.5
+local cost_dt = cost_rate
 local oldgameupdate = Game.update
 function Game:update(dt)
     local g = oldgameupdate(self, dt)
     if G.elle_spamton_shop and G.elle_spamton_shop.cards then
         cost_dt = cost_dt + dt
-        if cost_dt >= 0.2 then
-            cost_dt = cost_dt - 0.2
+        if cost_dt >= cost_rate then
+            cost_dt = cost_dt - cost_rate
 			for i, v in ipairs(G.elle_spamton_shop.cards) do
 				v:set_cost()
 			end
+			cost_rate = pseudorandom("elle_spamton_rate", 2, 5)/10
 			G.GAME.elle_popup_shops.spamton.reroll = math.max(pseudorandom("elle_spamton_reroll", 0, 100), 0.001)
 			G.GAME.elle_popup_shops.spamton.reroll2 = math.max(pseudorandom("elle_spamton_big_reroll", 0, 100) + math.floor(G.GAME.elle_popup_shops.spamton.reroll), 0.001)
         end

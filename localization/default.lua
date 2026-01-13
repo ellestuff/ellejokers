@@ -111,7 +111,8 @@ return {
 			j_elle_marie = {
 				name = 'Marie',
 				text = {
-					"{C:attention}Slime cards{} are",
+					"{C:attention}Slime cards{} give",
+					"{C:mult}+#1#{} Mult and are",
 					"guaranteed to trigger"
 				}
 			},

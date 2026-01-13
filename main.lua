@@ -174,7 +174,11 @@ SMODS.Sound {
 SMODS.Sound {
 	key = "music_spamton",
 	path = "music_spamton.ogg",
-	sync = false
+	sync = false,
+	select_music_track = function()
+		return G.GAME.elle_popup_shop_open == "spamton"
+	end,
+	pitch = 1
 }
 
 --		[[ Config / Optional Features ]]
