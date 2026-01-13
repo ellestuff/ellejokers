@@ -95,4 +95,4 @@ j.calculate = function(self, card, context)
 	end
 end
 
-j.update = function(self, card, dt) card.children.center:set_sprite_pos({x = 0, y = card.ability.extra.spr and 5 or 4}) end
+j.update = function(self, card, dt) if card.area == G.jokers then card.children.center:set_sprite_pos({x = 0, y = card.ability.extra.spr and 5 or 4}) end end

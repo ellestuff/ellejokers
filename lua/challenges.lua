@@ -21,7 +21,34 @@ SMODS.Challenge {
 			{id="tag_coupon"},
 			{id="tag_d_six"},
 		},
-		banned_cards = Cryptid and {{id="c_cry_run"}} or nil
+		banned_cards = Cryptid and {{id="c_cry_run"}, {id="j_elle_spamton"}} or {{id="j_elle_spamton"}}
+	}
+}
+
+SMODS.Challenge {
+	key = "spamton",
+	jokers = {{
+			id = "j_elle_spamton",
+			eternal=true
+	}},
+	rules = {
+		custom = {
+			{id = "elle_no_shop"},
+		}
+	},
+	restrictions = {
+		banned_tags = {
+			{id="tag_uncommon"},
+			{id="tag_rare"},
+			{id="tag_negative"},
+			{id="tag_foil"},
+			{id="tag_holo"},
+			{id="tag_polychrome"},
+			{id="tag_voucher"},
+			{id="tag_coupon"},
+			{id="tag_d_six"},
+		},
+		banned_cards = Cryptid and {{id="c_cry_run"}, {id="j_elle_rebecca"}} or {{id="j_elle_rebecca"}}
 	}
 }
 

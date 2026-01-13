@@ -22,7 +22,7 @@ SMODS.Sticker {
 	badge_colour = HEX("fd5f55"),
 	rate = 0,
 	calculate = function(self, card, context)
-		if (context.joker_type_destroyed and context.card == card) or context.selling_self or (context.setting_ability and context.other_card == card and not context.unchanged) then
+		if card.area == G.jokers and ((context.joker_type_destroyed and context.card == card) or context.selling_self or (context.setting_ability and context.other_card == card and not context.unchanged)) then
 			-- KILL.
 			G.STATE = G.STATES.GAME_OVER
 			if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then

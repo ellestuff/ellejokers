@@ -58,7 +58,7 @@ local function becca_visible_reroll(booster)
 
 	-- Jokers
 	for i = 1, 2 -#G.elle_becca_shop_jokers.cards do
-		local new_shop_card = SMODS.create_card({set="Joker", area=G.elle_becca_shop_jokers, bypass_discovery_center = true})
+		local new_shop_card = SMODS.create_card({set="Joker", area=G.elle_becca_shop_jokers, skip_materialize = true, bypass_discovery_center = true})
 		G.elle_becca_shop_jokers:emplace(new_shop_card)
 		create_shop_card_ui(new_shop_card)
 		new_shop_card:juice_up()
@@ -66,7 +66,7 @@ local function becca_visible_reroll(booster)
 	end
 	-- Consumables
 	for i = 1, 2-#G.elle_becca_shop_consumables.cards do
-		local new_shop_card = SMODS.create_card({set="Consumeables", area=G.elle_becca_shop_consumables, bypass_discovery_center = true})
+		local new_shop_card = SMODS.create_card({set="Consumeables", area=G.elle_becca_shop_consumables, skip_materialize = true, bypass_discovery_center = true})
 		G.elle_becca_shop_consumables:emplace(new_shop_card)
 		create_shop_card_ui(new_shop_card)
 		
@@ -76,7 +76,7 @@ local function becca_visible_reroll(booster)
 	-- Booster pack
 	if booster then
 		for i = 1, 1-#G.elle_becca_shop_booster.cards do
-			local new_shop_card = SMODS.create_card({set="Booster", area=G.elle_becca_shop_booster, bypass_discovery_center = true})
+			local new_shop_card = SMODS.create_card({set="Booster", area=G.elle_becca_shop_booster, skip_materialize = true, bypass_discovery_center = true})
 			G.elle_becca_shop_booster:emplace(new_shop_card)
 			create_shop_card_ui(new_shop_card)
 			
@@ -180,11 +180,11 @@ function create_UIbox_becca()
 									{n=G.UIT.R, config={align = "cm", minw = 2.5, minh = 1.4, r=0.15,colour = G.C.GREEN, button = 'elle_rebecca_reroll', func = 'elle_rebecca_can_reroll', hover = true,shadow = true}, nodes = {
 										{n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
 											{n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
-												{n=G.UIT.T, config={text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE, shadow = true}},
+												{n=G.UIT.T, config={text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE}},
 											}},
 											{n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
 												{n=G.UIT.T, config={text = localize('$'), scale = 0.7, colour = G.C.WHITE, shadow = true}},
-												{n=G.UIT.T, config={ref_table = G.GAME.elle_popup_shops.rebecca, ref_value = 'reroll', scale = 0.75, colour = G.C.WHITE, shadow = true}},
+												{n=G.UIT.T, config={ref_table = G.GAME.elle_popup_shops.rebecca, ref_value = 'reroll', scale = 0.75, colour = G.C.WHITE}},
 											}}
 										}}
 									}},

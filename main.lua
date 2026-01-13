@@ -34,7 +34,6 @@
 --			- Custom Colour card crashes game on round end
 
 ellejokers = {
-	skip_shop = false
 }
 
 --		[[ File List ]]
@@ -69,6 +68,7 @@ local jokers = {
 	"rebecca",
 	"cassie",
 	"cassie_stasis",
+	--"not_cassie",
 	"41",
 	"discarded",
 	
@@ -170,6 +170,11 @@ SMODS.Sound {
 SMODS.Sound {
 	key = "fizz",
 	path = "fizz.ogg"
+}
+SMODS.Sound {
+	key = "music_spamton",
+	path = "music_spamton.ogg",
+	sync = false
 }
 
 --		[[ Config / Optional Features ]]

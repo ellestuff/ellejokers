@@ -64,8 +64,8 @@ furry.slime_upgrade = {
 	values = function(self, card) return {Xmult = 1+card.ability.extra.count*.1} end,
 	can_use = function(self, card) return #SMODS.find_card("j_elle_sarah", false)>0 or #SMODS.find_card("j_elle_cassie", false)>0 end,
 	calculate = function(self, card)
-		local sarah = find_joker("j_elle_sarah")[1]
-		local cassie = find_joker("j_elle_cassie")[1]
+		local sarah = SMODS.find_card("j_elle_sarah")[1]
+		local cassie = SMODS.find_card("j_elle_cassie")[1]
 		
 		if cassie then transform_joker(cassie,"j_elle_cassie2",{end_sound='slice1'}) end
 		if sarah then transform_joker(sarah,"j_elle_mint") end

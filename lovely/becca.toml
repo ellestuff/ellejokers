@@ -47,7 +47,7 @@ end
 '''
 match_indent = true
 
-# Booster stuff, copy-pasted from JoyousSpring
+# Booster stuff, copy-pasted with permission from JoyousSpring
 # https://github.com/nh6574/JoyousSpring/blob/48423d78db5e2a6f16a471d1211d2457b370d413/lovely/states.toml#L80
 
 # Prevent booster in booster softlock

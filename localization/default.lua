@@ -66,9 +66,9 @@ return {
 			j_elle_sarah = {
 				name = 'Sarah',
 				text = {
-					"Scoring {C:clubs}Clubs{} have a",
-					"{C:green}#1# in #2#{} chance to",
-					"retrigger once",
+					"Scoring {C:clubs}Clubs",
+					"retrigger one",
+					"additional time",
 					caption.."Keeping things working"
 				}
 			},
@@ -151,6 +151,18 @@ return {
 				unlock = {
 					"Make a {C:red}grave",
 					"{C:red}mistake"
+				}
+			},
+			j_elle_not_cassie = {
+				name = 'Prototype #1#39',
+				text = {
+					"Held hand is scored",
+					"{C:attention}before{} played hand",
+					caption..'"I\'m sorry..."'
+				},
+				unlock = {
+					"Beat {C:attention}???",
+					"Boss Blind"
 				}
 			},
 			j_elle_p41 = {
@@ -465,6 +477,7 @@ return {
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
+			c_elle_spamton = "[[Number 1 Rated]]",
 			c_elle_shopless = "Shopless",
 			c_elle_cobbled = "Cobbled",
 			c_elle_pay2play = "Pay 2 Play"

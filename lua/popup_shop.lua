@@ -1,7 +1,8 @@
 ellejokers.popup_shop = {
 	-- List of cardareas to remove Buy & Use button from
 	no_use_areas = {
-		"elle_becca_shop_consumables"
+		"elle_becca_shop_consumables",
+		"elle_spamton_shop"
 	},
 	
 	-- List of cardareas in each shop
@@ -64,9 +65,10 @@ function Game:init_game_object()
 		-- [[BIG SHOP]]
 		spamton = {
 			reset_on_open = true,
-			default_reroll = 4,
-			reroll = 4,
-			reroll_cost = 2,
+			default_reroll = 5, -- You won't see these values bc the spamton shop has randomized prices
+			default_reroll2 = 20,
+			reroll = 5,
+			reroll2 = 20,
 			data = {},
 			first_open = true
 		}
