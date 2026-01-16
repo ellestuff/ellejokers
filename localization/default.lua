@@ -1,3 +1,6 @@
+-- Text Prefix Shortcuts
+local caption = '{C:elle,s:0.7,E:1}'
+
 return {
 	descriptions = {
 		Joker = {
@@ -170,9 +173,10 @@ return {
 				name = 'Prototype #1#41',
 				text = {
 					"If played hand contains",
-					"a scoring {C:attention}Ace{} and {C:attention}4{},",
-					"Copy abilities of {C:attention}Jokers",
-                    "to the left and right",
+					"an {C:attention}Ace{} and {C:attention}4{},",
+					"Copy abilities of",
+					"neighbouring {C:attention}Jokers",
+					caption.."Protected innocence..."
 				}
 			},
 			j_elle_discarded = {
@@ -325,6 +329,15 @@ return {
 					"{X:mult,C:white}X#1#{} Mult"
 				}
 			},
+			j_elle_jess = {
+				name = 'Jess',
+				text = {
+					"{C:attention}Held{} Jess cards count",
+					"towards Jess {C:attention}retriggers",
+					"Turn {C:attention}#1#{} played cards into",
+					"{C:attention}Jess{} cards before scoring"
+				}
+			},
 			
 			-- Legendaries
 			j_elle_twy = {
@@ -362,8 +375,16 @@ return {
 				name = "Resident",
 				text = {
 					"Enhances {C:attention}#1#{} selected",
-					"cards into a",
-					"{C:attention}Slime Card"
+					"cards into",
+					"{C:attention}Slime Cards"
+				}
+			},
+			c_elle_jess = {
+				name = "Jess",
+				text = {
+					"Enhances {C:attention}#1#{} selected",
+					"cards into",
+					"{C:attention}Jess Cards"
 				}
 			}
 		},
@@ -373,6 +394,18 @@ return {
 				text = {
 					"{C:green}#1# in #2#{} Chance to",
 					"retrigger {C:attention}#3#{} times"
+				}
+			},
+			m_elle_jess = {
+				name = "Jess Card",
+				text = {
+					"{C:chips}+#1#{} Chips",
+					"Retriggers once",
+					"per other",
+					"scoring Jess card",
+					"Counts as a",
+					"face card",
+					"no rank or suit"
 				}
 			}
 		},

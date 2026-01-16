@@ -43,7 +43,8 @@ local files = {
 	"misc",
 	"http",
 	"challenges",
-	"popup_shop"
+	"popup_shop",
+	"enhancements"
 }
 
 -- Only add LobCorp's blindexpander if the mod isn't present
@@ -90,6 +91,7 @@ local jokers = {
 	"eraser",
 	"suggestion",
 	"diamond_pickaxe",
+	"jess",
 	
 			-- Legendaries
 	"twy",
@@ -190,9 +192,6 @@ end
 -- Text Colours
 loc_colour('red')
 G.ARGS.LOC_COLOURS['elle'] = HEX('FF53A9')
-
--- Text Prefix Shortcuts
-caption = '{C:elle,s:0.7,E:1}'
 
 -- Badges
 elle_badges = {
