@@ -44,7 +44,8 @@ local files = {
 	"http",
 	"challenges",
 	"popup_shop",
-	"enhancements"
+	"enhancements",
+	"blindside"
 }
 
 -- Only add LobCorp's blindexpander if the mod isn't present
