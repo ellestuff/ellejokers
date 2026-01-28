@@ -23,31 +23,31 @@ SMODS.Enhancement {
 	key = 'jess',
 	atlas = 'enhancers',
 	pos = { x = 1, y = 0 },
-	config = { extra = { }, bonus = 10 },
-	replace_base_card = true,
-	no_rank = true,
-	no_suit = true,
-	always_scores = true,
+	config = { extra = { retrigger_count = 1, req = 2 } },
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.bonus } }
+		return { vars = { card.ability.extra.retrigger_count, card.ability.extra.req } }
 	end,
 	calculate = function(self, card, context)
 		if context.repetition and context.cardarea == G.play then
 			local retriggers = 0
 			for i,v in ipairs(G.play.cards) do
-				if (v ~= card and SMODS.has_enhancement(v, "m_elle_jess")) then retriggers = retriggers + 1 end
+				if (SMODS.has_enhancement(v, "m_elle_jess") and not v.debuff) then retriggers = retriggers + 1 end
 			end
 			
 			if SMODS.find_card("j_elle_jess")[1] then
 				for i,v in ipairs(G.hand.cards) do
-					if SMODS.has_enhancement(v, "m_elle_jess") then retriggers = retriggers + 1 end
+					if (SMODS.has_enhancement(v, "m_elle_jess") and not v.debuff) then retriggers = retriggers + 1 end
 				end
 			end
 			
-			return {
-				message = localize('k_again_ex'),
-				repetitions = retriggers
-			}
+			retriggers = math.floor(retriggers/card.ability.extra.req)
+			
+			if retriggers > 0 then
+				return {
+					message = localize('k_again_ex'),
+					repetitions = retriggers * card.ability.extra.retrigger_count
+				}
+			end
 		end
 	end
 }

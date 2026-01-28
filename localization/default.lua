@@ -380,7 +380,7 @@ return {
 				}
 			},
 			c_elle_jess = {
-				name = "Jess",
+				name = "The Jess",
 				text = {
 					"Enhances {C:attention}#1#{} selected",
 					"cards into",
@@ -399,13 +399,9 @@ return {
 			m_elle_jess = {
 				name = "Jess Card",
 				text = {
-					"{C:chips}+#1#{} Chips",
-					"Retriggers once",
-					"per other",
-					"scoring Jess card",
-					"Counts as a",
-					"face card",
-					"no rank or suit"
+					"Retrigger this card",
+					"{C:attention}#1#{} time per every {C:attention}#2#",
+					"scoring {C:attention}Jess{} cards"
 				}
 			}
 		},
