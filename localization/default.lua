@@ -388,6 +388,16 @@ return {
 				}
 			}
 		},
+		Spectral = {
+			c_elle_doppel = {
+				name = "Doppelgänger",
+				text = {
+					"Enhances {C:attention}#1#{} selected",
+					"card into a",
+					"{C:attention}Copycat Card"
+				}
+			}
+		},
 		Enhanced = {
 			m_elle_slime = {
 				name = "Slime Card",
@@ -402,6 +412,14 @@ return {
 					"Retrigger this card",
 					"{C:attention}#1#{} time per every {C:attention}#2#",
 					"scoring {C:attention}Jess{} cards"
+				}
+			},
+			m_elle_copycat = {
+				name = "Copycat Card",
+				text = {
+					"Copies {C:attention}Card",
+					"to the right",
+					"no rank or suit"
 				}
 			}
 		},
