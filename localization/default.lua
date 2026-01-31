@@ -279,6 +279,23 @@ return {
 					"by {C:attention}paying{} {C:white,X:money}X#1#{} the sell cost"
 				}
 			},
+			j_elle_jess = {
+				name = 'Jess',
+				text = {
+					"{C:attention}Held{} Jess cards count",
+					"towards Jess {C:attention}retriggers",
+					"Turn {C:attention}#1#{} played cards into",
+					"{C:attention}Jess{} cards before scoring"
+				}
+			},
+			j_elle_jessclip = {
+				name = 'Heart Hairclip',
+				text = {
+					"{C:hearts}Hearts{} cards",
+					"count towards",
+					"Jess {C:attention}retriggers"
+				}
+			},
 			
 			-- Jess's Minecraft Idea
 			j_elle_cobble_gen = {
@@ -327,15 +344,6 @@ return {
 				name = 'Obsidian',
 				text = {
 					"{X:mult,C:white}X#1#{} Mult"
-				}
-			},
-			j_elle_jess = {
-				name = 'Jess',
-				text = {
-					"{C:attention}Held{} Jess cards count",
-					"towards Jess {C:attention}retriggers",
-					"Turn {C:attention}#1#{} played cards into",
-					"{C:attention}Jess{} cards before scoring"
 				}
 			},
 			

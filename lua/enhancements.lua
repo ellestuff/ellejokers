@@ -31,9 +31,10 @@ SMODS.Enhancement {
 		if context.repetition and context.cardarea == G.play then
 			local retriggers = 0
 			for i,v in ipairs(G.play.cards) do
-				if (SMODS.has_enhancement(v, "m_elle_jess") and not v.debuff) then retriggers = retriggers + 1 end
+				if (SMODS.has_enhancement(v, "m_elle_jess") or (SMODS.find_card("j_elle_jessclip")[1] and v:is_suit('Hearts', true))) and not v.debuff then retriggers = retriggers + 1 end
 			end
 			
+			-- Jess Joker
 			if SMODS.find_card("j_elle_jess")[1] then
 				for i,v in ipairs(G.hand.cards) do
 					if (SMODS.has_enhancement(v, "m_elle_jess") and not v.debuff) then retriggers = retriggers + 1 end
@@ -110,7 +111,7 @@ function SMODS.has_enhancement(card, key, ...)
     local enhancements = SMODS.get_enhancements(card)
     if enhancements["m_elle_copycat"] then
 		local pos, target = get_copycat_target(card)
-		if target.config.center.key == key then return true end
+		if target and target.config.center.key == key then return true end
 	end
     
 	return r

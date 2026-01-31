@@ -84,6 +84,8 @@ local jokers = {
 			-- Other stuff
 	"drago",
 	"vivian",
+	"jess",
+	"jessclip",
 	"carpet",
 	"spamton",
 	"polyamory",
@@ -92,7 +94,6 @@ local jokers = {
 	"eraser",
 	"suggestion",
 	"diamond_pickaxe",
-	"jess",
 	
 			-- Legendaries
 	"twy",
@@ -196,22 +197,22 @@ G.ARGS.LOC_COLOURS['elle'] = HEX('FF53A9')
 
 -- Badges
 elle_badges = {
-	["mall"] = {
+	mall = {
 		text = "The Mall",
 		colour = HEX('b7a2fd')
 	},
-	["oc"] = {
-		text = "ellestuff.",
+	oc = {
+		text = "slimestuff.",
 		colour = HEX('ff53a9')
 	},
-	["friends"] = {
+	friends = {
 		text = "Friends of Elle",
-		colour = HEX('ff53a9')
+		colour = HEX('40aeff')
 	},
-	["mc"] = {
-		text = "Minecraft",
-		colour = HEX('ff005f')
-	},
+	poly = {
+		text = "Girlfriends of Elle",
+		colour = HEX('81cefd')
+	}
 }
 
 -- Cryptid/Talisman Compatibility functions
