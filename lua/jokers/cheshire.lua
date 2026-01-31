@@ -8,22 +8,17 @@ local cheshire = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 2, y = 0 },
-	cost = 12,
+	cost = 10,
 	blueprint_compat = true,
 	unlocked = false
 }
 
 cheshire.calculate = function(self, card, context)
-	if context.before then
-		card.ability.extra.used = false
-	end
+	if context.before then card.ability.extra.used = false end
+	
 	-- XMult stuff
-	if context.joker_main then
-		if card.ability.extra.Xmult ~= 0 then
-			return {
-				Xmult = card.ability.extra.Xmult,
-			}
-		end
+	if context.joker_main and card.ability.extra.Xmult ~= 0 then
+		return { Xmult = card.ability.extra.xmult }
 	end
 end
 

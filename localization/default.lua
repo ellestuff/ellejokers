@@ -241,6 +241,17 @@ return {
 					"{C:inactive}(#4#)"
 				}
 			},
+			j_elle_ourple = {
+				name = 'Ourple Guy',
+				text = {
+					"If played hand is",
+					"a {C:attention}Flush{} of {C:spades}Spades{},",
+					"destroy {C:attention}#1#{} random",
+					"cards in hand and",
+					"gain {X:mult,C:white}X#2#{} Mult",
+					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+				}
+			},
 			j_elle_nitro = {
 				name = 'Discord Nitro',
 				text = {
@@ -548,7 +559,8 @@ return {
 			elle_shop_restock = "Restocked!",
 			
 			elle_41_activate = "Yeah~!",
-			elle_suggestion = "Forcefem!"
+			elle_suggestion = "Forcefem!",
+			elle_ourple_kill = "!!!"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
