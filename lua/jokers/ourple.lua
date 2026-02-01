@@ -1,6 +1,6 @@
 local ourple = SMODS.Joker {
 	key = 'ourple',
-	config = { extra = { cards = 2, xmult = 1, xmult_mod = 0.2 } },
+	config = { extra = { cards = 2, xmult = 1, xmult_mod = 0.1 } },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.cards, card.ability.extra.xmult_mod, card.ability.extra.xmult } }
 	end,
@@ -18,8 +18,9 @@ ourple.calculate = function(self, card, context)
 		end
 		
 		if spades_check >= SMODS.four_fingers('Flush') then
-			for i=1,math.min(card.ability.extra.cards,#G.hand.cards) do SMODS.destroy_cards(pseudorandom_element(G.hand.cards, "elle_ourple_kill")) end
-			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
+			local c = math.min(card.ability.extra.cards,#G.hand.cards)
+			for i=1,c do SMODS.destroy_cards(pseudorandom_element(G.hand.cards, "elle_ourple_kill")) end
+			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod * c
 			
 			SMODS.calculate_effect({ message_card = card,
 				remove = true,

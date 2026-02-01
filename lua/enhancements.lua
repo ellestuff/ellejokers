@@ -18,6 +18,17 @@ SMODS.Enhancement {
 	end
 }
 
+function ellejokers.is_jess_card(card)
+	-- Debuff check
+	if card.debuff then return false end
+	
+	-- Heart Hairclip
+	if SMODS.find_card("j_elle_jessclip")[1] and card:is_suit('Hearts', true) then return true end
+	
+	-- Normal check
+	return SMODS.has_enhancement(card, "m_elle_jess")
+end
+
 -- Jess Enhancement
 SMODS.Enhancement {
 	key = 'jess',
@@ -31,13 +42,13 @@ SMODS.Enhancement {
 		if context.repetition and context.cardarea == G.play then
 			local retriggers = 0
 			for i,v in ipairs(G.play.cards) do
-				if (SMODS.has_enhancement(v, "m_elle_jess") or (SMODS.find_card("j_elle_jessclip")[1] and v:is_suit('Hearts', true))) and not v.debuff then retriggers = retriggers + 1 end
+				if ellejokers.is_jess_card(v) then retriggers = retriggers + 1 end
 			end
 			
 			-- Jess Joker
 			if SMODS.find_card("j_elle_jess")[1] then
 				for i,v in ipairs(G.hand.cards) do
-					if (SMODS.has_enhancement(v, "m_elle_jess") and not v.debuff) then retriggers = retriggers + 1 end
+					if ellejokers.is_jess_card(v) then retriggers = retriggers + 1 end
 				end
 			end
 			
@@ -53,7 +64,7 @@ SMODS.Enhancement {
 	end
 }
 
-local function get_copycat_target(card)
+function ellejokers.get_copycat_target(card)
 	local pos = nil
 	local target = nil
 	
@@ -80,7 +91,7 @@ SMODS.Enhancement {
 	loc_vars = function(self, info_queue, card) return { vars = { } } end,
 	calculate = function(self, card, context)
 		if (card.area and card.area.cards) then
-			local pos, target = get_copycat_target(card)
+			local pos, target = ellejokers.get_copycat_target(card)
 			
 			if target then
 				-- thanks to @somethingcom515 for the code
@@ -110,7 +121,7 @@ function SMODS.has_enhancement(card, key, ...)
 	-- Messy ass jank code
     local enhancements = SMODS.get_enhancements(card)
     if enhancements["m_elle_copycat"] then
-		local pos, target = get_copycat_target(card)
+		local pos, target = ellejokers.get_copycat_target(card)
 		if target and target.config.center.key == key then return true end
 	end
     

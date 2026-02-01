@@ -177,6 +177,10 @@ SMODS.Sound {
 	path = "fizz.ogg"
 }
 SMODS.Sound {
+	key = "squeak",
+	path = "squeak.ogg"
+}
+SMODS.Sound {
 	key = "music_spamton",
 	path = "music_spamton.ogg",
 	sync = false,

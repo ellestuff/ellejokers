@@ -1,6 +1,6 @@
 local elle = SMODS.Joker {
 	key = 'elle',
-	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = table_create_badge(elle_badges.oc) end end,
+	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = slimeutils.table_create_badge(elle_badges.oc) end end,
 	config = { extra = {
 		xmult_mod = 0.1,
 	}},
@@ -67,4 +67,11 @@ Game.main_menu = function(change_context, ...)
     }))
 
     return ret
+end
+
+local card_click_hook = Card.click
+function Card:click()
+	card_click_hook(self)
+	
+	if self.area == G.title_top and self.config.center_key == 'j_elle_elle' then play_sound('elle_squeak') end
 end

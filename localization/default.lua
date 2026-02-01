@@ -249,6 +249,7 @@ return {
 					"destroy {C:attention}#1#{} random",
 					"cards in hand and",
 					"gain {X:mult,C:white}X#2#{} Mult",
+					"per card destroyed",
 					"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
 				}
 			},
@@ -300,7 +301,7 @@ return {
 				}
 			},
 			j_elle_jessclip = {
-				name = 'Heart Hairclip',
+				name = 'Heart Hairpin',
 				text = {
 					"{C:hearts}Hearts{} cards",
 					"count towards",
