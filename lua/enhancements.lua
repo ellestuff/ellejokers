@@ -122,16 +122,22 @@ SMODS.Enhancement {
 
 local has_enhancement_hook = SMODS.has_enhancement
 function SMODS.has_enhancement(card, key)
-	local target = card
-    if card.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(card) end
-	return has_enhancement_hook(target, key)
+    if card.config.center.key == "m_elle_copycat" then
+		local target = ellejokers.get_copycat_target(card)
+		if target then return has_enhancement_hook(target) end
+	end
+	
+	return has_enhancement_hook(card, key)
 end
 
 local is_suit_hook = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc, ...)
-	local target = self
-    if self.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(self) end
-	return is_suit_hook(target, suit, bypass_debuff, flush_calc, ...)
+    if self.config.center.key == "m_elle_copycat" then
+		local target = ellejokers.get_copycat_target(self)
+		if target then return is_suit_hook(target) end
+	end
+
+	return is_suit_hook(self, suit, bypass_debuff, flush_calc, ...)
 end
 
 local get_id_hook = Card.get_id
@@ -146,15 +152,21 @@ end
 
 local is_face_hook = Card.is_face
 function Card:is_face(from_boss)
-	local target = self
-    if self.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(self) end
-	return is_face_hook(target,from_boss)
+    if self.config.center.key == "m_elle_copycat" then
+		local target = ellejokers.get_copycat_target(self)
+		if target then return is_face_hook(target,from_boss) end
+	end
+
+	return is_face_hook(self,from_boss)
 end
 
 local set_debuff_hook = Card.set_debuff
 function Card:set_debuff(should_debuff)
-	local target = self
-    if self.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(self) end
-	set_debuff_hook(target,should_debuff)
+    if self.config.center.key == "m_elle_copycat" then
+		local target = ellejokers.get_copycat_target(self)
+		if target then return set_debuff_hook(target,should_debuff) end
+	end
+	
+	set_debuff_hook(self,should_debuff)
 end
 --#endregion
