@@ -94,7 +94,10 @@ SMODS.Enhancement {
 	no_suit = true,
 	always_scores = true,
 	
-	loc_vars = function(self, info_queue, card) return { vars = { } } end,
+	loc_vars = function(self, info_queue, card)
+		if next(SMODS.find_mod("allinjest")) then info_queue[#info_queue+1] = {set = "Other", key = "elle_crash_warning", specific_vars = {"All In Jest"} } end
+		return {vars = { } }
+	end,
 	calculate = function(self, card, context)
 		if (card.area and card.area.cards) then
 			local target = ellejokers.get_copycat_target(card)
@@ -134,7 +137,7 @@ local is_suit_hook = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc, ...)
     if self.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(self)
-		if target then return is_suit_hook(target) end
+		if target then return is_suit_hook(target, suit, bypass_debuff, flush_calc, ...) end
 	end
 
 	return is_suit_hook(self, suit, bypass_debuff, flush_calc, ...)

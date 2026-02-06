@@ -491,6 +491,16 @@ return {
 					"card is {C:attention}changed{},",
 					"{C:attention}sold{}, or {C:attention}destroyed"
 				}
+			},
+
+			elle_crash_warning = {
+				name = 'Crash Warning!',
+				text = {
+					"This card may {C:red}crash",
+					"the game due to an",
+					"incompatibility with:",
+					"{C:attention}#1#"
+				}
 			}
 		},
 		Tag = {
