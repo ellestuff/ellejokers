@@ -59,7 +59,7 @@ Game.main_menu = function(change_context, ...)
             newcard:start_materialize(nil, false, 1)
             newcard.T.w = newcard.T.w * 1.1 * 1.2
             newcard.T.h = newcard.T.h * 1.1 * 1.2
-            newcard.no_ui = true
+            newcard.no_ui = false
             newcard:set_sprites(newcard.config.center)
 
             return true

@@ -73,6 +73,7 @@ local jokers = {
 	--"not_cassie",
 	"41",
 	"discarded",
+	--"wordle",
 	
 			-- Jess's Minecraft Idea
 	"waterbucketrelease/cobble_gen",

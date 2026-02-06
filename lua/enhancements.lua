@@ -18,7 +18,8 @@ SMODS.Enhancement {
 	end
 }
 
-function ellejokers.is_jess_card(card)
+--#region Jess Cards
+function ellejokers.jess_retrigger_qualify(card)
 	-- Debuff check
 	if card.debuff then return false end
 	
@@ -27,6 +28,13 @@ function ellejokers.is_jess_card(card)
 	
 	-- Normal check
 	return SMODS.has_enhancement(card, "m_elle_jess")
+end
+
+function ellejokers.get_jess_areas()
+	local areas = {G.play}
+	if SMODS.find_card("j_elle_jess")[1] then areas[#areas+1] = G.hand end
+	
+	return areas
 end
 
 -- Jess Enhancement
@@ -41,14 +49,9 @@ SMODS.Enhancement {
 	calculate = function(self, card, context)
 		if context.repetition and context.cardarea == G.play then
 			local retriggers = 0
-			for i,v in ipairs(G.play.cards) do
-				if ellejokers.is_jess_card(v) then retriggers = retriggers + 1 end
-			end
-			
-			-- Jess Joker
-			if SMODS.find_card("j_elle_jess")[1] then
-				for i,v in ipairs(G.hand.cards) do
-					if ellejokers.is_jess_card(v) then retriggers = retriggers + 1 end
+			for _,v in ipairs(ellejokers.get_jess_areas()) do
+				for _,v2 in ipairs(v.cards) do
+					if ellejokers.jess_retrigger_qualify(v2) then retriggers = retriggers + 1 end
 				end
 			end
 			
@@ -63,17 +66,20 @@ SMODS.Enhancement {
 		end
 	end
 }
+--#endregion
 
+--#region Copycat cards
 function ellejokers.get_copycat_target(card)
+	if not (card.area and card.area.cards) then return end
+	
 	local pos = nil
 	local target = nil
-	
+
 	for i, v in ipairs(card.area.cards) do
-		pos = v == card and i or pos
-		if pos and not target and not SMODS.get_enhancements(v)["m_elle_copycat"] then target = v end -- Doesn't use has_enhancement as it's used in a hook in that func
+		pos = v == card and i or pos -- Find the copycat card, to only check the cards after
+		if pos and not target and not SMODS.get_enhancements(v)["m_elle_copycat"] and card.highlighted == v.highlighted then target = v end -- Doesn't use has_enhancement as it's used in a hook in that func
 	end
-	
-	return pos, target
+	return target, pos
 end
 
 -- Copycat Enhancement
@@ -91,7 +97,7 @@ SMODS.Enhancement {
 	loc_vars = function(self, info_queue, card) return { vars = { } } end,
 	calculate = function(self, card, context)
 		if (card.area and card.area.cards) then
-			local pos, target = ellejokers.get_copycat_target(card)
+			local target = ellejokers.get_copycat_target(card)
 			
 			if target then
 				-- thanks to @somethingcom515 for the code
@@ -115,15 +121,40 @@ SMODS.Enhancement {
 }
 
 local has_enhancement_hook = SMODS.has_enhancement
-function SMODS.has_enhancement(card, key, ...)
-    local r = has_enhancement_hook(card, key, ...)
-	
-	-- Messy ass jank code
-    local enhancements = SMODS.get_enhancements(card)
-    if enhancements["m_elle_copycat"] then
-		local pos, target = ellejokers.get_copycat_target(card)
-		if target and target.config.center.key == key then return true end
-	end
-    
-	return r
+function SMODS.has_enhancement(card, key)
+	local target = card
+    if card.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(card) end
+	return has_enhancement_hook(target, key)
 end
+
+local is_suit_hook = Card.is_suit
+function Card:is_suit(suit, bypass_debuff, flush_calc, ...)
+	local target = self
+    if self.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(self) end
+	return is_suit_hook(target, suit, bypass_debuff, flush_calc, ...)
+end
+
+local get_id_hook = Card.get_id
+function Card:get_id()
+    if self.config.center.key == "m_elle_copycat" then
+		local target = ellejokers.get_copycat_target(self)
+		if target then return get_id_hook(target) end
+	end
+	
+	return get_id_hook(self)
+end
+
+local is_face_hook = Card.is_face
+function Card:is_face(from_boss)
+	local target = self
+    if self.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(self) end
+	return is_face_hook(target,from_boss)
+end
+
+local set_debuff_hook = Card.set_debuff
+function Card:set_debuff(should_debuff)
+	local target = self
+    if self.config.center.key == "m_elle_copycat" then target = ellejokers.get_copycat_target(self) end
+	set_debuff_hook(target,should_debuff)
+end
+--#endregion

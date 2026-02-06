@@ -6,11 +6,11 @@ local fallen = SMODS.Joker {
 		info_queue[#info_queue+1] = {set = "Other", key = "elle_upgr_no_shop"}
 		return { vars = { card.ability.extra.xmult_mod, 1+(card.ability.extra.xmult_mod*card.ability.extra.charges) } }
 	end,
-	rarity = 2,
+	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 4, y = 0 },
 	soul_pos = { x = 4, y = 1 },
-	cost = 6,
+	cost = 9,
 	unlocked = false,
 	blueprint_compat = true,
 	check_for_unlock = function(self, args)
