@@ -36,7 +36,7 @@ becca.slime_active = {
 
 -- Restock shop
 becca.calculate = function(self, card, context)
-	if (context.ante_change) then
+	if (context.ante_change and not context.blueprint) then
 		G.GAME.elle_popup_shops.rebecca.reset_on_open = true
 		return { message = localize("elle_shop_restock") }
 	end

@@ -217,7 +217,7 @@ return {
 				text = {
 					"* ENTER MY {C:attention}[[Home-made",
 					"{C:attention}Storefront Site]]",
-					"{C:inactive}(Restocks at end of Ante)"
+					"{C:inactive}(Restocks at end of Blind)"
 				}
 			},
 			j_elle_polyamory = {
