@@ -114,9 +114,12 @@ return {
 			j_elle_marie = {
 				name = 'Marie',
 				text = {
-					"{C:attention}Slime cards{} give",
-					"{C:mult}+#1#{} Mult and are",
-					"guaranteed to trigger"
+					"Upgrade {C:attention}Unenhanced",
+					"playing cards into",
+					"{C:attention}Slime{} cards by",
+					"paying {C:money}$#1#{}, increase",
+					"the cost by {C:money}$#2#",
+					"afterwards"
 				}
 			},
 			j_elle_bea = {
@@ -500,6 +503,13 @@ return {
 					"the game due to an",
 					"incompatibility with:",
 					"{C:attention}#1#"
+				}
+			},
+
+			elle_marie_upgrade = {
+				name = 'Slimeify',
+				text = {
+					"Pay {C:money}$#1#"
 				}
 			}
 		},

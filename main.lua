@@ -34,6 +34,7 @@
 --			- Custom Colour card crashes game on round end
 
 ellejokers = {
+	pixelated_keys = {j_elle_spearmint = true, j_elle_spearmintprog = true, j_joker = true}
 }
 
 --		[[ File List ]]
@@ -273,3 +274,29 @@ end
 SMODS.current_mod.calculate = function(self,context)
 	elle_challenge_mod_calc(self,context)
 end
+
+local palette = love.graphics.newImage( love.image.newImageData(NFS.newFileData( SMODS.current_mod.path .. "assets/shader_images/palette.png") ) )
+SMODS.Shader {
+	key = 'pixelated',
+	path = 'pixelated.fs',
+
+	send_vars = function (self, sprite, card)
+		return {
+			palette = palette,
+			paletteSize = {8,10}
+		}
+	end
+}
+
+-- test drawstep,,
+--[[SMODS.DrawStep {
+	key = "elle_pixelated",
+	order = 20,
+	func = function(self, layer)
+        self.children.center:draw_shader('elle_pixelated', nil, self.ARGS.send_to_shader)
+		if self.children.front and not self:should_hide_front() then
+			self.children.front:draw_shader('elle_pixelated', nil, self.ARGS.send_to_shader)
+		end
+	end,
+    conditions = { vortex = false, facing = 'front' }
+}]]
