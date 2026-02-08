@@ -34,7 +34,7 @@
 --			- Custom Colour card crashes game on round end
 
 ellejokers = {
-	pixelated_keys = {j_elle_spearmint = true, j_elle_spearmintprog = true, j_joker = true}
+	mod_data = SMODS.current_mod
 }
 
 --		[[ File List ]]
@@ -285,6 +285,28 @@ SMODS.Shader {
 			palette = palette,
 			paletteSize = {8,10}
 		}
+	end
+}
+
+SMODS.Shader {
+	key = "pixelatedscreen",
+	path = "pixelatedscreen.fs"
+}
+
+SMODS.ScreenShader {
+	key = "pixelatedscreen",
+	shader = "elle_pixelatedscreen", --modprefix is necessary, this now refers to the same shader defined above
+
+	send_vars = function (self)
+		local w,h = love.graphics.getDimensions()
+		return {
+			palette = palette,
+			paletteSize = {8,10},
+			dims = {w/2,h/2}
+		}
+	end,
+	should_apply = function(self)
+		return ellejokers.mod_data.config.pixel_shader
 	end
 }
 

@@ -117,7 +117,7 @@ float perceptualDist(vec3 a, vec3 b) {
     return dot(dif * dif, vec3(0.299, 0.587, 0.114));
 }
 
-vec4 paletteFix(vec4 tex, vec2 uv, vec2 texture_coords) {
+vec4 paletteFix(vec4 tex, vec2 uv, vec2 dims) {
 	// The found colours' UV coordinates 
 	vec2 target = vec2(0.0,0.0);
 	vec2 target2 = vec2(0.0,0.0);
@@ -152,7 +152,7 @@ vec4 paletteFix(vec4 tex, vec2 uv, vec2 texture_coords) {
 	
 	float factor = targdist/(targdist + targdist2);
 	
-	vec2 cCoords = factor > bayer4(texture_coords*image_details) ? target2 : target;
+	vec2 cCoords = factor > bayer4(dims) ? target2 : target;
 	
 	return vec4(texture2D( palette, cCoords ).rgb,tex.a);	
 }
@@ -164,7 +164,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 	
 	vec4 c = tex*colour;
 
-	if (pixelated.g != 0.0) { c = paletteFix(tex, uv, texture_coords); }
+	if (pixelated.g != 0.0) { c = paletteFix(tex, uv, texture_coords*image_details); }
 
 	return dissolve_mask(c, texture_coords, uv);
 }

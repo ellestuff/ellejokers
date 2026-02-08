@@ -2,7 +2,7 @@ SMODS.Joker {
 	key = 'marie',
 	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = slimeutils.table_create_badge(elle_badges.mall) end end,
 	blueprint_compat = true,
-	config = { extra = { cost = 6, cost_mod = 2 } },
+	config = { extra = { cost = 5, cost_mod = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_slime
 		return { vars = { card.ability.extra.cost, card.ability.extra.cost_mod } }

@@ -73,5 +73,8 @@ local card_click_hook = Card.click
 function Card:click()
 	card_click_hook(self)
 	
-	if self.area == G.title_top and self.config.center_key == 'j_elle_elle' then play_sound('elle_squeak') end
+	if self.area == G.title_top and self.config.center_key == 'j_elle_elle' then
+        play_sound('elle_squeak')
+        ellejokers.mod_data.config.pixel_shader = not ellejokers.mod_data.config.pixel_shader
+    end
 end
