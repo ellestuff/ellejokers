@@ -1,3 +1,6 @@
 return {
-    pixel_shader = false
+    pixel_shader = {
+        enabled = false,
+        palette = 1
+    }
 }

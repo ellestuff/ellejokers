@@ -75,6 +75,7 @@ function Card:click()
 	
 	if self.area == G.title_top and self.config.center_key == 'j_elle_elle' then
         play_sound('elle_squeak')
-        ellejokers.mod_data.config.pixel_shader = not ellejokers.mod_data.config.pixel_shader
+        ellejokers.mod_data.config.pixel_shader.enabled = not ellejokers.mod_data.config.pixel_shader.enabled
+        check_for_unlock({type = "elle_toggle_palette"})
     end
 end

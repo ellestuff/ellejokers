@@ -34,8 +34,38 @@
 --			- Custom Colour card crashes game on round end
 
 ellejokers = {
-	mod_data = SMODS.current_mod
+	mod_data = SMODS.current_mod,
+	palettes = {
+		{
+			name = "octo80",
+			path = "octo80.png",
+			credit = "octoshrimpy"
+		},
+		{
+			name = "AAP-64",
+			path = "aap64.png",
+			credit = "Adigun A. Polack"
+		},
+		{
+			name = "Binary",
+			path = "binary.png",
+			credit = "ellestuff...?"
+		},
+		{
+			name = "Greyscale (octo80)",
+			path = "greyscale.png",
+			credit = "octoshrimpy"
+		}
+	}
 }
+
+-- Create palettes
+for k, v in ipairs(ellejokers.palettes) do
+	v.image = love.graphics.newImage( love.image.newImageData(NFS.newFileData( SMODS.current_mod.path .. "assets/palettes/"..v.path) ) )
+	local w,h = v.image:getDimensions()
+	v.dims = {w,h}
+end
+
 
 --		[[ File List ]]
 local files = {
@@ -46,7 +76,9 @@ local files = {
 	"challenges",
 	"popup_shop",
 	"enhancements",
-	"blindside"
+	"blindside",
+	"achievements",
+	"config"
 }
 
 -- Only add LobCorp's blindexpander if the mod isn't present
@@ -275,39 +307,28 @@ SMODS.current_mod.calculate = function(self,context)
 	elle_challenge_mod_calc(self,context)
 end
 
-local palette = love.graphics.newImage( love.image.newImageData(NFS.newFileData( SMODS.current_mod.path .. "assets/shader_images/palette.png") ) )
 SMODS.Shader {
-	key = 'pixelated',
-	path = 'pixelated.fs',
-
-	send_vars = function (self, sprite, card)
-		return {
-			palette = palette,
-			paletteSize = {8,10}
-		}
-	end
+	key = "pixelated",
+	path = "pixelated.fs"
 }
 
-SMODS.Shader {
-	key = "pixelatedscreen",
-	path = "pixelatedscreen.fs"
-}
-
+local w,h = love.graphics.getDimensions()
 SMODS.ScreenShader {
-	key = "pixelatedscreen",
-	shader = "elle_pixelatedscreen", --modprefix is necessary, this now refers to the same shader defined above
+	key = "pixelated",
+	shader = "elle_pixelated", --modprefix is necessary, this now refers to the same shader defined above
 
 	send_vars = function (self)
-		local w,h = love.graphics.getDimensions()
+		local p = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
 		return {
-			palette = palette,
-			paletteSize = {8,10},
+			palette = p.image,
+			paletteSize = p.dims,
 			dims = {w/2,h/2}
 		}
 	end,
 	should_apply = function(self)
-		return ellejokers.mod_data.config.pixel_shader
-	end
+		return ellejokers.mod_data.config.pixel_shader.enabled
+	end,
+	order = -1
 }
 
 -- test drawstep,,

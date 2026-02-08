@@ -583,6 +583,12 @@ return {
 			elle_suggestion = "Forcefem!",
 			elle_ourple_kill = "!!!"
 		},
+		achievement_names = {
+			ach_elle_soretro = "So Retro"
+		},
+		achievement_descriptions = {
+			ach_elle_soretro = "Toggle the limited palette shader"
+		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
 			c_elle_spamton = "[[Number 1 Rated]]",
