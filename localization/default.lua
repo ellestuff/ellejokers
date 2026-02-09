@@ -208,6 +208,14 @@ return {
 					"random {C:enhanced}Enhancements"
 				}
 			},
+			j_elle_feri = {
+				name = 'Feri',
+				text = {
+					"Played {C:hearts}Hearts{} cards",
+					"permanently gain",
+					"{C:mult}+#1#{} Mult when scored"
+				}
+			},
 			j_elle_carpet = {
 				name = 'Check It Out',
 				text = {
@@ -373,9 +381,7 @@ return {
 					"{C:attention}destroy all cards{} held",
 					"in hand and add {C:dark_edition}Negative{}",
 					"to a random joker",
-					caption.."99... 100! This is too many tails~,,",
-					"{C:inactive,s:0.7}Character belongs to",
-					"{C:inactive,s:0.7}@twylightstar.bsky.social"
+					caption.."99... 100! This is too many tails~,,"
 				},
 				unlock = {
 					"{E:1,s:1.3}?????"
@@ -519,6 +525,15 @@ return {
 				name = 'Slimeify',
 				text = {
 					"Pay {C:money}$#1#"
+				}
+			},
+
+			elle_crossover = {
+				name = 'Crossover',
+				text = {
+					"Character by",
+					"{C:attention}#1#",
+					"{C:inactive,s:0.7}#2#"
 				}
 			}
 		},

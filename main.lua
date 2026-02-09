@@ -128,7 +128,8 @@ local jokers = {
 		"drago",
 		"vivian",
 		"jess",
-		"jessclip"
+		"jessclip",
+		"feri"
 	},
 
 	-- Jess's Minecraft Idea
@@ -225,6 +226,12 @@ SMODS.Atlas {
 	py = 34,
 	atlas_table = 'ANIMATION_ATLAS',
 	frames = 21
+}
+SMODS.Atlas {
+	key = "cornericons",
+	path = "cornericons.png",
+	px = 34,
+	py = 34
 }
 --#endregion
 
@@ -357,6 +364,13 @@ SMODS.ScreenShader {
 	end,
 	order = 1
 }
+
+ellejokers.mod_data.menu_cards = function()
+    return {
+		key = "j_elle_elle",
+		no_edition = true
+	}
+end
 
 -- test drawstep,,
 --[[SMODS.DrawStep {
