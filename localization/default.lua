@@ -584,10 +584,12 @@ return {
 			elle_ourple_kill = "!!!"
 		},
 		achievement_names = {
-			ach_elle_soretro = "So Retro"
+			ach_elle_soretro = "So Retro",
+			ach_elle_copycat = "Redundancy"
 		},
 		achievement_descriptions = {
-			ach_elle_soretro = "Toggle the limited palette shader"
+			ach_elle_soretro = "Toggle the limited palette shader",
+			ach_elle_copycat = "Play 5 pointless Copycat cards"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",

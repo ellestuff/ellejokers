@@ -47,14 +47,19 @@ ellejokers = {
 			credit = "Adigun A. Polack"
 		},
 		{
-			name = "Binary",
-			path = "binary.png",
-			credit = "ellestuff...?"
-		},
-		{
 			name = "Greyscale (octo80)",
 			path = "greyscale.png",
 			credit = "octoshrimpy"
+		},
+		{
+			name = "Binary",
+			path = "binary.png",
+			credit = "???"
+		},
+		{
+			name = "Balatro...?",
+			path = "balatro.png",
+			credit = "???"
 		}
 	}
 }
@@ -305,6 +310,7 @@ end
 
 SMODS.current_mod.calculate = function(self,context)
 	elle_challenge_mod_calc(self,context)
+	elle_achievement_mod_calc(self,context)
 end
 
 SMODS.Shader {
@@ -328,7 +334,7 @@ SMODS.ScreenShader {
 	should_apply = function(self)
 		return ellejokers.mod_data.config.pixel_shader.enabled
 	end,
-	order = -1
+	order = 1
 }
 
 -- test drawstep,,

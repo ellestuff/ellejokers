@@ -10,7 +10,6 @@ local mint = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 5, y = 2 },
-	soul_pos = { x = 5, y = 3 },
 	cost = 9,
 	in_pool = function(self) return false end,
 	unlocked = false
