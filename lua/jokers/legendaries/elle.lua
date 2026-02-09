@@ -5,7 +5,7 @@ local elle = SMODS.Joker {
 		xmult_mod = 0.1,
 	}},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult_mod*elle_bsky_count } }
+		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult_mod*ellejokers.bsky_count } }
 	end,
 	rarity = 4,
 	atlas = 'legendary',
@@ -17,11 +17,11 @@ local elle = SMODS.Joker {
 }
 
 elle.calculate = function(self, card, context)
-	if context.end_of_round then elle_update_follower_count() end
+	if context.end_of_round then ellejokers.update_follower_count() end
 	if context.joker_main then
 		if card.ability.extra.xmult ~= 1 then
 			return {
-				Xmult = elle_bsky_count * card.ability.extra.xmult_mod
+				Xmult = ellejokers.bsky_count * card.ability.extra.xmult_mod
 			}
 		end
 	end
