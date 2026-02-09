@@ -83,66 +83,87 @@ local files = {
 	"enhancements",
 	"blindside",
 	"achievements",
-	"config"
+	"config",
+	--"blinds"
 }
 
 -- Only add LobCorp's blindexpander if the mod isn't present
 files[#files+1] = next(SMODS.find_mod("LobotomyCorp")) and nil or "blindexpander"
 
 --		[[ Joker List ]]
+-- Using this to make sure the groups are in order
+local joker_groups = {
+	"mall",
+	"crossovers",
+	"waterbucketrelease",
+	"misc",
+	"legendaries"
+}
 -- Comment out jokers you want to disable
 local jokers = {
-			-- Canon OCs
-	"chloe",
-	"furry",
-	"cheshire",
-	"sophie",
-	"fallen angel",
-	"sarah",
-	"mint",
-	--"spearmint.prog",
-	--"spearmint",
-	"spearlamp",
-	"marie",
-	"bea",
-	"rebecca",
-	"cassie",
-	"cassie_stasis",
-	--"not_cassie",
-	"41",
-	"discarded",
-	--"wordle",
-	
-			-- Jess's Minecraft Idea
-	"waterbucketrelease/cobble_gen",
-	"waterbucketrelease/water_bucket",
-	"waterbucketrelease/lava_bucket",
-	"waterbucketrelease/cobblestone",
-	"waterbucketrelease/obsidian",
-	
-			-- Other stuff
-	"drago",
-	"vivian",
-	"jess",
-	"jessclip",
-	"carpet",
-	"spamton",
-	"polyamory",
-	"bf",
-	"ourple",
-	"nitro",
-	"eraser",
-	"suggestion",
-	"diamond_pickaxe",
-	
-			-- Legendaries
-	"twy",
-	"elle"
+	-- Canon OCs
+	mall = {
+		"chloe",
+		"furry",
+		"cheshire",
+		"sophie",
+		"fallen angel",
+		"sarah",
+		"mint",
+		--"spearmint.prog",
+		--"spearmint",
+		"spearlamp",
+		"marie",
+		"bea",
+		"rebecca",
+		"cassie",
+		"cassie_stasis",
+		--"not_cassie",
+		"41",
+		"prototypes"
+	},
+
+	-- Friends & Partners
+	crossovers = {
+		"drago",
+		"vivian",
+		"jess",
+		"jessclip"
+	},
+
+	-- Jess's Minecraft Idea
+	waterbucketrelease = {
+		"cobble_gen",
+		"water_bucket",
+		"lava_bucket",
+		"cobblestone",
+		"obsidian"
+	},
+
+	-- Random shit :)
+	misc = {
+		"diamond_pickaxe",
+		"carpet",
+		"spamton",
+		"polyamory",
+		"bf",
+		"ourple",
+		"nitro",
+		"eraser",
+		"suggestion",
+		--"wordle"
+	},
+
+	-- Legendaries
+	legendaries = {
+		"twy",
+		"elle"
+	}
 }
 
-local blinds = {"cassie_39"}
+--local blinds = {"cassie_39"}
 
---		[[ Atlases ]]
+--#region Atlases
 SMODS.Atlas{
     key = "modicon",
     path = "modicon.png",
@@ -205,8 +226,9 @@ SMODS.Atlas {
 	atlas_table = 'ANIMATION_ATLAS',
 	frames = 21
 }
+--#endregion
 
---		[[ Sounds ]]
+--#region Sounds
 SMODS.Sound {
 	key = "carpet",
 	path = "carpet.ogg"
@@ -228,6 +250,7 @@ SMODS.Sound {
 	end,
 	pitch = 1
 }
+--#endregion
 
 --		[[ Config / Optional Features ]]
 -- Optional Features
@@ -300,12 +323,10 @@ for i, v in ipairs(files) do
 	assert(SMODS.load_file("lua/"..v..".lua"))()
 end
 
-for i, v in ipairs(jokers) do
-	assert(SMODS.load_file("lua/jokers/"..v..".lua"))()
-end
-
-for i, v in ipairs(blinds) do
-	assert(SMODS.load_file("lua/blinds/"..v..".lua"))()
+for _, v in ipairs(joker_groups) do
+	for _, v2 in ipairs(jokers[v]) do
+		assert(SMODS.load_file("lua/jokers/"..v.."/"..v2..".lua"))()
+	end
 end
 
 SMODS.current_mod.calculate = function(self,context)

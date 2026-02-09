@@ -182,11 +182,13 @@ return {
 					caption.."Protected innocence..."
 				}
 			},
-			j_elle_discarded = {
-				name = 'Discarded Prototypes',
+			j_elle_prototypes = {
+				name = 'The Prototypes',
 				text = {
-					"{C:attention}Debuffed{} cards give",
-					"{C:money}$#1#{} when discarded"
+					"Copy abilities of",
+					"{C:attention}#1#{} random {C:attention}Jokers{},",
+					"Jokers change at",
+					"start of round"
 				}
 			},
 			
@@ -474,6 +476,13 @@ return {
 				text = {
 					"Make a {C:red}grave",
 					"{C:red}mistake"
+				}
+			},
+			slime_upgr_j_elle_p41 = {
+				name = 'Upgrade',
+				text = {
+					"Trigger",
+					"{C:attention}#1#{C:inactive}[#2#]{} times"
 				}
 			},
 			
