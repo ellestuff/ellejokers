@@ -196,8 +196,9 @@ return {
 			j_elle_drago = {
 				name = 'Drago',
 				text = {
-					"{C:attention}Wild Cards{} cannot",
-					"get debuffed"
+					"Wild Cards count as",
+					"{C:attention}#1#s{} instead,",
+					"{s:0.8}changes at end of round"
 				}
 			},
 			j_elle_vivian = {

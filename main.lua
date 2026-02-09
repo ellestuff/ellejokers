@@ -61,7 +61,9 @@ ellejokers = {
 			path = "balatro.png",
 			credit = "???"
 		}
-	}
+	},
+	calculate = {},
+	reset_game_globals = {}
 }
 
 -- Create palettes
@@ -73,7 +75,7 @@ end
 
 
 --		[[ File List ]]
-local files = {
+local lib = {
 	"skins",
 	"consumables",
 	"misc",
@@ -88,7 +90,7 @@ local files = {
 }
 
 -- Only add LobCorp's blindexpander if the mod isn't present
-files[#files+1] = next(SMODS.find_mod("LobotomyCorp")) and nil or "blindexpander"
+lib[#lib+1] = next(SMODS.find_mod("LobotomyCorp")) and nil or "blindexpander"
 
 --		[[ Joker List ]]
 -- Using this to make sure the groups are in order
@@ -326,8 +328,8 @@ function Game:update(dt)
 	end
 end
 
-for i, v in ipairs(files) do
-	assert(SMODS.load_file("lua/"..v..".lua"))()
+for i, v in ipairs(lib) do
+	assert(SMODS.load_file("lua/misc/"..v..".lua"))()
 end
 
 for _, v in ipairs(joker_groups) do
@@ -337,8 +339,15 @@ for _, v in ipairs(joker_groups) do
 end
 
 SMODS.current_mod.calculate = function(self,context)
-	elle_challenge_mod_calc(self,context)
-	elle_achievement_mod_calc(self,context)
+	for k, v in pairs(ellejokers.calculate) do
+		v(context)
+	end
+end
+
+SMODS.current_mod.reset_game_globals = function(run_start)
+	for k, v in pairs(ellejokers.reset_game_globals) do
+		v(run_start)
+	end
 end
 
 SMODS.Shader {

@@ -28,7 +28,7 @@ function ellejokers.update_follower_count()
 end
 ellejokers.update_follower_count()
 
-function SMODS.current_mod.reset_game_globals(run_start)
+function ellejokers.reset_game_globals.http(run_start)
     if run_start then
         ellejokers.update_follower_count()
     end
