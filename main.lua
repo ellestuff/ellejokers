@@ -155,6 +155,7 @@ local jokers = {
 		"nitro",
 		"eraser",
 		"suggestion",
+		"powerscaler",
 		--"wordle"
 	},
 
@@ -236,6 +237,12 @@ SMODS.Atlas {
 	px = 34,
 	py = 34
 }
+SMODS.Atlas {
+	key = "lamps",
+	path = "lamps.png",
+	px = 71,
+	py = 95
+}
 --#endregion
 
 --#region Sounds
@@ -270,7 +277,7 @@ end
 
 -- Text Colours
 loc_colour('red')
-G.ARGS.LOC_COLOURS['elle'] = HEX('FF53A9')
+G.ARGS.LOC_COLOURS.elle = HEX('FF53A9')
 
 -- Badges
 elle_badges = {

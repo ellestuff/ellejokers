@@ -10,7 +10,7 @@ SMODS.Joker {
 	rarity = 2,
 	atlas = 'jokers',
 	pos = { x = 6, y = 2 },
-	soul_pos = { x = 5, y = 3 },
+	soul_pos = { x = 7, y = 2 },
 	cost = 7
 }
 

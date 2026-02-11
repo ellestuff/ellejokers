@@ -111,6 +111,22 @@ return {
 					caption..'This was Chloe\'s Idea...'
 				}
 			},
+			j_elle_spearlamp_vivi = {
+				name = 'Vivilamp',
+				text = {
+					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
+					"{C:attention}share effects",
+					caption..'You asked for this...'
+				}
+			},
+			j_elle_spearlamp_jess = {
+				name = 'Jesslamp',
+				text = {
+					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
+					"{C:attention}share effects",
+					caption..'She\'s fine.'
+				}
+			},
 			j_elle_marie = {
 				name = 'Marie',
 				text = {
@@ -332,6 +348,14 @@ return {
 					"{C:hearts}Hearts{} cards",
 					"count towards",
 					"Jess {C:attention}retriggers"
+				}
+			},
+			j_elle_powerscaler = {
+				name = 'Powerscaler',
+				text = {
+					"This joker gains {X:mult,C:white}X#1#{} Mult",
+					"when {C:attention}Upgrading{} a joker",
+					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
 				}
 			},
 			
@@ -630,11 +654,13 @@ return {
 		},
 		achievement_names = {
 			ach_elle_soretro = "So Retro",
-			ach_elle_copycat = "Redundancy"
+			ach_elle_copycat = "Redundancy",
+			ach_elle_lamp = "Familiar Bulb"
 		},
 		achievement_descriptions = {
 			ach_elle_soretro = "Toggle the limited palette shader",
-			ach_elle_copycat = "Play 5 pointless Copycat cards"
+			ach_elle_copycat = "Play 5 pointless Copycat cards",
+			ach_elle_lamp = "Obtain a unique lamp"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",

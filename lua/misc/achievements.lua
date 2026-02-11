@@ -2,9 +2,7 @@ SMODS.Achievement {
 	key="soretro",
 	bypass_all_unlocked = true,
 	unlock_condition = function (self, args)
-		if args and (args.type == "elle_toggle_palette") then
-			return true
-		end
+		if args then return args.type == "elle_toggle_palette" end
 	end
 }
 
@@ -12,9 +10,15 @@ SMODS.Achievement {
 	key="copycat",
 	bypass_all_unlocked = true,
 	unlock_condition = function (self, args)
-		if args and (args.type == "elle_copycat_fail") then
-			return true
-		end
+		if args then return args.type == "elle_copycat_fail" end
+	end
+}
+
+SMODS.Achievement {
+	key="lamp",
+	bypass_all_unlocked = true,
+	unlock_condition = function (self, args)
+		if args then return args.type == "elle_lamp" end
 	end
 }
 

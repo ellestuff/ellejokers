@@ -76,7 +76,7 @@ j.calculate = function(self, card, context)
 		if context.after then
 			card.ability.extra.trigger = false
 			G.E_MANAGER:add_event(Event({func = function() card.ability.extra.spr = false return true end }))
-			return {}
+			return
 		end
 		
 		local card_pos = 0
@@ -84,16 +84,18 @@ j.calculate = function(self, card, context)
 			if G.jokers.cards[i] == card then card_pos = i break end
 		end
 		
+		ret = {}
         local retl = SMODS.blueprint_effect(card, G.jokers.cards[card_pos-1], context)
         local retr = SMODS.blueprint_effect(card, G.jokers.cards[card_pos+1], context)
         if retl then
 			retl.colour = G.C.BLUE
-			SMODS.calculate_effect(retl, card)
+			ret = SMODS.merge_effects(retl, ret)
 		end
         if retr then
 			retr.colour = G.C.BLUE
-			SMODS.calculate_effect(retr, card)
+			ret = SMODS.merge_effects(retr, ret)
 		end
+		return ret
 	end
 end
 

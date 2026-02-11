@@ -1,3 +1,48 @@
+-- ty aiko for telling me how to do this lol
+-- ..also i'm refernecing aikoshen code for this lmao
+SMODS.current_mod.custom_ui = function(mod_nodes)
+	mod_nodes = EMPTY(mod_nodes)
+	
+	local ellecard = Card(G.ROOM.T.x,G.ROOM.T.y,G.CARD_W*.75,G.CARD_H*.75,nil,G.P_CENTERS.j_elle_elle, { bypass_discovery_center = true, bypass_discovery_ui = true, no_ui = true })
+
+	mod_nodes[#mod_nodes+1] = {n = G.UIT.C, nodes = {
+		{n = G.UIT.R,
+			config = {
+				align = "cm"
+			}, nodes = {
+				{n = G.UIT.R,
+					config = {
+						r = 0.1,
+						align = "cm",
+						padding = 0.1,
+						colour = G.ARGS.LOC_COLOURS.elle,
+					}, nodes = {
+						{n = G.UIT.C,
+							config = {
+								r = 0.1,
+								align = "cm",
+								padding = 0.2,
+								colour = G.C.BLACK
+							}, nodes = {
+								{n = G.UIT.T, config = {text = "ellejokers.", scale = .75, colour = G.C.WHITE}}
+						}}
+				}}
+		}},
+		{n = G.UIT.R,
+			config = {
+				align = "cl",
+				padding = 0.1,
+				minw = 6
+			}, nodes = {
+			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = ellecard }}}},
+			{n = G.UIT.C, config = {align = "cl", padding = 0.1}, nodes = {
+				{n = G.UIT.R, nodes = {{n = G.UIT.T, config = {text = "A mod by this goober.", scale = .4, colour = G.C.WHITE}}}},
+				{n = G.UIT.R, nodes = {{n = G.UIT.T, config = {text = "(and featuring her characters)", scale = .3, colour = G.C.WHITE}}}}
+			}}
+		}}
+	}}
+end
+
 if not SMODS.ScreenShader then return end
 
 local palette_options = {}

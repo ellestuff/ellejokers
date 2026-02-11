@@ -20,6 +20,7 @@ local function get_by_sortid(id)
 end
 
 prototypes.calculate = function(self, card, context)
+	ret = {}
 	if not context.blueprint then
 		if context.setting_blind then
 			card.ability.extra.targets = {}
@@ -47,10 +48,10 @@ prototypes.calculate = function(self, card, context)
 		end
 	
 		for _, v in ipairs(card.ability.extra.targets) do
-			local bp = SMODS.blueprint_effect(card, get_by_sortid(v), context)
-			if bp then SMODS.calculate_effect(bp, card) end
+			ret[#ret+1] = SMODS.blueprint_effect(card, get_by_sortid(v), context)
 		end
 	end
+	return SMODS.merge_effects(ret)
 end
 prototypes.loc_vars = function(self, info_queue, card)
 	local ret = { vars = { card.ability.extra.count } }
