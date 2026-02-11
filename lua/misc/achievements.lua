@@ -1,10 +1,12 @@
-SMODS.Achievement {
-	key="soretro",
-	bypass_all_unlocked = true,
-	unlock_condition = function (self, args)
-		if args then return args.type == "elle_toggle_palette" end
-	end
-}
+if SMODS.ScreenShader then
+	SMODS.Achievement {
+		key="soretro",
+		bypass_all_unlocked = true,
+		unlock_condition = function (self, args)
+			if args then return args.type == "elle_toggle_palette" end
+		end
+	}
+end
 
 SMODS.Achievement {
 	key="copycat",
