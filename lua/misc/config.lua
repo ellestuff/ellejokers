@@ -1,3 +1,5 @@
+if not SMODS.ScreenShader then return end
+
 local palette_options = {}
 for i, v in ipairs(ellejokers.palettes) do
 	palette_options[#palette_options+1] = v.name

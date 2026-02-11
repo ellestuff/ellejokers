@@ -217,6 +217,18 @@ return {
 					"{C:mult}+#1#{} Mult when scored"
 				}
 			},
+			j_elle_ferisophie = {
+				name = 'Feri + Sophie',
+				text = {
+					"{C:attention}Stores{} {C:mult}+#1#{} Mult when",
+					"scoring a {C:hearts}Hearts{} card",
+					"Use to permanently {C:attention}release",
+					"stored Mult onto",
+					"scoring cards, and {C:attention}reset",
+					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+					--caption.."\"It burns so good~\""
+				}
+			},
 			j_elle_carpet = {
 				name = 'Check It Out',
 				text = {
@@ -231,7 +243,7 @@ return {
 				text = {
 					"* ENTER MY {C:attention}[[Home-made",
 					"{C:attention}Storefront Site]]",
-					"{C:inactive}(Restocks at end of Blind)"
+					"{C:inactive}(Restocks at end of round)"
 				}
 			},
 			j_elle_polyamory = {
@@ -459,15 +471,23 @@ return {
 			slime_upgr_j_elle_chloe = {
 				name = 'Upgrade..?',
 				text = {
-					"Discard {C:attention}#1#{C:inactive}[#2#]{}",
+					"Discard {C:attention}#1#{C:inactive}[#2#]",
 					"{C:attention}face{} cards"
 				}
 			},
 			slime_upgr_j_elle_furry = {
 				name = 'Upgrade',
 				text = {
-					"Have {C:red}Sarah{}",
-					"or {C:red}Cassie{}"
+					"Have {C:red}Sarah",
+					"or {C:red}Cassie"
+				}
+			},
+			slime_upgr_j_elle_feri = {
+				name = 'Upgrade',
+				text = {
+					"Upgrade {C:attention}#1#{C:inactive}[#2#]{} cards",
+					"with {C:attention}Fallen Angel",
+					"present"
 				}
 			},
 			slime_upgr_j_elle_sophie = {

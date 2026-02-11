@@ -131,7 +131,8 @@ local jokers = {
 		"vivian",
 		"jess",
 		"jessclip",
-		"feri"
+		"feri",
+		"ferisophie"
 	},
 
 	-- Jess's Minecraft Idea
