@@ -5,7 +5,7 @@ local eraser = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 6, y = 0 },
-	soul_pos = { x = 6, y = 1 },
+	soul_pos = { x = 7, y = 0 },
 	cost = 11
 }
 
