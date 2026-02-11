@@ -116,7 +116,7 @@ return {
 				text = {
 					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
 					"{C:attention}share effects",
-					caption..'You asked for this...'
+					caption..'Practically begged for this...'
 				}
 			},
 			j_elle_spearlamp_jess = {
@@ -125,6 +125,14 @@ return {
 					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
 					"{C:attention}share effects",
 					caption..'She\'s fine.'
+				}
+			},
+			j_elle_spearlamp_drago = {
+				name = 'Dragolamp',
+				text = {
+					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
+					"{C:attention}share effects",
+					caption..'Probably better like this.'
 				}
 			},
 			j_elle_marie = {

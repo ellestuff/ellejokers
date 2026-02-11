@@ -18,6 +18,13 @@ ellejokers.lamps = {
 			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=1,y=0} }
 		},
 		badge = elle_badges.poly
+	},
+	{
+		key_suffix = "_drago",
+		crossover = {
+			set = "Other", key = "elle_crossover", specific_vars = {"Drago","@dragothedemon.bsky.social"}
+		},
+		badge = elle_badges.friends
 	}
 }
 
