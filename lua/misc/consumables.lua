@@ -18,7 +18,7 @@ SMODS.Consumable {
 	set = 'Tarot',
 	cost = 4,
 	atlas = 'consumables',
-	pos = { x = 0, y = 0 },
+	pos = { x = 2, y = 0 },
 	config = { extra = { }, max_highlighted = 2, mod_conv = "m_elle_jess" },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_jess

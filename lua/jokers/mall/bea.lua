@@ -5,10 +5,10 @@ local bea = SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.poker_hand } }
 	end,
-	rarity = 2,
+	rarity = 1,
 	atlas = 'jokers',
 	pos = { x = 1, y = 1 },
-	cost = 8,
+	cost = 5,
 	blueprint_compat = true
 }
 

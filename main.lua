@@ -154,6 +154,7 @@ local jokers = {
 		"ourple",
 		"nitro",
 		"eraser",
+		"magic_fingers",
 		"suggestion",
 		"powerscaler",
 		--"wordle"

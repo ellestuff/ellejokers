@@ -325,6 +325,14 @@ return {
 					"{C:inactive}(#1#)"
 				}
 			},
+			j_elle_magic_fingers = {
+				name = 'Magic Fingers',
+				text = {
+					"Pay {C:money}$#1#{} and give",
+					"{C:purple}+#2#{} Round Score",
+					"{C:inactive}(Scales with ante)",
+				}
+			},
 			j_elle_suggestion = {
 				name = 'Suggestion',
 				text = {
