@@ -5,7 +5,10 @@ local drago = SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		local ench = G.GAME.current_round.elle_drago_ench or 'm_bonus'
 
-		info_queue[#info_queue+1] = {set = "Other", key = "elle_crossover", specific_vars = {"Drago","@dragothedemon.bsky.social"} }
+		info_queue[#info_queue+1] = {
+			set = "Other", key = "elle_crossover", specific_vars = {"Drago","@dragothedemon.bsky.social"},
+			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} }
+		}
 		info_queue[#info_queue+1] = G.P_CENTERS[ench]
 		return { vars = { localize({type = 'name_text', key = ench, set = 'Enhanced'}) } } end,
 	rarity = 2,
@@ -13,7 +16,8 @@ local drago = SMODS.Joker {
 	pos = { x = 0, y = 2 },
 	soul_pos = { x = 5, y = 3 },
 	cost = 6,
-	blueprint_compat = false
+	blueprint_compat = false,
+	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} }
 }
 
 drago.calculate = function(self, card, context)
@@ -24,12 +28,10 @@ drago.calculate = function(self, card, context)
 	end
 end
 
-local function get_drago_ench()
-end
 
 local get_enchs_hook = SMODS.get_enhancements
-function SMODS.get_enhancements(card)
-	local list = get_enchs_hook(card)
+function SMODS.get_enhancements(...)
+	local list = get_enchs_hook(...)
 	if #SMODS.find_card("j_elle_drago")>0 then list.m_wild = nil end
 	return list
 end

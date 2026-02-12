@@ -167,8 +167,6 @@ local jokers = {
 	}
 }
 
---local blinds = {"cassie_39"}
-
 --#region Atlases
 SMODS.Atlas{
     key = "modicon",
@@ -237,6 +235,12 @@ SMODS.Atlas {
 	path = "cornericons.png",
 	px = 34,
 	py = 34
+}
+SMODS.Atlas {
+	key = "ferisoph_icon",
+	path = "ferisoph_icon.png",
+	px = 50,
+	py = 50
 }
 SMODS.Atlas {
 	key = "lamps",

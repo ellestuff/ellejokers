@@ -47,7 +47,7 @@ SMODS.Enhancement {
 		return { vars = { card.ability.extra.retrigger_count, card.ability.extra.req } }
 	end,
 	calculate = function(self, card, context)
-		if context.repetition and context.cardarea == G.play and context.extra_enhancement then
+		if context.repetition and context.cardarea == G.play then
 			local retriggers = 0
 			for _,v in ipairs(ellejokers.get_jess_areas()) do
 				for _,v2 in ipairs(v.cards) do
@@ -149,6 +149,7 @@ function Card:is_suit(suit, bypass_debuff, flush_calc, ...)
 
 	return is_suit_hook(self, suit, bypass_debuff, flush_calc, ...)
 end
+
 
 local get_id_hook = Card.get_id
 function Card:get_id()

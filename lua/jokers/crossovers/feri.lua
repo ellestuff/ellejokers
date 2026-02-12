@@ -13,7 +13,8 @@ local feri = SMODS.Joker {
 	atlas = 'jokers',
 	pos = { x = 6, y = 5 },
 	cost = 6,
-	blueprint_compat = true
+	blueprint_compat = true,
+	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=0} }
 }
 
 feri.calculate = function(self, card, context)

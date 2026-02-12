@@ -18,7 +18,7 @@ local feri = SMODS.Joker {
 	pos = { x = 6, y = 3 },
 	cost = 6,
 	blueprint_compat = true,
-	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} },
+	slime_desc_icon = { atlas = "elle_ferisoph_icon", pos = {x=0,y=0}, scale = 50/34 },
 	in_pool = function(self) return false end,
 	no_doe = true
 }

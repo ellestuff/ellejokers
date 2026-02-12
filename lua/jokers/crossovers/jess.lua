@@ -14,7 +14,8 @@ local jess = SMODS.Joker {
 	atlas = 'jokers',
 	pos = { x = 1, y = 5 },
 	cost = 6,
-	blueprint_compat = true
+	blueprint_compat = true,
+	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=1,y=0} }
 }
 
 jess.calculate = function(self, card, context)

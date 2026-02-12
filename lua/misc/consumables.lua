@@ -26,7 +26,7 @@ SMODS.Consumable {
 	end
 }
 
--- Doppelgänger (Tarot)
+-- Doppelgänger (Spectral)
 SMODS.Consumable {
 	key = 'doppel',
 	set = 'Spectral',
@@ -39,6 +39,22 @@ SMODS.Consumable {
 		return { vars = { card.ability.max_highlighted } }
 	end
 }
+
+
+-- Experiment (Spectral)
+--[[
+SMODS.Consumable {
+	key = 'experiment',
+	set = 'Spectral',
+	cost = 7,
+	atlas = 'consumables',
+	pos = { x = 0, y = 1 },
+	config = { extra = { }, max_highlighted = 1, mod_conv = "m_elle_copycat" },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_copycat
+		return { vars = { card.ability.max_highlighted } }
+	end
+}]]
 
 
 --		[[ MoreFluff Stuff ]]
