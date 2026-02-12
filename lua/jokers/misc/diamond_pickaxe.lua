@@ -31,7 +31,7 @@ function Card:can_sell_card(context, ...)
 	local csc = csc_hook(self, context, ...)
 	
 	if (SMODS.is_eternal(self, {from_sell = true}) and #SMODS.find_card("j_elle_diamond_pickaxe", false)>0) then
-		return to_big(G.GAME.dollars) >= to_big(-self.sell_cost)
+		return G.GAME.dollars >= -self.sell_cost
 	end
 	
 	return csc

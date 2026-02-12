@@ -13,7 +13,7 @@ local sophie = SMODS.Joker {
 	unlocked = false,
 	blueprint_compat = true,
 	check_for_unlock = function(self, args)
-		if args.type == "round_win" then return G.GAME.chips/G.GAME.blind.chips >= to_big(10) end
+		if args.type == "round_win" then return G.GAME.chips/G.GAME.blind.chips >= 10 end
 	end
 }
 

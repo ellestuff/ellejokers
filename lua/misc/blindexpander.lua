@@ -159,16 +159,14 @@ local function startup()
                     G.GAME.blind.children.alert = nil
                 end
 
-                local valueToPutInIf = (Talisman and to_big and to_big(G.GAME.chips):gte(to_big(G.GAME.blind.chips))) or to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips)
-                if valueToPutInIf then
+                if G.GAME.chips >= G.GAME.blind.chips then
                     local obj = G.GAME.blind.config.blind
                     if obj.pre_defeat and type(obj.pre_defeat) == "function" then
                         obj:pre_defeat()
                     end
                 end
             else
-                local valueToPutInIf = (Talisman and to_big and to_big(G.GAME.chips):lt(to_big(G.GAME.blind.chips))) or to_big(G.GAME.chips) < to_big(G.GAME.blind.chips)
-                if G.GAME.current_round.hands_left <= 0 and valueToPutInIf then 
+                if G.GAME.current_round.hands_left <= 0 and G.GAME.chips < G.GAME.blind.chips then 
                     G.GAME.blind.original_blind = nil
                     G.STATE_COMPLETE = true
                     end_round()

@@ -24,7 +24,7 @@ spearmint.slime_active = {
 
 spearmint.slime_upgrade = {
 	card = "j_elle_spearmint",
-	can_use = function(self, card) return to_big(G.GAME.dollars) >= to_big(20) end,
+	can_use = function(self, card) return G.GAME.dollars >= 20 end,
 	calculate = function(self, card) ease_dollars(-20) end
 }
 

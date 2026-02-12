@@ -10,7 +10,7 @@ nitro = SMODS.Joker {
 
 nitro.calculate = function(self, card, context)
 	-- Get fucked lol
-	if context.end_of_round and context.main_eval and not card.ability.extra.used and to_big(card.ability.extra.mult) > to_big(0) then
+	if context.end_of_round and context.main_eval and not card.ability.extra.used and card.ability.extra.mult > 0 then
 		card.ability.extra.mult = 0
 		return { message = "Reset!" }
 	end
@@ -43,6 +43,6 @@ nitro.slime_active = {
 			}
 		}, card)
 	end,
-	can_use = function(self, card) return to_big(G.GAME.dollars) >= to_big(card.ability.extra.cost) and not card.ability.extra.used end,
+	can_use = function(self, card) return G.GAME.dollars >= card.ability.extra.cost and not card.ability.extra.used end,
 	should_close = function(self, card) return true end
 }
