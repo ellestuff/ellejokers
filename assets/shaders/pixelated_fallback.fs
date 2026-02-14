@@ -1,0 +1,194 @@
+#if defined(VERTEX) || __VERSION__ > 100 || defined(GL_FRAGMENT_PRECISION_HIGH)
+	#define MY_HIGHP_OR_MEDIUMP highp
+#else
+	#define MY_HIGHP_OR_MEDIUMP mediump
+#endif
+
+extern sampler2D palette;
+extern vec2 paletteSize;
+//extern vec2 dims;
+
+extern MY_HIGHP_OR_MEDIUMP vec2 pixelated_fallback;
+extern MY_HIGHP_OR_MEDIUMP number dissolve;
+extern MY_HIGHP_OR_MEDIUMP number time;
+extern MY_HIGHP_OR_MEDIUMP vec4 texture_details;
+extern MY_HIGHP_OR_MEDIUMP vec2 image_details;
+extern bool shadow;
+extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
+extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
+
+vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
+{
+    if (dissolve < 0.001) {
+        return vec4(shadow ? vec3(0.,0.,0.) : tex.xyz, shadow ? tex.a*0.3: tex.a);
+    }
+
+    float adjusted_dissolve = (dissolve*dissolve*(3.-2.*dissolve))*1.02 - 0.01; //Adjusting 0.0-1.0 to fall to -0.1 - 1.1 scale so the mask does not pause at extreme values
+
+	float t = time * 10.0 + 2003.;
+	vec2 floored_uv = (floor((uv*texture_details.ba)))/max(texture_details.b, texture_details.a);
+    vec2 uv_scaled_centered = (floored_uv - 0.5) * 2.3 * max(texture_details.b, texture_details.a);
+	
+	vec2 field_part1 = uv_scaled_centered + 50.*vec2(sin(-t / 143.6340), cos(-t / 99.4324));
+	vec2 field_part2 = uv_scaled_centered + 50.*vec2(cos( t / 53.1532),  cos( t / 61.4532));
+	vec2 field_part3 = uv_scaled_centered + 50.*vec2(sin(-t / 87.53218), sin(-t / 49.0000));
+
+    float field = (1.+ (
+        cos(length(field_part1) / 19.483) + sin(length(field_part2) / 33.155) * cos(field_part2.y / 15.73) +
+        cos(length(field_part3) / 27.193) * sin(field_part3.x / 21.92) ))/2.;
+    vec2 borders = vec2(0.2, 0.8);
+
+    float res = (.5 + .5* cos( (adjusted_dissolve) / 82.612 + ( field + -.5 ) *3.14))
+    - (floored_uv.x > borders.y ? (floored_uv.x - borders.y)*(5. + 5.*dissolve) : 0.)*(dissolve)
+    - (floored_uv.y > borders.y ? (floored_uv.y - borders.y)*(5. + 5.*dissolve) : 0.)*(dissolve)
+    - (floored_uv.x < borders.x ? (borders.x - floored_uv.x)*(5. + 5.*dissolve) : 0.)*(dissolve)
+    - (floored_uv.y < borders.x ? (borders.x - floored_uv.y)*(5. + 5.*dissolve) : 0.)*(dissolve);
+
+    if (tex.a > 0.01 && burn_colour_1.a > 0.01 && !shadow && res < adjusted_dissolve + 0.8*(0.5-abs(adjusted_dissolve-0.5)) && res > adjusted_dissolve) {
+        if (!shadow && res < adjusted_dissolve + 0.5*(0.5-abs(adjusted_dissolve-0.5)) && res > adjusted_dissolve) {
+            tex.rgba = burn_colour_1.rgba;
+        } else if (burn_colour_2.a > 0.01) {
+            tex.rgba = burn_colour_2.rgba;
+        }
+    }
+    return vec4(shadow ? vec3(0.,0.,0.) : tex.xyz, res > adjusted_dissolve ? (shadow ? tex.a*0.3: tex.a) : .0);
+}
+
+number hue(number s, number t, number h)
+{
+	number hs = mod(h, 1.)*6.;
+	if (hs < 1.) return (t-s) * hs + s;
+	if (hs < 3.) return t;
+	if (hs < 4.) return (t-s) * (4.-hs) + s;
+	return s;
+}
+
+vec4 RGB(vec4 c)
+{
+	if (c.y < 0.0001)
+		return vec4(vec3(c.z), c.a);
+
+	number t = (c.z < .5) ? c.y*c.z + c.z : -c.y*c.z + (c.y+c.z);
+	number s = 2.0 * c.z - t;
+	return vec4(hue(s,t,c.x + 1./3.), hue(s,t,c.x), hue(s,t,c.x - 1./3.), c.w);
+}
+
+vec4 HSL(vec4 c)
+{
+	number low = min(c.r, min(c.g, c.b));
+	number high = max(c.r, max(c.g, c.b));
+	number delta = high - low;
+	number sum = high+low;
+
+	vec4 hsl = vec4(.0, .0, .5 * sum, c.a);
+	if (delta == .0)
+		return hsl;
+
+	hsl.y = (hsl.z < .5) ? delta / sum : delta / (2.0 - sum);
+
+	if (high == c.r)
+		hsl.x = (c.g - c.b) / delta;
+	else if (high == c.g)
+		hsl.x = (c.b - c.r) / delta + 2.0;
+	else
+		hsl.x = (c.r - c.g) / delta + 4.0;
+
+	hsl.x = mod(hsl.x / 6., 1.);
+	return hsl;
+}
+
+float bayer(vec2 pos) { 
+	int x = int(mod(pos.x, 8.0));
+	int y = int(mod(pos.y, 8.0));
+	int index = y * 8 + x;
+	
+	// I wrote this table by hand, cower in fear
+    float bayer[64];
+    bayer[ 0] =  0.; bayer[ 1] = 48.; bayer[ 2] = 12.; bayer[ 3] = 60.; bayer[ 4] =  3.; bayer[ 5] = 51.; bayer[ 6] = 15.; bayer[ 7] = 63.;
+	bayer[ 8] = 32.; bayer[ 9] = 16.; bayer[10] = 44.; bayer[11] = 28.; bayer[12] = 35.; bayer[13] = 19.; bayer[14] = 47.; bayer[15] = 31.;
+	bayer[16] =  8.; bayer[17] = 56.; bayer[18] =  4.; bayer[19] = 52.; bayer[20] = 11.; bayer[21] = 59.; bayer[22] =  7.; bayer[23] = 55.;
+	bayer[24] = 40.; bayer[25] = 24.; bayer[26] = 36.; bayer[27] = 20.; bayer[28] = 43.; bayer[29] = 27.; bayer[30] = 39.; bayer[31] = 23.;
+	bayer[32] =  2.; bayer[33] = 50.; bayer[34] = 14.; bayer[35] = 62.; bayer[36] =  1.; bayer[37] = 49.; bayer[38] = 13.; bayer[39] = 61.;
+	bayer[40] = 34.; bayer[41] = 18.; bayer[42] = 46.; bayer[43] = 30.; bayer[44] = 33.; bayer[45] = 17.; bayer[46] = 45.; bayer[47] = 29.;
+	bayer[48] = 10.; bayer[49] = 58.; bayer[50] =  6.; bayer[51] = 54.; bayer[52] =  9.; bayer[53] = 57.; bayer[54] =  5.; bayer[55] = 53.;
+	bayer[56] = 42.; bayer[57] = 26.; bayer[58] = 38.; bayer[59] = 22.; bayer[60] = 41.; bayer[61] = 25.; bayer[62] = 37.; bayer[63] = 21.;
+	
+	float threshold = bayer[index];
+	return (threshold + 0.5) / 64.0;
+}
+
+float perceptualDist(vec3 a, vec3 b) {
+    vec3 dif = a - b;
+    return dot(dif * dif, vec3(0.299, 0.587, 0.114));
+}
+
+vec4 paletteFix(vec4 tex, vec2 dims) {
+	// The found colours' UV coordinates 
+	vec2 target = vec2(0.0,0.0);
+	vec2 target2 = vec2(0.0,0.0);
+	
+	// The found colours' distances from the original colour. Should not exceed ~1.44 normally.
+	float targdist = 2.0;
+	float targdist2 = 2.0;
+	
+	// Iterate through each pixel in the palette sprite (each colour)
+	for (float i = 0.0; i < paletteSize.x*paletteSize.y; i++) {
+		// Get the texture coordinates for the current palette colour with 0-1 range
+		vec2 palCoord = vec2( mod( i, paletteSize.x ), floor( i / paletteSize.x ) ) / paletteSize;
+		palCoord += vec2(.5,.5) / paletteSize; // Center UV coordinates on middle of pixels to prevent floating point imprecision
+		
+		// The palette colour being compared against
+		vec3 comp = texture2D( palette, palCoord ).rgb;
+		
+		// Distance between the palette colour and the input colour
+		float dist = perceptualDist(tex.rgb,comp);
+		
+		// I'm using ternary operators here because apparently if statements are more taxing on the GPU
+		// Secondary colour is handled first to prevent weird logic shenanigans :p
+		
+		// Secondary colour
+		target2 = dist < targdist ? target : (dist < targdist2 ? palCoord : target2);
+		targdist2 = dist < targdist ? targdist : (dist < targdist2 ? dist : targdist2);
+		
+		// Main colour
+		target = dist < targdist ? palCoord : target;
+		targdist = dist < targdist ? dist : targdist;
+	}
+	
+	float factor = targdist/(targdist + targdist2);
+	
+	vec2 cCoords = factor > bayer(dims) ? target2 : target;
+	
+	return vec4(texture2D( palette, cCoords ).rgb,tex.a);	
+}
+
+vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
+{
+	vec4 tex = Texel(texture, texture_coords);
+	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
+	
+	vec4 c = tex*colour;
+
+	if (pixelated_fallback.g != 0.0) { c = paletteFix(tex, texture_coords*image_details); }
+
+	return dissolve_mask(c, texture_coords, uv);
+}
+
+extern MY_HIGHP_OR_MEDIUMP vec2 mouse_screen_pos;
+extern MY_HIGHP_OR_MEDIUMP float hovering;
+extern MY_HIGHP_OR_MEDIUMP float screen_scale;
+
+#ifdef VERTEX
+vec4 position( mat4 transform_projection, vec4 vertex_position )
+{
+    if (hovering <= 0.){
+        return transform_projection * vertex_position;
+    }
+    float mid_dist = length(vertex_position.xy - 0.5*love_ScreenSize.xy)/length(love_ScreenSize.xy);
+    vec2 mouse_offset = (vertex_position.xy - mouse_screen_pos.xy)/screen_scale;
+    float scale = 0.2*(-0.03 - 0.3*max(0., 0.3-mid_dist))
+                *hovering*(length(mouse_offset)*length(mouse_offset))/(2. -mid_dist);
+
+    return transform_projection * vertex_position + vec4(0,0,0,scale);
+}
+#endif

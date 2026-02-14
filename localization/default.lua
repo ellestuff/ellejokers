@@ -116,7 +116,7 @@ return {
 				text = {
 					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
 					"{C:attention}share effects",
-					caption..'Practically begged for this...'
+					caption..'She asked for this...'
 				}
 			},
 			j_elle_spearlamp_jess = {
@@ -330,7 +330,7 @@ return {
 				text = {
 					"Pay {C:money}$#1#{} and give",
 					"{C:purple}+#2#{} Round Score",
-					"{C:inactive}(Scales with ante)",
+					"{C:inactive}(Scales with ante)"
 				}
 			},
 			j_elle_suggestion = {
@@ -372,6 +372,26 @@ return {
 					"This joker gains {X:mult,C:white}X#1#{} Mult",
 					"when {C:attention}Upgrading{} a joker",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+				}
+			},
+			j_elle_clubcard = {
+				name = 'Clubcard',
+				text = {
+					"Earn {C:money}$#1#{} for each",
+					"card with {C:clubs}Club{} suit",
+					"in your {C:attention}full deck",
+					"at end of round",
+					"{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+				}
+			},
+			j_elle_combat = {
+				name = 'Combat Joker',
+				text = {
+					"idk what this",
+					"should do yet,",
+					"i just rly wanted",
+					"to add my {C:attention}hp shader",
+					"to the mod"
 				}
 			},
 			
@@ -671,12 +691,14 @@ return {
 		achievement_names = {
 			ach_elle_soretro = "So Retro",
 			ach_elle_copycat = "Redundancy",
-			ach_elle_lamp = "Familiar Bulb"
+			ach_elle_lamp = "Familiar Bulb",
+			ach_elle_puritan = "Puritans be damned"
 		},
 		achievement_descriptions = {
 			ach_elle_soretro = "Toggle the limited palette shader",
 			ach_elle_copycat = "Play 5 pointless Copycat cards",
-			ach_elle_lamp = "Obtain a unique lamp"
+			ach_elle_lamp = "Obtain a unique lamp",
+			ach_elle_puritan = "Disable the \"streamer mode\", restoring the sprites to their original appearance"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",

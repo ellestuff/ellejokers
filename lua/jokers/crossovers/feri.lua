@@ -10,8 +10,8 @@ local feri = SMODS.Joker {
 		return { vars = { card.ability.extra.mult } }
 	end,
 	rarity = 2,
-	atlas = 'jokers',
-	pos = { x = 6, y = 5 },
+	atlas = 'puritan',
+	pos = { x = 0, y = ellejokers.mod_data.config.puritan and 1 or 0 },
 	cost = 6,
 	blueprint_compat = true,
 	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=0} }

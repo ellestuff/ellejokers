@@ -7,6 +7,7 @@ float bayer(vec2 pos) {
 	int y = int(mod(pos.y, 8.0));
 	int index = y * 8 + x;
 	
+	// I wrote this table by hand, cower in fear
     float bayer[64];
     bayer[ 0] =  0.; bayer[ 1] = 48.; bayer[ 2] = 12.; bayer[ 3] = 60.; bayer[ 4] =  3.; bayer[ 5] = 51.; bayer[ 6] = 15.; bayer[ 7] = 63.;
 	bayer[ 8] = 32.; bayer[ 9] = 16.; bayer[10] = 44.; bayer[11] = 28.; bayer[12] = 35.; bayer[13] = 19.; bayer[14] = 47.; bayer[15] = 31.;

@@ -68,7 +68,7 @@ ellejokers = {
 
 -- Create palettes
 for k, v in ipairs(ellejokers.palettes) do
-	v.image = love.graphics.newImage( love.image.newImageData(NFS.newFileData( SMODS.current_mod.path .. "assets/palettes/"..v.path) ) )
+	v.image = love.graphics.newImage( love.image.newImageData(NFS.newFileData( SMODS.current_mod.path .. "assets/extra_images/palettes/"..v.path) ) )
 	local w,h = v.image:getDimensions()
 	v.dims = {w,h}
 end
@@ -88,9 +88,6 @@ local lib = {
 	"config",
 	--"blinds"
 }
-
--- Only add LobCorp's blindexpander if the mod isn't present
-lib[#lib+1] = next(SMODS.find_mod("LobotomyCorp")) and nil or "blindexpander"
 
 --		[[ Joker List ]]
 -- Using this to make sure the groups are in order
@@ -157,6 +154,8 @@ local jokers = {
 		"magic_fingers",
 		"suggestion",
 		"powerscaler",
+		"clubcard",
+		--"combat",
 		--"wordle"
 	},
 
@@ -177,6 +176,12 @@ SMODS.Atlas{
 SMODS.Atlas {
 	key = "jokers",
 	path = "jokers.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "puritan",
+	path = "puritan.png",
 	px = 71,
 	py = 95
 }
@@ -359,19 +364,20 @@ SMODS.current_mod.reset_game_globals = function(run_start)
 	end
 end
 
-SMODS.Shader {
-	key = "pixelated",
-	path = "pixelated.fs"
-}
 
 if SMODS.ScreenShader then
-	local w,h = love.graphics.getDimensions()
+	SMODS.Shader {
+		key = "pixelated",
+		path = "pixelated.fs"
+	}
+	
 	SMODS.ScreenShader {
 		key = "pixelated",
 		shader = "elle_pixelated", --modprefix is necessary, this now refers to the same shader defined above
 
-		send_vars = function (self)
+		send_vars = function(self)
 			local p = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
+			local w,h = love.graphics.getDimensions()
 			return {
 				palette = p.image,
 				paletteSize = p.dims,
@@ -383,6 +389,50 @@ if SMODS.ScreenShader then
 		end,
 		order = 1
 	}
+else
+	SMODS.Shader {
+		key = 'pixelated_fallback',
+		path = 'pixelated_fallback.fs',
+
+		send_vars = function(self, sprite, card)
+			local p = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
+			return {
+				palette = p.image,
+				paletteSize = p.dims
+			}
+		end
+	}
+
+	SMODS.DrawStep {
+		key = "elle_pixelated",
+		order = 15,
+		func = function(self, layer)
+			if ellejokers.mod_data.config.pixel_shader.enabled then
+				self.children.center:draw_shader('elle_pixelated_fallback', nil, self.ARGS.send_to_shader)
+				if self.children.front and not self:should_hide_front() then
+					self.children.front:draw_shader('elle_pixelated_fallback', nil, self.ARGS.send_to_shader)
+				end
+			end
+		end,
+		conditions = { vortex = false, facing = 'front' }
+	}
+
+	SMODS.DrawStep {
+    key = 'elle_pixelated_floating_sprite',
+    order = 60,
+    func = function(self)
+        if ellejokers.mod_data.config.pixel_shader.enabled and self.config.center.soul_pos and (self.config.center.discovered or self.bypass_discovery_center) then
+            local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3
+            local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
+
+            if type(self.config.center.soul_pos.draw) ~= 'function' and self.children.floating_sprite then
+                self.children.floating_sprite:draw_shader('elle_pixelated_fallback',0, nil, nil, self.children.center,scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
+                self.children.floating_sprite:draw_shader('elle_pixelated_fallback', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+            end
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
 end
 
 ellejokers.mod_data.menu_cards = function()
@@ -392,15 +442,3 @@ ellejokers.mod_data.menu_cards = function()
 	}
 end
 
--- test drawstep,,
---[[SMODS.DrawStep {
-	key = "elle_pixelated",
-	order = 20,
-	func = function(self, layer)
-        self.children.center:draw_shader('elle_pixelated', nil, self.ARGS.send_to_shader)
-		if self.children.front and not self:should_hide_front() then
-			self.children.front:draw_shader('elle_pixelated', nil, self.ARGS.send_to_shader)
-		end
-	end,
-    conditions = { vortex = false, facing = 'front' }
-}]]
