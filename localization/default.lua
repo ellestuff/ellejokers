@@ -387,11 +387,16 @@ return {
 			j_elle_combat = {
 				name = 'Combat Joker',
 				text = {
-					"idk what this",
-					"should do yet,",
-					"i just rly wanted",
-					"to add my {C:attention}hp shader",
-					"to the mod"
+					{
+						"Use this joker for",
+						"{X:attention,C:white}X#1#{} blind requirements",
+						"{C:green}#2# in #3#{} chance to",
+						"lose {C:blue}-1{} Health instead"
+					}, {
+						"Recovers {C:blue}+#4#{} Health",
+						"at end of round",
+						"{C:inactive}(Currently {C:blue}#5#/#6#{C:inactive} Health)"
+					}
 				}
 			},
 			

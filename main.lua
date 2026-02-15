@@ -155,7 +155,7 @@ local jokers = {
 		"suggestion",
 		"powerscaler",
 		"clubcard",
-		--"combat",
+		"combat",
 		--"wordle"
 	},
 

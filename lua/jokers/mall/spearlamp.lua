@@ -7,7 +7,7 @@ ellejokers.lamps = {
 		key_suffix = "_vivi",
 		icon = { atlas = "elle_cornericons", pos = {x=1,y=1} },
 		crossover = {
-			set = "Other", key = "elle_crossover", specific_vars = {"Vivian","@critterror.bsky.social"},
+			set = "Other", key = "elle_crossover", specific_vars = {"Reverie","@critterror.bsky.social"},
 			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=1,y=1} }
 		},
 		badge = elle_badges.friends
