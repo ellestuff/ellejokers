@@ -295,10 +295,6 @@ elle_badges = {
 		text = "The Mall",
 		colour = HEX('b7a2fd')
 	},
-	oc = {
-		text = "slimestuff.",
-		colour = HEX('ff53a9')
-	},
 	friends = {
 		text = "Friends of Elle",
 		colour = HEX('40aeff')
