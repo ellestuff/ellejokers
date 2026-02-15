@@ -437,8 +437,22 @@ end
 
 ellejokers.mod_data.menu_cards = function()
     return {
-		key = "j_elle_elle",
-		no_edition = true
+		-- Elle on title card
+		{
+			key = "j_elle_elle",
+			no_edition = true
+		},
+		
+		-- Let it have a description
+		-- ty @somethingcom515 for this lol
+		func = function()
+			for k, v in pairs(G.title_top.cards) do
+				if v.config.center.key == 'j_elle_elle' then
+					v.no_ui = false
+					v.bypass_lock = true
+				end
+			end
+		end
 	}
 end
 

@@ -478,6 +478,19 @@ return {
 					"{E:1,s:1.3}?????"
 				}
 			},
+			j_elle_elle_title = {
+				name = 'ellestuff.',
+				text = {
+					"{E:1}Hiii!{} Thank you for playing my mod.",
+					"A lot of the Jokers are references to",
+					"my own {C:attention}OCs{} and my {C:attention}friends{},",
+					"but I hope you enjoy it regardless!",
+					"{C:inactive,s:0.8}Click me for something very, very {C:elle,E:1,s:0.8}cool"
+				},
+				unlock = {
+					"{E:1,s:1.3}?????"
+				}
+			},
 		},
 		Tarot = {
 			c_elle_resident = {

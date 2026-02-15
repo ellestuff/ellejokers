@@ -5,7 +5,8 @@ local elle = SMODS.Joker {
 		xmult_mod = 0.1,
 	}},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult_mod*ellejokers.bsky_count } }
+		local key = self.key..(card.area == G.title_top and "_title" or "")
+		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult_mod*ellejokers.bsky_count }, key = key}
 	end,
 	rarity = 4,
 	atlas = 'legendary',
@@ -59,7 +60,7 @@ if V(SMODS.version) < V("1.0.0~BETA-1330a-STEAMODDED") then
 					G.CARD_H,
 					G.P_CARDS.empty,
 					G.P_CENTERS.j_elle_elle, -- replace this with whatever card
-					{ bypass_discovery_center = true }
+					{ bypass_lock = true }
 				)
 
 				-- avoid changing the cardarea dimensions if something did that already
@@ -72,7 +73,7 @@ if V(SMODS.version) < V("1.0.0~BETA-1330a-STEAMODDED") then
 				newcard:start_materialize(nil, false, 1)
 				newcard.T.w = newcard.T.w * 1.1 * 1.2
 				newcard.T.h = newcard.T.h * 1.1 * 1.2
-				newcard.no_ui = true
+				newcard.no_ui = false
 				newcard:set_sprites(newcard.config.center)
 
 				return true
