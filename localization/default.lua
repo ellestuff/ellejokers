@@ -388,7 +388,7 @@ return {
 				name = 'Combat Joker',
 				text = {
 					{
-						"Use this joker for",
+						"Use this Joker for",
 						"{X:attention,C:white}X#1#{} blind requirements",
 						"{C:green}#2# in #3#{} chance to",
 						"lose {C:blue}-1{} Health instead"

@@ -56,9 +56,6 @@ SMODS.Enhancement {
 			end
 			
 			retriggers = math.floor(retriggers/card.ability.extra.req)
-			print("retriggers: "..retriggers)
-			print("count: "..card.ability.extra.retrigger_count)
-			print(inspect(context))
 
 			if retriggers > 0 then
 				return {
