@@ -6,7 +6,7 @@ local drago = SMODS.Joker {
 		local ench = G.GAME.current_round.elle_drago_ench or 'm_bonus'
 
 		info_queue[#info_queue+1] = {
-			set = "Other", key = "elle_crossover", specific_vars = {"Drago","@dragothedemon.bsky.social"},
+			set = "Other", key = "elle_cameo", specific_vars = {"Drago","@dragothedemon.bsky.social"},
 			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} }
 		}
 		info_queue[#info_queue+1] = G.P_CENTERS[ench]

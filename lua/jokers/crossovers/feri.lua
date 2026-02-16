@@ -4,7 +4,7 @@ local feri = SMODS.Joker {
 	config = { extra = { mult = 2, upgrade = {req = 20, count = 0} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = {
-			set = "Other", key = "elle_crossover", specific_vars = {"That Azazel Fire","@thatazazelfire.bsky.social"},
+			set = "Other", key = "elle_cameo", specific_vars = {"That Azazel Fire","@thatazazelfire.bsky.social"},
 			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=0} }
 		}
 		return { vars = { card.ability.extra.mult } }

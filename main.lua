@@ -242,8 +242,8 @@ SMODS.Atlas {
 	py = 34
 }
 SMODS.Atlas {
-	key = "ferisoph_icon",
-	path = "ferisoph_icon.png",
+	key = "crossover_icon",
+	path = "crossover_icon.png",
 	px = 50,
 	py = 50
 }
@@ -436,7 +436,8 @@ ellejokers.mod_data.menu_cards = function()
 		-- Elle on title card
 		{
 			key = "j_elle_elle",
-			no_edition = true
+			no_edition = true,
+			
 		},
 		
 		-- Let it have a description

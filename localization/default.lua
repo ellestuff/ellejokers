@@ -250,7 +250,7 @@ return {
 					"stored Mult onto",
 					"scoring cards, and {C:attention}reset",
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
-					--caption.."\"It burns so good~\""
+					caption..'"You like me, right?~"'
 				}
 			},
 			j_elle_carpet = {
@@ -624,6 +624,15 @@ return {
 				name = 'Slimeify',
 				text = {
 					"Pay {C:money}$#1#"
+				}
+			},
+
+			elle_cameo = {
+				name = 'Cameo',
+				text = {
+					"Character by",
+					"{C:attention}#1#",
+					"{C:inactive,s:0.7}#2#"
 				}
 			},
 

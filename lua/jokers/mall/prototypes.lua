@@ -5,7 +5,6 @@ local prototypes = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 3, y = 5 },
-	soul_pos = {x=5,y=3},
 	cost = 10,
 	blueprint_compat = false,
 	in_pool = function(self) return false end,
