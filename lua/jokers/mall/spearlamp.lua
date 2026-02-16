@@ -74,18 +74,9 @@ end
 spearlamp.set_ability = function(self, card, initial, delay_sprites)
 	-- 1 in 5 chance of silly lamp
 	if pseudorandom("elle_do_lamp_tf",1,5)==1 then card.ability.extra.variant = pseudorandom("elle_lamp_tf",2,#ellejokers.lamps) end
-	card.children.center:set_sprite_pos({x=card.ability.extra.variant-1 or 0,y=0})
 end
 
-spearlamp.set_sprites = function(self, card, front)
-	local var = card and card.ability and card.ability.extra and card.ability.extra.variant or 1
-	card.children.center:set_sprite_pos({x=var-1 or 0,y=0})
-end
-
-spearlamp.load = function(self, card, card_table, other_card)
-	local var = card and card.ability and card.ability.extra and card.ability.extra.variant or 1
-	card.children.center:set_sprite_pos({x=var-1 or 0,y=0})
-end
+spearlamp.update = function(self, card, dt) if card.discovered then card.children.center:set_sprite_pos({x = 0, y = card.ability.extra.variant-1}) end end
 
 spearlamp.add_to_deck = function(self, card, from_debuff)
 	if card.ability.extra.variant ~= 1 then check_for_unlock({type = "elle_lamp"}) end

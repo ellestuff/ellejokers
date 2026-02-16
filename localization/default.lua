@@ -199,7 +199,7 @@ return {
 			j_elle_p41 = {
 				name = 'Prototype #1#41',
 				text = {
-					"If played hand contains",
+					"If scoring hand contains",
 					"an {C:attention}Ace{} and {C:attention}4{},",
 					"Copy abilities of",
 					"neighbouring {C:attention}Jokers",

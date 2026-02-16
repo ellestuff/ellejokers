@@ -5,7 +5,6 @@ local j = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 0, y = 4 },
-	soul_pos = { x = 5, y = 3 },
 	cost = 9,
 	blueprint_compat = true
 }
@@ -58,7 +57,7 @@ j.calculate = function(self, card, context)
 	if context.before then
 		local hasAce = false
 		local has4 = false
-		for _, v in pairs(context.full_hand) do
+		for _, v in pairs(context.scoring_hand) do
 			has4 = has4 or v:get_id() == 4
 			hasAce = hasAce or v:get_id() == 14
 		end
@@ -70,12 +69,13 @@ j.calculate = function(self, card, context)
 			return { message = localize("elle_41_activate"), colour = G.C.BLUE }
 		end
 	end
+
 	-- Retrigger
 	if card.ability.extra.trigger then
 		-- Stop Retriggering
 		if context.after then
 			card.ability.extra.trigger = false
-			G.E_MANAGER:add_event(Event({func = function() card.ability.extra.spr = false return true end }))
+			G.E_MANAGER:add_event(Event({func = function() card.ability.extra.spr = false; card:juice_up() return true end }))
 			return
 		end
 		
@@ -84,18 +84,10 @@ j.calculate = function(self, card, context)
 			if G.jokers.cards[i] == card then card_pos = i break end
 		end
 		
-		ret = {}
-        local retl = SMODS.blueprint_effect(card, G.jokers.cards[card_pos-1], context)
-        local retr = SMODS.blueprint_effect(card, G.jokers.cards[card_pos+1], context)
-        if retl then
-			retl.colour = G.C.BLUE
-			ret = SMODS.merge_effects(retl, ret)
-		end
-        if retr then
-			retr.colour = G.C.BLUE
-			ret = SMODS.merge_effects(retr, ret)
-		end
-		return ret
+		local ret = {}
+		ret[#ret+1] = SMODS.blueprint_effect(card, G.jokers.cards[card_pos-1], context)
+		ret[#ret+1] = SMODS.blueprint_effect(card, G.jokers.cards[card_pos+1], context)
+		return SMODS.merge_effects(ret)
 	end
 end
 

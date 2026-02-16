@@ -21,7 +21,8 @@ local becca = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 0, y = 1 },
-	cost = 9
+	cost = 9,
+	blueprint_compat = false
 }
 
 -- Open shop
