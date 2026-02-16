@@ -67,6 +67,7 @@ end
 -- ...you ever feel self conscious about your art being too "weird"?
 -- yeahhh that's why i added this toggle.
 
+
 local puritan_cards = {
 	'j_elle_vivian',
 	'j_elle_feri'
@@ -78,7 +79,7 @@ function ellejokers.puritan_sprite_update()
 end
 
 
-
+-- thanks to @sleepy.g11 for helping me with this lol
 local function show_element(container)
     if container and not container.config.original_object_visible then
         container.config.original_object_visible = true
@@ -86,7 +87,7 @@ local function show_element(container)
         container.config.object:remove()
         container.config.object = container.config.original_object
         container.config.original_object.states.visible = true
-        container.config.object.config.parent = container;
+        container.config.original_object.parent = container;
 
         (container.UIBox or container):recalculate()
     end
@@ -105,7 +106,7 @@ end
 SMODS.current_mod.config_tab = function()
 	local t = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
 		{n=G.UIT.R, config={align = "cm"}, nodes={
-			{n=G.UIT.T, config={text = '"gooner mod gooner mod" stfu', scale = 0.30, colour = G.C.WHITE}}
+			{n=G.UIT.T, config={text = '"gooner mod gooner mod" stfu', scale = 0.30, colour = G.C.UI.TEXT_LIGHT}}
 		}}
 	}},config={}}
 	t.states.visible = false
@@ -120,13 +121,14 @@ SMODS.current_mod.config_tab = function()
 		}}
 	}},config={}}
 
+    local n = nodething:get_UIE_by_ID("textthing")
+    if(not ellejokers.mod_data.config.puritan) then show_element(n) end
 
 	local function toggle_streamer(args)
 		ellejokers.puritan_sprite_update()
 		if not ellejokers.mod_data.config.puritan then check_for_unlock({type = "elle_puritan"}) end
-		
-		local n = nodething:get_UIE_by_ID("textthing")
 		if(ellejokers.mod_data.config.puritan) then hide_element(n) else show_element(n) end
+        G.OVERLAY_MENU:recalculate()
 	end
 
 	return {n = G.UIT.ROOT, config = {
@@ -183,10 +185,12 @@ SMODS.current_mod.config_tab = function()
 				{n=G.UIT.R, config={align = "cm"}, nodes={
 					{n=G.UIT.T, config={text = "Do not disable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}
 				}},
-				{n=G.UIT.O, config={
-					align = "cm",
-					object = nodething
-				}, nodes={}},
+				{n=G.UIT.R, config={align = "cm"}, nodes={
+                    {n=G.UIT.O, config={
+                        align = "cm",
+                        object = nodething
+                    }, nodes={}},
+				}},
 			}},
 			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = create_display_card(pseudorandom_element(puritan_cards,"elle_puritan_preview")) }}}}
 			
