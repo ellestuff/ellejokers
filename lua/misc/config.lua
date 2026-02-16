@@ -68,13 +68,15 @@ end
 -- yeahhh that's why i added this toggle.
 
 
-local puritan_cards = {
+ellejokers.puritan_cards = {
 	'j_elle_vivian',
 	'j_elle_feri'
 }
 function ellejokers.puritan_sprite_update()
-	for i, v in ipairs(puritan_cards) do
-		G.P_CENTERS[v].pos.y = ellejokers.mod_data.config.puritan and 1 or 0
+	for i, v in ipairs(ellejokers.puritan_cards) do
+		if G.P_CENTERS[v].atlas == 'elle_puritan' then
+			G.P_CENTERS[v].pos.y = ellejokers.mod_data.config.puritan and 1 or 0
+		end
 	end
 end
 
@@ -192,7 +194,7 @@ SMODS.current_mod.config_tab = function()
                     }, nodes={}},
 				}},
 			}},
-			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = create_display_card(pseudorandom_element(puritan_cards,"elle_puritan_preview")) }}}}
+			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = create_display_card(pseudorandom_element(ellejokers.puritan_cards,"elle_puritan_preview")) }}}}
 			
 		}}
 	}}
