@@ -67,7 +67,7 @@ furry.slime_upgrade = {
 		local sarah = SMODS.find_card("j_elle_sarah")[1]
 		local cassie = SMODS.find_card("j_elle_cassie")[1]
 		
-		if cassie then slimeutils.transform_card(cassie,"j_elle_cassie2",{end_sound='slice1'}) end
+		if cassie then SMODS.destroy_cards(cassie) end
 		if sarah then slimeutils.transform_card(sarah,"j_elle_mint") end
 	end
 }
