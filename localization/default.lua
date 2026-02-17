@@ -377,11 +377,10 @@ return {
 			j_elle_clubcard = {
 				name = 'Clubcard',
 				text = {
-					"Earn {C:money}$#1#{} for each",
-					"card with {C:clubs}Club{} suit",
-					"in your {C:attention}full deck",
-					"at end of round",
-					"{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+					"Cards with",
+					"{C:clubs}Club{} suit",
+					"give {C:money}$#1#{} when",
+					"drawn to hand"
 				}
 			},
 			j_elle_combat = {
