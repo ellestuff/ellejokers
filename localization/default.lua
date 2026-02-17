@@ -246,9 +246,9 @@ return {
 				text = {
 					"{C:attention}Stores{} {C:mult}+#1#{} Mult when",
 					"scoring a {C:hearts}Hearts{} card",
-					"Use to permanently {C:attention}release",
-					"stored Mult onto",
-					"scoring cards, and {C:attention}reset",
+					"Use to permanently",
+					"add stored Mult to",
+					"played cards and {C:attention}reset",
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
 					caption..'"You like me, right?~"'
 				}

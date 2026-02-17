@@ -7,8 +7,8 @@
 	"badge_colour": "ff53a9",
 	"dependencies": [
 		"Steamodded (>=1.0.0~ALPHA-1404b)",
-		"slime_utils (>=0.1.0)"
+		"slime_utils (>=1.0.0)"
 	],
 	"main_file": "main.lua",
-	"version": "0.2.0BETA1"
+	"version": "1.0.0BETA1"
 }

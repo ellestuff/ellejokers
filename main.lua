@@ -116,7 +116,7 @@ local jokers = {
 		"bea",
 		"rebecca",
 		"cassie",
-		"cassie_stasis",
+		--"cassie_stasis",
 		--"not_cassie",
 		"41",
 		"prototypes"
