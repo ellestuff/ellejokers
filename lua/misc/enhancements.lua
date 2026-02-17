@@ -98,6 +98,8 @@ SMODS.Enhancement {
 	no_suit = true,
 	always_scores = true,
 	
+	in_pool = function(self) return false end,
+	
 	loc_vars = function(self, info_queue, card)
 		if next(SMODS.find_mod("allinjest")) then info_queue[#info_queue+1] = {set = "Other", key = "elle_crash_warning", specific_vars = {"All In Jest"} } end
 		return {vars = { } }
