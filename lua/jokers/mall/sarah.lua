@@ -23,5 +23,6 @@ end
 sarah.slime_upgrade = {
 	card = "j_elle_mint",
 	can_use = function(self, card) return false end,
-	loc_vars = function(self, card) return { } end
+	loc_vars = function(self, card) return { } end,
+	bypass_lock = true
 }

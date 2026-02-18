@@ -27,6 +27,10 @@ return {
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
 					"{C:inactive}(#3#)",
 					caption..'"Chloe always sucked at names~"'
+				},
+				unlock = {
+					"Upgrade into",
+					"this card"
 				}
 			},
 			j_elle_cheshire = {
@@ -38,6 +42,10 @@ return {
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 					"{C:inactive}(#3#)",
 					caption.."Finally flying solo!"
+				},
+				unlock = {
+					"Upgrade into",
+					"this card"
 				}
 			},
 			j_elle_sophie = {
@@ -49,10 +57,6 @@ return {
 					"Mult and {C:attention}reset",
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
 					caption.."Could do no wrong...?"
-				},
-				unlock = {
-					"Reach {C:attention}10x",
-					"Blind Score"
 				}
 			},
 			j_elle_fallen = {
@@ -64,6 +68,10 @@ return {
 					"Mult and {C:attention}reset",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 					caption.."\"It burns so good~\""
+				},
+				unlock = {
+					"Reach {C:attention}10x",
+					"Blind Score"
 				}
 			},
 			j_elle_sarah = {
@@ -199,7 +207,7 @@ return {
 			j_elle_p41 = {
 				name = 'Prototype #1#41',
 				text = {
-					"If scoring hand contains",
+					"If played hand contains",
 					"an {C:attention}Ace{} and {C:attention}4{},",
 					"Copy abilities of",
 					"neighbouring {C:attention}Jokers",
@@ -510,6 +518,14 @@ return {
 			}
 		},
 		Spectral = {
+			c_elle_experiment = {
+				name = "Experiment",
+				text = {
+					"Force {C:attention}Upgrades",
+					"the selected Joker",
+					"{s:0.8}Must be unlocked"
+				}
+			},
 			c_elle_doppel = {
 				name = "Doppelgänger",
 				text = {
@@ -718,13 +734,15 @@ return {
 			ach_elle_soretro = "So Retro",
 			ach_elle_copycat = "Redundancy",
 			ach_elle_lamp = "Familiar Bulb",
-			ach_elle_puritan = "Puritans be damned"
+			ach_elle_puritan = "Puritans be damned",
+			ach_elle_doublekill = "Double Kill"
 		},
 		achievement_descriptions = {
 			ach_elle_soretro = "Toggle the limited palette shader",
 			ach_elle_copycat = "Play 5 pointless Copycat cards",
 			ach_elle_lamp = "Obtain a unique lamp",
-			ach_elle_puritan = "Disable the \"streamer mode\", restoring the sprites to their original appearance"
+			ach_elle_puritan = "Disable the \"Streamer Mode\", restoring the sprites to their original appearance",
+			ach_elle_doublekill = "Upgrade Furry with both cards present"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",

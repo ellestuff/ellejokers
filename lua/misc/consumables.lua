@@ -26,6 +26,46 @@ SMODS.Consumable {
 	end
 }
 
+
+-- this shit breaks balancing lmao nope
+-- Experiment (Spectral)
+--[[SMODS.Consumable {
+	key = 'experiment',
+	set = 'Spectral',
+	cost = 7,
+	atlas = 'consumables',
+	pos = { x = 1, y = 1 },
+	config = { extra = { } },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.max_highlighted } }
+	end,
+	use = function(self, card, area, copier)
+		local used_tarot = copier or card
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = 0.4,
+			func = function()
+				play_sound('tarot1')
+				used_tarot:juice_up(0.3, 0.5)
+		return true end }))
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			func = function()
+				slimeutils.upgrade_card(G.jokers.highlighted[1], true)
+		return true end }))
+		delay(0.3)
+	end,
+	can_use = function(self, card)
+		return #G.jokers.highlighted == 1 and slimeutils.card_get_upgrade(G.jokers.highlighted[1])
+	end,
+	in_pool = function (self, args)
+		for _, v in ipairs(G.jokers.cards) do
+			if slimeutils.card_get_upgrade(v) then return true end
+		end
+		return false
+	end
+}]]
+
 -- Doppelgänger (Spectral)
 SMODS.Consumable {
 	key = 'doppel',
@@ -39,23 +79,6 @@ SMODS.Consumable {
 		return { vars = { card.ability.max_highlighted } }
 	end
 }
-
-
--- Experiment (Spectral)
---[[
-SMODS.Consumable {
-	key = 'experiment',
-	set = 'Spectral',
-	cost = 7,
-	atlas = 'consumables',
-	pos = { x = 0, y = 1 },
-	config = { extra = { }, max_highlighted = 1, mod_conv = "m_elle_copycat" },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_copycat
-		return { vars = { card.ability.max_highlighted } }
-	end
-}]]
-
 
 --		[[ MoreFluff Stuff ]]
 --	colour card crashes game :(

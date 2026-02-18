@@ -10,11 +10,7 @@ local sophie = SMODS.Joker {
 	pos = { x = 3, y = 0 },
 	soul_pos = { x = 3, y = 1 },
 	cost = 6,
-	unlocked = false,
-	blueprint_compat = true,
-	check_for_unlock = function(self, args)
-		if args.type == "round_win" then return G.GAME.chips/G.GAME.blind.chips >= 10 end
-	end
+	blueprint_compat = true
 }
 
 sophie.calculate = function(self, card, context)

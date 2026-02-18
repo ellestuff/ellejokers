@@ -1,0 +1,20 @@
+local cheshdrago = SMODS.Joker {
+	key = 'cheshdrago',
+	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = slimeutils.table_create_badge(elle_badges.friends) end end,
+	config = { extra = { } },
+	loc_vars = function(self, info_queue, card)
+		local ench = G.GAME.current_round.elle_drago_ench or 'm_bonus'
+
+		info_queue[#info_queue+1] = {
+			set = "Other", key = "elle_cameo", specific_vars = {"Drago","@dragothedemon.bsky.social"},
+			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} }
+		}
+		info_queue[#info_queue+1] = G.P_CENTERS[ench]
+		return { vars = { localize({type = 'name_text', key = ench, set = 'Enhanced'}) } } end,
+	rarity = 2,
+	atlas = 'jokers',
+	pos = { x = 0, y = 2 },
+	cost = 6,
+	blueprint_compat = false,
+	slime_desc_icon = { atlas = "elle_crossover_icon", pos = {x=1,y=0} }
+}

@@ -12,7 +12,8 @@ local furry = SMODS.Joker {
 	cost = 5,
 	blueprint_compat = true,
 	in_pool = function(self) return false end,
-	no_doe = true
+	no_doe = true,
+	unlocked = false
 }
 
 furry.calculate = function(self, card, context)
@@ -69,5 +70,8 @@ furry.slime_upgrade = {
 		
 		if cassie then SMODS.destroy_cards(cassie) end
 		if sarah then slimeutils.transform_card(sarah,"j_elle_mint") end
-	end
+
+		if cassie and sarah then check_for_unlock({type = "elle_doublekill"}) end
+	end,
+	bypass_lock = true
 }

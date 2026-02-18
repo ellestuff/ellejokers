@@ -9,8 +9,8 @@ local twy = SMODS.Joker {
 	end,
 	rarity = 4,
 	atlas = 'legendary',
-	pos = { x = 2, y = 0 },
-	soul_pos = { x = 2, y = 1 },
+	pos = { x = 1, y = 0 },
+	soul_pos = { x = 1, y = 1 },
 	cost = 20,
 	unlocked = false
 }

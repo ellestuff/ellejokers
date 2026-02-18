@@ -1,7 +1,7 @@
 local j = SMODS.Joker {
 	key = 'p41',
 	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = slimeutils.table_create_badge(elle_badges.mall) end end,
-	config = { extra = { trigger = false, spr = false, upgrade = { count = 0, req = 12 } } },
+	config = { extra = { trigger = false, spr = false, upgrade = { count = 0, req = 8 } } },
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 0, y = 4 },
@@ -57,7 +57,7 @@ j.calculate = function(self, card, context)
 	if context.before then
 		local hasAce = false
 		local has4 = false
-		for _, v in pairs(context.scoring_hand) do
+		for _, v in pairs(context.full_hand) do
 			has4 = has4 or v:get_id() == 4
 			hasAce = hasAce or v:get_id() == 14
 		end

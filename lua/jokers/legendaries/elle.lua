@@ -9,8 +9,8 @@ local elle = SMODS.Joker {
 	end,
 	rarity = 4,
 	atlas = 'legendary',
-	pos = { x = 3, y = 0 },
-	soul_pos = { x = 3, y = 1 },
+	pos = { x = 0, y = 0 },
+	soul_pos = { x = 0, y = 1 },
 	cost = 20,
 	blueprint_compat = true,
 	unlocked = false

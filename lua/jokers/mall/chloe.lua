@@ -39,5 +39,6 @@ end
 chloe.slime_upgrade = {
 	card = "j_elle_furry",
 	can_use = function(self, card) return card.ability.extra.count>=card.ability.extra.req end,
-	loc_vars = function(self, card) return { card.ability.extra.req, card.ability.extra.count } end
+	loc_vars = function(self, card) return { card.ability.extra.req, card.ability.extra.count } end,
+	bypass_lock = true
 }
