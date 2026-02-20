@@ -106,24 +106,9 @@ local shopless = SMODS.Challenge {
 if next(SMODS.find_mod("Cryptid")) then shopless.restrictions.banned_cards[#shopless.restrictions.banned_cards+1] = {id="c_cry_run"} end
 
 SMODS.Challenge {
-	key = "cobbled",
-	rules = {
-		custom = {
-			{id = "elle_untested"}
-		}
-	},
-	jokers = {
-		{ id = "j_elle_water_bucket", stickers={"elle_protected"} },
-		{ id = "j_elle_cobblestone" },
-		{ id = "j_elle_lava_bucket", stickers={"elle_protected"} }
-	}
-}
-
-SMODS.Challenge {
 	key = "pay2play",
 	rules = {
 		custom = {
-			{id = "elle_untested"}
 		}
 	},
 	jokers = {
