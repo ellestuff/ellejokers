@@ -1,7 +1,7 @@
 local drago = SMODS.Joker {
 	key = 'drago',
 	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = slimeutils.table_create_badge(elle_badges.friends) end end,
-	config = { extra = { } },
+	config = { extra = { upgr_count = 12 } },
 	loc_vars = function(self, info_queue, card)
 		local ench = G.GAME.current_round.elle_drago_ench or 'm_bonus'
 
@@ -43,3 +43,37 @@ function ellejokers.reset_game_globals.drago(run_start)
 	end
 	G.GAME.current_round.elle_drago_ench = SMODS.poll_enhancement({key = "elle_drago", guaranteed=true, options = pool})
 end
+
+local function get_wild_count()
+	local c = 0
+	if G.playing_cards then
+		for _, playing_card in ipairs(G.playing_cards) do
+			if SMODS.has_enhancement(playing_card, 'm_wild') then c = c + 1 end
+		end
+	end
+	return c
+end
+
+drago.slime_upgrade = {
+	card = "j_elle_cheshdrago",
+	values = function(self, card) return {
+		xmult = #SMODS.find_card("j_elle_cheshire", false)>0 and SMODS.find_card("j_elle_cheshire", false)[1].ability.extra.Xmult or 1,
+		used = #SMODS.find_card("j_elle_cheshire", false)>0 and SMODS.find_card("j_elle_cheshire", false)[1].ability.extra.used or false
+	} end,
+	can_use = function(self, card)
+		return #SMODS.find_card("j_elle_cheshire", false)>0 and (get_wild_count()>=card.ability.extra.upgr_count)
+	end,
+	loc_vars = function (self, card) return { card.ability.extra.upgr_count, get_wild_count() } end,
+	calculate = function(self, card)
+		local chesh = SMODS.find_card("j_elle_cheshire")[1]
+		
+		if chesh then
+			G.E_MANAGER:add_event(Event({func = function()
+				chesh:juice_up(.4,.4)
+				SMODS.destroy_cards(chesh)
+				SMODS.calculate_effect({ remove = true })
+			return true end }))
+		end
+	end,
+	bypass_lock = true
+}

@@ -125,6 +125,7 @@ local jokers = {
 	-- Friends & Partners
 	crossovers = {
 		"drago",
+		"cheshdrago",
 		"vivian",
 		"jess",
 		"jessclip",
@@ -156,6 +157,7 @@ local jokers = {
 		"powerscaler",
 		"clubcard",
 		"combat",
+		"batcreditcard",
 		--"wordle"
 	},
 

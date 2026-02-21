@@ -12,8 +12,7 @@ local furry = SMODS.Joker {
 	cost = 5,
 	blueprint_compat = true,
 	in_pool = function(self) return false end,
-	no_doe = true,
-	unlocked = false
+	no_doe = true
 }
 
 furry.calculate = function(self, card, context)

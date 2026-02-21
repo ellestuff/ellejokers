@@ -27,10 +27,6 @@ return {
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
 					"{C:inactive}(#3#)",
 					caption..'"Chloe always sucked at names~"'
-				},
-				unlock = {
-					"Upgrade into",
-					"this card"
 				}
 			},
 			j_elle_cheshire = {
@@ -233,6 +229,17 @@ return {
 					"{s:0.8}changes at end of round"
 				}
 			},
+			j_elle_cheshdrago = {
+				name = 'Cheshire + Drago',
+				text = {
+					"{C:attention}Once per Hand:",
+					"Destroy a single {C:attention}Wild{} Card",
+					"and gain {X:mult,C:white}X#1#{} Mult",
+					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+					"{C:inactive}(#3#)",
+					caption..'"You keep crawling back~"'
+				}
+			},
 			j_elle_vivian = {
 				name = 'Vivian',
 				text = {
@@ -406,6 +413,15 @@ return {
 					}
 				}
 			},
+			j_elle_bat_credit_card = {
+				name = 'Bat Credit Card',
+				text = {
+					"Go up to {C:red}-$#1#{} in debt,",
+					"Get paid back {X:money,C:white}X#2#{} your",
+					"debt at end of round",
+					caption..'"They gave him a BAT! CREDIT CARD?!"'
+				}
+			},
 			
 			-- Jess's Minecraft Idea
 			j_elle_cobble_gen = {
@@ -521,9 +537,11 @@ return {
 			c_elle_experiment = {
 				name = "Experiment",
 				text = {
-					"Force {C:attention}Upgrades",
-					"the selected Joker",
-					"{s:0.8}Must be unlocked"
+					"Transfer the {C:edition}Edition",
+					"from the selected {C:attention}Joker",
+					"to up to {C:attention}#1#{} selected",
+					"Cards in hand",
+					"{s:0.8,C:inactive}Incompatible with {s:0.8,C:dark_edition}Negative"
 				}
 			},
 			c_elle_doppel = {
@@ -603,6 +621,20 @@ return {
 				text = {
 					"Trigger",
 					"{C:attention}#1#{C:inactive}[#2#]{} times"
+				}
+			},
+			slime_upgr_j_elle_drago = {
+				name = 'Upgrade',
+				text = {
+					"Have {C:attention}#1#{C:inactive}[#2#]{} Wild cards",
+					"with {C:attention}Cheshire{} present"
+				}
+			},
+			slime_upgr_j_credit_card = {
+				name = 'Upgrade',
+				text = {
+					"End {C:attention}#1#{C:inactive}[#2#]{} rounds",
+					"at or below {C:red}-$#3#"
 				}
 			},
 			

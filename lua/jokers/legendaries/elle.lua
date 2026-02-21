@@ -17,7 +17,7 @@ local elle = SMODS.Joker {
 }
 
 elle.calculate = function(self, card, context)
-	if context.end_of_round then ellejokers.update_follower_count() end
+	if context.end_of_round and context.main_eval then ellejokers.update_follower_count() end
 	if context.joker_main then
 		if card.ability.extra.xmult ~= 1 then
 			return {
