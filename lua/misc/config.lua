@@ -67,7 +67,6 @@ end
 -- ...you ever feel self conscious about your art being too "weird"?
 -- yeahhh that's why i added this toggle.
 
-
 ellejokers.puritan =  {
 	cards = {
 		'j_elle_vivian',
@@ -77,6 +76,7 @@ ellejokers.puritan =  {
 		elle_puritan = true
 	}
 }
+
 function ellejokers.puritan_sprite_update()
 	for i, v in ipairs(ellejokers.puritan.cards) do
 		if ellejokers.puritan.atlases[G.P_CENTERS[v].atlas] then

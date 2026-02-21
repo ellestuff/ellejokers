@@ -15,7 +15,7 @@ local cheshdrago = SMODS.Joker {
 		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult, card.ability.extra.used and "Inactive" or "Active" } } end,
 	rarity = 3,
 	atlas = 'jokers',
-	pos = { x = 6, y = 3 },
+	pos = { x = 1, y = 2 },
 	cost = 6,
 	blueprint_compat = true,
 	slime_desc_icon = { atlas = "elle_crossover_icon", pos = {x=1,y=0}, scale = 50/34 },

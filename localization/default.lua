@@ -271,7 +271,7 @@ return {
 			j_elle_carpet = {
 				name = 'Check It Out',
 				text = {
-					"This joker gains {X:mult,C:white}X#1#{} Mult",
+					"This Joker gains {X:mult,C:white}X#1#{} Mult",
 					"if played hand contains",
 					"a {C:attention}Full House",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
@@ -384,8 +384,8 @@ return {
 			j_elle_powerscaler = {
 				name = 'Powerscaler',
 				text = {
-					"This joker gains {X:mult,C:white}X#1#{} Mult",
-					"when {C:attention}Upgrading{} a joker",
+					"This Joker gains {X:mult,C:white}X#1#{} Mult",
+					"when {C:attention}Upgrading{} a Joker",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
 				}
 			},
@@ -481,7 +481,7 @@ return {
 					"{C:green}#1# in #2#{} chance to",
 					"{C:attention}destroy all cards{} held",
 					"in hand and add {C:dark_edition}Negative{}",
-					"to a random joker",
+					"to a random Joker",
 					caption.."99... 100! This is too many tails~,,"
 				},
 				unlock = {
@@ -641,7 +641,7 @@ return {
 			elle_upgr_no_shop = {
 				name = 'Upgrade Only',
 				text = {
-					"This joker can only",
+					"This Joker can only",
 					"be obtained through",
 					"{C:attention}Upgrading"
 				}
@@ -698,6 +698,13 @@ return {
                 text={
                     "Restocks",
                     "{C:attention}Rebecca{}'s Shop"
+                }
+            },
+			tag_elle_spamton={
+                name="[[BIG]] Tag",
+                text={
+                    "Restocks the",
+                    "[[{V:1}BIG {V:2}SHOP{}]]"
                 }
             }
 		},

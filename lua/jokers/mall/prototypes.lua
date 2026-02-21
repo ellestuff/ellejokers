@@ -68,7 +68,7 @@ prototypes.loc_vars = function(self, info_queue, card)
 		
 		for i, v in ipairs(card.ability.extra.targets) do
 			local j = get_by_sortid(v)
-			if j.area == G.jokers then
+			if j and j.area == G.jokers then
 				nodelist[#nodelist+1] = {
 					n = G.UIT.R,
 					config = { ref_table = card, align = "m", colour = mix_colours(G.C.BLUE, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
