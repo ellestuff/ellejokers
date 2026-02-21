@@ -1,8 +1,8 @@
 local carpet = SMODS.Joker {
 	key = 'carpet',
-	config = { extra = { xmult_mod = 0.25, xmult = 1 } },
+	config = { extra = { xmult_mod = 0.2, xmult = 1 } },
 	loc_vars = function(self, info_queue, card) return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult } } end,
-	rarity = 2,
+	rarity = 3,
 	atlas = 'animated',
 	pos = { x = 0, y = 2 },
 	blueprint_compat = true,
