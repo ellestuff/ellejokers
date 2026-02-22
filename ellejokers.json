@@ -6,9 +6,9 @@
 	"prefix": "elle",
 	"badge_colour": "ff53a9",
 	"dependencies": [
-		"Steamodded (>=1.0.0~ALPHA-1404b)",
+		"Steamodded (>=1.0.0~BETA-1224a)",
 		"slime_utils (>=1.0.0)"
 	],
 	"main_file": "main.lua",
-	"version": "1.0.0BETA1"
+	"version": "1.0.1"
 }
