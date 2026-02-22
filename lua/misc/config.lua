@@ -1,22 +1,55 @@
-local function create_display_card(key)
-	local card = Card(G.ROOM.T.x,G.ROOM.T.y,G.CARD_W*.75,G.CARD_H*.75,nil,G.P_CENTERS[key], { bypass_discovery_center = true, bypass_discovery_ui = true })
-	card.no_ui = true
-	card.states.drag.can = false
-	return card
-end
-
 local function toggle_with_desc(t)
 	local toggle = create_toggle(t)
 	toggle.config.tooltip = t.desc
 	return toggle
 end
 
+--[[
+{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card('j_elle_chloe') }}}},
+{n = G.UIT.C, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = ">", scale = .6, colour = G.C.WHITE}}}},
+{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card('j_elle_furry') }}}},
+{n = G.UIT.C, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = ">", scale = .6, colour = G.C.WHITE}}}},
+{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card('j_elle_cheshire') }}}}
+]]
+
+local function upgrade_tree_example(t)
+	local r = {}
+	for i, v in ipairs(t) do
+		if i>1 then r[#r+1] = {n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {{n = G.UIT.T, config = {text = ">", scale = .5, colour = G.C.WHITE}}}} end
+		r[#r+1] = {n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card(v) }}}}
+	end
+	return r
+end
+
+local upgrade_trees = {
+	{"j_elle_chloe", "j_elle_furry"},
+	{"j_elle_furry", "j_elle_cheshire"},
+	{"j_elle_feri", "j_elle_ferisophie"},
+	{"j_elle_sophie","j_elle_fallen"},
+	{"j_elle_sarah","j_elle_mint"},
+	{"j_elle_p41", "j_elle_prototypes"},
+	{"j_elle_drago","j_elle_cheshdrago"},
+	{"j_credit_card", "j_elle_bat_credit_card"}
+}
+
+local splashes = {
+	"I have a suggestion...",
+	"Yet another OC mod",
+	"Hi chat!",
+	"elle wuz here.",
+	"6 members and counting",
+	"Can you believe the shit they let me write in here?",
+	"Beware the purple cat...",
+	"I'll make you pay! I've got friends on the inside!",
+	
+}
+
 -- ty aiko for telling me how to do this lol
 -- ..also i'm referencing aikoshen code for this lmao
 SMODS.current_mod.custom_ui = function(mod_nodes)
 	mod_nodes = EMPTY(mod_nodes)
 	
-	mod_nodes[#mod_nodes+1] = {n = G.UIT.C, nodes = {
+	mod_nodes[#mod_nodes+1] = {n = G.UIT.C, config = {padding = 0.1}, nodes = {
 		{n = G.UIT.R,
 			config = {
 				align = "cm"
@@ -39,16 +72,77 @@ SMODS.current_mod.custom_ui = function(mod_nodes)
 						}}
 				}}
 		}},
-		{n = G.UIT.R,
-			config = {
-				align = "cl",
-				padding = 0.1,
-				minw = 6
-			}, nodes = {
-			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = create_display_card('j_elle_elle') }}}},
-			{n = G.UIT.C, config = {align = "cl", padding = 0.1}, nodes = {
-				{n = G.UIT.R, nodes = {{n = G.UIT.T, config = {text = "A mod by this goober.", scale = .4, colour = G.C.WHITE}}}},
-				{n = G.UIT.R, nodes = {{n = G.UIT.T, config = {text = "(and featuring her characters)", scale = .3, colour = G.C.WHITE}}}}
+		{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = pseudorandom_element(splashes,"elle_desc_splash"), scale = .3, colour = G.C.WHITE}}}},
+		{n = G.UIT.R, config = {align = "cm"}, nodes = {
+			{n = G.UIT.C, config = {align = "cm", padding = 0.2}, nodes = {
+				{n = G.UIT.R, config = {align = "cm"}, nodes = {
+					{n = G.UIT.R,
+						config = {
+							emboss = 0.05,
+							r = 0.1,
+							minw = 6,
+							minh = 2.4,
+							align = "cm",
+							padding = 0.1,
+							colour = G.C.L_BLACK
+						}, nodes = {
+						{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card('j_elle_elle') }}}},
+						{n = G.UIT.C, config = {align = "cl", padding = 0.1, minw = 4}, nodes = {
+							{n = G.UIT.R, nodes = {
+								{n = G.UIT.T, config = {text = "A mod by ", scale = .4, colour = G.C.WHITE}},
+								{n = G.UIT.T, config = {text = "ellestuff.", scale = .4, colour = G.ARGS.LOC_COLOURS.elle}}
+							}},
+							{n = G.UIT.R, nodes = {{n = G.UIT.T, config = {text = "(and featuring her characters)", scale = .3, colour = G.C.WHITE}}}}
+						}}
+					}},
+				}},
+				{n = G.UIT.R, config = {align = "cm"}, nodes = {
+					{n = G.UIT.R,
+						config = {
+							emboss = 0.05,
+							r = 0.1,
+							minw = 6,
+							minh = 2.4,
+							align = "cm",
+							padding = 0.1,
+							colour = G.C.L_BLACK
+						}, nodes = {
+						{n = G.UIT.C, config = {align = "cr", padding = 0.1, minw = 4}, nodes = {
+							{n = G.UIT.R, config = {align = "cr"}, nodes = {{n = G.UIT.T, config = {text = "Based off my dumb", scale = .4, colour = G.C.WHITE}}}},
+							{n = G.UIT.R, config = {align = "cr"}, nodes = {{n = G.UIT.T, config = {text = "fuckin' slime girl OCs and", scale = .4, colour = G.C.WHITE}}}},
+							{n = G.UIT.R, config = {align = "cr"}, nodes = {{n = G.UIT.T, config = {text = "the lore I gave them", scale = .4, colour = G.C.WHITE}}}}
+						}},
+						{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card("j_elle_marie") }}}}
+					}}
+				}}
+			}},
+			{n = G.UIT.C, config = {align = "cm", padding = 0.2}, nodes = {
+				{n = G.UIT.R, config = {align = "cm"}, nodes = {
+					{n = G.UIT.R,
+						config = {
+							emboss = 0.05,
+							r = 0.1,
+							minw = 3,
+							minh = 5,
+							align = "cm",
+							padding = 0.1,
+							colour = G.C.L_BLACK
+						}, nodes = {
+						{n = G.UIT.R, config = {align = "cm"}, nodes = upgrade_tree_example(pseudorandom_element(upgrade_trees))},
+						{n = G.UIT.R, config = {align = "cm", padding = 0.1, minw = 4}, nodes = {
+							{n = G.UIT.R, config = {align = "cm"}, nodes = {
+								{n = G.UIT.T, config = {text = "Upgrade", scale = .4, colour = G.C.FILTER}},
+								{n = G.UIT.T, config = {text = " your Jokers into", scale = .4, colour = G.C.WHITE}}
+							}},
+							{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "new, more interesting ones", scale = .4, colour = G.C.WHITE}}}},
+							{n = G.UIT.R, config = {align = "cm"}, nodes = {
+								{n = G.UIT.T, config = {text = "by meeting ", scale = .4, colour = G.C.WHITE}},
+								{n = G.UIT.T, config = {text = "unique criteria", scale = .4, colour = G.C.FILTER}}
+							}}
+						}}
+
+					}},
+				}}
 			}}
 		}}
 	}}
@@ -84,7 +178,6 @@ function ellejokers.puritan_sprite_update()
 		end
 	end
 end
-
 
 -- thanks to @sleepy.g11 for helping me with this lol
 local function show_element(container)
@@ -199,7 +292,7 @@ SMODS.current_mod.config_tab = function()
                     }, nodes={}},
 				}},
 			}},
-			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = create_display_card(pseudorandom_element(ellejokers.puritan.cards,"elle_puritan_preview")) }}}}
+			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card(pseudorandom_element(ellejokers.puritan.cards,"elle_puritan_preview")) }}}}
 			
 		}}
 	}}
@@ -212,7 +305,3 @@ end
 function G.FUNCS.conf_elle_palette_credit(args)
 	args.config.ref_table = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
 end
-
-
-
---
