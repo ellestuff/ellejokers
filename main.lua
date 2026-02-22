@@ -148,7 +148,7 @@ local jokers = {
 		"carpet",
 		"spamton",
 		"polyamory",
-		"bf",
+		--"bf",
 		"ourple",
 		"nitro",
 		"eraser",
