@@ -10,8 +10,7 @@ local batcreditcard = SMODS.Joker {
 	atlas = 'jokers',
 	pos = { x = 7, y = 4 },
 	cost = 10,
-	in_pool = function(self) return false end,
-	unlocked = false
+	in_pool = function(self) return false end
 }
 
 batcreditcard.add_to_deck = function(self, card, from_debuff)
