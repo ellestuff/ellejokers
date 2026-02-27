@@ -1,6 +1,6 @@
 local clubcard = SMODS.Joker {
 	key = 'clubcard',
-	blueprint_compat = false,
+	blueprint_compat = true,
 	loc_vars = function(self, info_queue, card) return { vars = { card.ability.extra.dollars } } end,
 	config = { extra = { dollars = 1 } },
 	rarity = 3,

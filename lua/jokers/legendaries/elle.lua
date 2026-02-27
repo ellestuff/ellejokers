@@ -73,6 +73,8 @@ if V(SMODS.version) < V("1.0.0~BETA-1330a-STEAMODDED") then
 				newcard.T.w = newcard.T.w * 1.1 * 1.2
 				newcard.T.h = newcard.T.h * 1.1 * 1.2
 				newcard.no_ui = false
+				newcard.bypass_discovery_center = true
+				newcard.bypass_lock = true
 				newcard:set_sprites(newcard.config.center)
 
 				return true

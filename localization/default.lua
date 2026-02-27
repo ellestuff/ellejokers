@@ -353,7 +353,7 @@ return {
 				text = {
 					"All played {C:attention}face{} cards",
 					"become {C:attention}Queens",
-					"before scoring",
+					"after scoring",
 					caption..'"I have a suggestion."'
 				}
 			},

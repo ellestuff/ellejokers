@@ -1,12 +1,4 @@
 --		[[ To-Do List ]]
---	- New Joker art
---		- Chloe
---		- Furry
---		- Marie
---		- Twy
---		- Elle
---		- Mint
---		- Drago
 --	- More Jokers????
 --		- Ideas
 --			- Deck with showman effect
@@ -29,9 +21,11 @@
 --		- Plays a harder fnf song
 --		- "Zoinks!" final boss blind
 --			- 9k song, on par with (or literally just) Final Destination
---	- Fix Bugs
+--	- Crossmod
 --		- MoreFluff
---			- Custom Colour card crashes game on round end
+--			- Custom Colour card
+--		- Blindside
+--			- More Joker "Blinds"
 
 ellejokers = {
 	mod_data = SMODS.current_mod,

@@ -61,7 +61,7 @@ furry.slime_active = {
 
 furry.slime_upgrade = {
 	card = "j_elle_cheshire",
-	values = function(self, card) return {Xmult = 1+card.ability.extra.count*.1} end,
+	values = function(self, card) return {Xmult = 1+card.ability.extra.count*.1, used = card.ability.extra.used} end,
 	can_use = function(self, card) return #SMODS.find_card("j_elle_sarah", false)>0 or #SMODS.find_card("j_elle_cassie", false)>0 end,
 	calculate = function(self, card)
 		local sarah = SMODS.find_card("j_elle_sarah")[1]
