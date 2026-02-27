@@ -443,6 +443,7 @@ ellejokers.mod_data.menu_cards = function()
 				if v.config.center.key == 'j_elle_elle' then
 					v.no_ui = false
 					v.bypass_lock = true
+					v.bypass_discovery_center = true
 				end
 			end
 		end
