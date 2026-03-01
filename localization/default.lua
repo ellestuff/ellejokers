@@ -648,7 +648,7 @@ return {
 			},
 			
 			elle_protected = {
-				name = 'Protected',
+				name = 'Endangered',
 				text = {
 					"Instantly {C:red}lose{} the",
 					"run when this",

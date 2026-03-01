@@ -2,7 +2,7 @@ SMODS.Challenge {
 	key = "cafe_frequent",
 	jokers = {{
 			id = "j_elle_rebecca",
-			eternal=true
+			stickers={"elle_protected"}
 	}},
 	rules = {
 		custom = {
@@ -29,7 +29,7 @@ SMODS.Challenge {
 	key = "spamton",
 	jokers = {{
 			id = "j_elle_spamton",
-			eternal=true
+			stickers={"elle_protected"}
 	}},
 	rules = {
 		custom = {
