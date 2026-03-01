@@ -935,6 +935,15 @@ return {
 					"Go to a separate {C:attention}Shop",
 					"{C:inactive}(Restocks at end of Ante)"
 				}
+			},
+			elle_r_elle_bea = {
+				name = 'Bea',
+				text = {
+					"Scoring cards create",
+					"{C:attention}Clickable Bubbles{} that",
+					"permanently give a random",
+					"card held in hand {C:mult}+2{} Mult"
+				}
 			}
 		}
 	},

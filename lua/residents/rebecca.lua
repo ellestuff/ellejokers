@@ -3,7 +3,7 @@ ellejokers.Resident {
 	pos = { x = 1, y = 3 },
 	config = { extra = { } },
 	calculate = function(self, card, context)
-		if (context.ante_change and not context.blueprint) then
+		if context.main_eval and (context.ante_change and not context.blueprint) then
 			G.GAME.elle_popup_shops.rebecca.reset_on_open = true
 			return { message = localize("elle_shop_restock") }
 		end

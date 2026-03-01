@@ -16,29 +16,32 @@ ellejokers.Resident {
 	in_pool = function (self, args) return false end,
 	elle_tail = { x = 7, y = 1 },
 	calculate = function(self, card, context)
-		if context.joker_main and card.ability.extra.mult ~= 0 then
-			return {
-				mult = card.ability.extra.mult
-			}
+		if context.joker_main  then
+			ret = {}
+			
+			if card.ability.extra.xmult ~= 1 then
+				ret.mult = card.ability.extra.xmult
+			end
+
+			if not card.ability.extra.active then
+				card.ability.extra.active = true
+				ret.extra = { message = localize("elle_active_refreshed") }
+			end
+			
+			return ret
 		end
 
 		if context.end_of_round and context.main_eval and card.ability.extra.eaten > 0 then
-			local mod = card.ability.extra.eaten * card.ability.extra.mult_mod
+			local mod = card.ability.extra.eaten * card.ability.extra.xmult_mod
 			
-			card.ability.extra.mult = card.ability.extra.mult + mod
+			card.ability.extra.xmult = card.ability.extra.xmult + mod
 			card.ability.extra.eaten = 0
 			
 
-			local ret = {
-				message = localize { type = 'variable', key = 'a_mult', vars = { mod } },
+			return {
+				message = localize { type = 'variable', key = 'a_xmult', vars = { mod } },
 				colour = G.C.MULT
 			}
-
-			if not card.ability.extra.active then
-				ret.extra = { message = localize("elle_active_refreshed") }
-			end
-
-			return ret
 		end
 	end,
 	resident_buttons = {

@@ -189,7 +189,8 @@ local residents = {
 	"chloe",
 	"furry",
 	"cheshire",
-	"rebecca"
+	"rebecca",
+	"bea"
 }
 
 --#region Atlases

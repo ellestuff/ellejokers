@@ -51,6 +51,14 @@ function Game:start_run(args, ...)
 
     self.elle_resident_area.T.x = cons_t.x + cons_t.w - self.elle_resident_area.T.w
     self.elle_resident_area.T.y = cons_t.y + 3
+
+	-- Fuckass MP compat
+	if SMODS.find_mod("Multiplayer") and MP and MP.shared then
+		cons_t = self.elle_resident_area.T
+
+		MP.shared.T.x = cons_t.x + cons_t.w - MP.shared.T.w
+		MP.shared.T.y = cons_t.y + 3
+	end
 end
 
 function ellejokers.mod_data.custom_collection_tabs()
