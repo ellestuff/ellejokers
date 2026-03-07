@@ -62,6 +62,11 @@ ellejokers = {
 			credit = "???"
 		}
 	},
+	censor_atlases = {
+		"elle_censor_default",
+		"elle_censor_bar",
+		"elle_censor_featureless"
+	},
 	calculate = {},
 	reset_game_globals = {}
 }
@@ -182,8 +187,8 @@ SMODS.Atlas {
 	py = 95
 }
 SMODS.Atlas {
-	key = "puritan",
-	path = "puritan.png",
+	key = "nsfw",
+	path = "nsfw.png",
 	px = 71,
 	py = 95
 }
@@ -252,6 +257,24 @@ SMODS.Atlas {
 SMODS.Atlas {
 	key = "lamps",
 	path = "lamps.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "censor_default",
+	path = "censorship/default.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "censor_bar",
+	path = "censorship/bar.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "censor_featureless",
+	path = "censorship/featureless.png",
 	px = 71,
 	py = 95
 }

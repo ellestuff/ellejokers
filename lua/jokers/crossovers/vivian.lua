@@ -11,8 +11,8 @@ local vivian = SMODS.Joker {
 	end,
 	config = { extra = { odds = 8 } },
 	rarity = 3,
-	atlas = 'puritan',
-	pos = { x = 1, y = ellejokers.mod_data.config.puritan and 1 or 0 },
+	atlas = 'jokers',
+	pos = { x = 3, y = 1 },
 	cost = 7,
 	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=1,y=1} }
 }

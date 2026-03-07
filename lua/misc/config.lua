@@ -158,39 +158,21 @@ local function toggle_palette(args)
 	check_for_unlock({type = "elle_toggle_palette"})
 end
 
--- ...you ever feel self conscious about your art being too "weird"?
--- yeahhh that's why i added this toggle.
-
-ellejokers.puritan =  {
-	cards = {
-		'j_elle_vivian',
-		'j_elle_feri'
-	},
-	atlases = {
-		elle_puritan = true
-	}
-}
-
-function ellejokers.puritan_sprite_update()
-	for i, v in ipairs(ellejokers.puritan.cards) do
-		if ellejokers.puritan.atlases[G.P_CENTERS[v].atlas] then
-			G.P_CENTERS[v].pos.y = ellejokers.mod_data.config.puritan and 1 or 0
-		end
-	end
-end
+-- this was originally gonna be a separate mod
+-- you're welcome :giggle_hehe:
 
 -- thanks to @sleepy.g11 for helping me with this lol
 local function show_element(container)
-    if container and not container.config.original_object_visible then
-        container.config.original_object_visible = true
+	if container and not container.config.original_object_visible then
+		container.config.original_object_visible = true
 
-        container.config.object:remove()
-        container.config.object = container.config.original_object
-        container.config.original_object.states.visible = true
-        container.config.original_object.parent = container;
+		container.config.object:remove()
+		container.config.object = container.config.original_object
+		container.config.original_object.states.visible = true
+		container.config.original_object.parent = container;
 
-        (container.UIBox or container):recalculate()
-    end
+		(container.UIBox or container):recalculate()
+	end
 end
 
 local function hide_element(container)
@@ -203,33 +185,67 @@ local function hide_element(container)
 	end
 end
 
+local function create_sophie(key)
+	local c = slimeutils.create_display_card(key or "j_elle_sophie")
+	c.ability.extra.charges = 6
+	return c
+end
+
 SMODS.current_mod.config_tab = function()
-	local t = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
-		{n=G.UIT.R, config={align = "cm"}, nodes={
-			{n=G.UIT.T, config={text = '"gooner mod gooner mod" stfu', scale = 0.30, colour = G.C.UI.TEXT_LIGHT}}
-		}}
-	}},config={}}
-	t.states.visible = false
+	local localnodes = {
+		nsfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+			create_option_cycle({opt_callback = "conf_elle_censor_mode",
+				label = "Censor Mode",
+				options = {"Uncensored", "Censor bar", "Featureless"},
+				current_option = ellejokers.mod_data.config.censor_mode,
+				w = 3.8,
+				scale = .8
+			})
+		}},config={}},
 
-	local nodething = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
-		{ n = G.UIT.O,
-			config = {
-				original_object_visible = false,
-				original_object = t,
-				object = Moveable(),
-				id = "textthing"
-		}}
-	}},config={}}
+		sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+			{n=G.UIT.R, config={align = "cm"}, nodes={
+				{n=G.UIT.T, config={text = "Do not enable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}
+			}}
+		}},config={}}
+	}
+	local localnodes2 = {
+		nsfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+			{ n = G.UIT.O,
+				config = {
+					original_object_visible = false,
+					original_object = localnodes.nsfw,
+					object = Moveable(),
+					id = "textthing"
+			}}
+		}},config={}},
+		sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+			{ n = G.UIT.O,
+				config = {
+					original_object_visible = false,
+					original_object = localnodes.sfw,
+					object = Moveable(),
+					id = "textthing2"
+			}}
+		}},config={}}
+	}
+	localnodes.nsfw.states.visible = false
+	localnodes.sfw.states.visible = true
 
-    local n = nodething:get_UIE_by_ID("textthing")
-    if(not ellejokers.mod_data.config.puritan) then show_element(n) end
+	local n = localnodes2.nsfw:get_UIE_by_ID("textthing")
+	local n2 = localnodes2.sfw:get_UIE_by_ID("textthing2")
 
-	local function toggle_streamer(args)
-		ellejokers.puritan_sprite_update()
-		if not ellejokers.mod_data.config.puritan then check_for_unlock({type = "elle_puritan"}) end
-		if(ellejokers.mod_data.config.puritan) then hide_element(n) else show_element(n) end
-        G.OVERLAY_MENU:recalculate()
+	local function toggle_nsfw(args)
+		if(ellejokers.mod_data.config.nsfw) then
+			show_element(n)
+			hide_element(n2)
+		else
+			show_element(n2)
+			hide_element(n)
+		end
+		G.OVERLAY_MENU:recalculate()
 	end
+	toggle_nsfw()
 
 	return {n = G.UIT.ROOT, config = {
 		emboss = 0.05,
@@ -251,15 +267,14 @@ SMODS.current_mod.config_tab = function()
 				label = "Palette Shader",
 				ref_table = ellejokers.mod_data.config.pixel_shader,
 				ref_value = 'enabled',
-				desc = { text = SMODS.ScreenShader and {"Toggle the Palette","Screen Shader"} or {"Toggle the Palette","Shader on","supported cards"} }
+				desc = { text = {"Toggle the Palette","Screen Shader"} }
 			}),
 			create_option_cycle({opt_callback = "conf_elle_palette",
 				label = "Palette",
 				options = palette_options,
 				current_option = ellejokers.mod_data.config.pixel_shader.palette,
 				w = 5,
-				scale = .8,
-				config = {func = "conf_elle_palette_update"}
+				scale = .8
 			}),
 			{n=G.UIT.R, config={align = "cm"}, nodes={
 				{n=G.UIT.T, config={text = "Palette by ", scale = 0.30, colour = G.C.WHITE}},
@@ -271,29 +286,32 @@ SMODS.current_mod.config_tab = function()
 				emboss = 0.05,
 				r = 0.1,
 				minw = 6,
+				minh = 3,
 				align = "cm",
 				padding = 0.1,
 				colour = G.C.L_BLACK
 			}, nodes = {
-			{n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
-				toggle_with_desc({callback  = toggle_streamer,
-					label = "Streamer Mode",
+			{n = G.UIT.C, config = {align = "cm", padding = 0.1, minw = 5}, nodes = {
+				toggle_with_desc({callback  = toggle_nsfw,
+					label = "(18+) Adult Mode",
 					ref_table = ellejokers.mod_data.config,
-					ref_value = 'puritan',
-					desc = { text = {"Changes some card","sprites that may be","considered suggestive"} }
+					ref_value = 'nsfw',
+					desc = { text = {"Enables NSFW/fetish","content on some cards"} }
 				}),
 				{n=G.UIT.R, config={align = "cm"}, nodes={
-					{n=G.UIT.T, config={text = "Do not disable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}
+					{n=G.UIT.O, config={
+						align = "cm",
+						object = localnodes2.sfw
+					}, nodes={}},
 				}},
 				{n=G.UIT.R, config={align = "cm"}, nodes={
-                    {n=G.UIT.O, config={
-                        align = "cm",
-                        object = nodething
-                    }, nodes={}},
+					{n=G.UIT.O, config={
+						align = "cm",
+						object = localnodes2.nsfw
+					}, nodes={}},
 				}},
 			}},
-			{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card(pseudorandom_element(ellejokers.puritan.cards,"elle_puritan_preview")) }}}}
-			
+			{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie(pseudorandom_element({"j_elle_sophie","j_elle_fallen"},"elle_nsfw_sophie")) }}}}
 		}}
 	}}
 end
@@ -304,4 +322,8 @@ end
 
 function G.FUNCS.conf_elle_palette_credit(args)
 	args.config.ref_table = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
+end
+
+function G.FUNCS.conf_elle_censor_mode(args)
+	ellejokers.mod_data.config.censor_mode = args.cycle_config.current_option
 end

@@ -8,7 +8,7 @@ local sophie = SMODS.Joker {
 	rarity = 2,
 	atlas = 'jokers',
 	pos = { x = 3, y = 0 },
-	soul_pos = { x = 3, y = 1 },
+	soul_pos = { x = 0, y = 0 },
 	cost = 6,
 	blueprint_compat = true
 }
@@ -58,3 +58,7 @@ sophie.slime_upgrade = {
 	loc_vars = function(self, card) return { card.ability.extra.req, card.ability.extra.charges } end
 }
 
+sophie.update = function(self, card, _front)
+	card.children.floating_sprite:set_sprite_pos({x = math.min(ellejokers.mod_data.config.nsfw and card.ability and card.ability.extra.charges or 0,6), y = 0})
+	card.children.floating_sprite.atlas = G.ASSET_ATLAS[ellejokers.censor_atlases[ellejokers.mod_data.config.censor_mode]]
+end

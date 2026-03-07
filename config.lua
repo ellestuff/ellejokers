@@ -3,5 +3,6 @@ return {
 		enabled = false,
 		palette = 1
 	},
-	puritan = true
+	nsfw = false,
+	censor_mode = 1
 }

@@ -9,7 +9,7 @@ local fallen = SMODS.Joker {
 	rarity = 3,
 	atlas = 'jokers',
 	pos = { x = 4, y = 0 },
-	soul_pos = { x = 4, y = 1 },
+	soul_pos = { x = 0, y = 0 },
 	cost = 9,
 	unlocked = false,
 	blueprint_compat = true,
@@ -54,3 +54,8 @@ fallen.slime_active = {
 	can_use = function(self, card) return card.ability.extra.charges > 0 and G.STATE == G.STATES.SELECTING_HAND and not card.ability.extra.active end,
 	should_close = function(self, card) return true end
 }
+
+fallen.update = function(self, card, _front)
+	card.children.floating_sprite:set_sprite_pos({x = math.min(ellejokers.mod_data.config.nsfw and card.ability and card.ability.extra.charges or 0,6), y = 1})
+	card.children.floating_sprite.atlas = G.ASSET_ATLAS[ellejokers.censor_atlases[ellejokers.mod_data.config.censor_mode]]
+end

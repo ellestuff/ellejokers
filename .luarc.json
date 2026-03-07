@@ -1,7 +1,9 @@
 {
     "workspace.library": [
-        "C:/Users/ellef/AppData/Roaming/Balatro/Mods/smods-main",
-        "C:/Users/ellef/AppData/Roaming/Balatro/Mods/lovely/dump"
+        "C:/Users/ellef/AppData/Roaming/Balatro/Mods/smods-1.0.0-beta-1501a",
+        "C:/Users/ellef/AppData/Roaming/Balatro/Mods/lovely/dump",
+        "C:/Users/ellef/AppData/Roaming/Balatro/Mods/slime_utils"
+        
     ],
     "diagnostics.disable": [
         "duplicate-set-field",
