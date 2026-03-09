@@ -223,15 +223,9 @@ function G.FUNCS.elle_rebecca_can_reroll(e)
 	if ((G.GAME.dollars-G.GAME.bankrupt_at) - G.GAME.elle_popup_shops.rebecca.reroll < 0) and G.GAME.elle_popup_shops.rebecca.reroll ~= 0 then 
 		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
 		e.config.button = nil
-		--e.children[1].children[1].config.shadow = false	-- IDK what these are for, blame LocalThunk :shrug:
-		--e.children[2].children[1].config.shadow = false
-		--e.children[2].children[2].config.shadow = false
 	else
 		e.config.colour = G.C.GREEN
 		e.config.button = 'elle_rebecca_reroll'
-		--e.children[1].children[1].config.shadow = true
-		--e.children[2].children[1].config.shadow = true
-		--e.children[2].children[2].config.shadow = true
 	end
 end
 
@@ -241,17 +235,10 @@ function G.FUNCS.elle_rebecca_reroll(e)
 	ease_dollars(-G.GAME.elle_popup_shops.rebecca.reroll)
 	G.GAME.elle_popup_shops.rebecca.reroll = G.GAME.elle_popup_shops.rebecca.reroll + G.GAME.elle_popup_shops.rebecca.reroll_cost
 	G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function()
-		--print("rerolling :)")
-		
 		play_sound('coin2')
 		play_sound('other1')
 		
 		becca_visible_reroll()
-		--print("done :3")
-		
 		return true
 	end}))
-	
-	-- The game is automatically saved by becca_visible_reroll()
-	--G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) -- Save the game :)
 end
