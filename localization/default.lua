@@ -473,6 +473,25 @@ return {
 				}
 			},
 			
+			-- Gimmicky Jokers
+			j_elle_wordle = {
+				name = 'Wordle',
+				text = {
+					{
+						"Type in words and",
+						"press {C:attention}Enter{} to guess",
+						"the {C:attention}Hidden Word",
+						"{C:inactive}(Resets at end of Ante)"
+					},
+					{
+						"{C:white,X:mult}X#1#{} Mult for each",
+						"{C:attention}Remaining{} guess,",
+						"{C:white,X:mult}X#3#{} Mult on {C:attention}Fail",
+						"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+					}
+				}
+			},
+
 			-- Legendaries
 			j_elle_twy = {
 				name = 'TwyLight',

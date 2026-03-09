@@ -73,7 +73,7 @@ ellejokers = {
 
 -- Create palettes
 for k, v in ipairs(ellejokers.palettes) do
-	v.image = love.graphics.newImage( love.image.newImageData(NFS.newFileData( SMODS.current_mod.path .. "assets/extra_images/palettes/"..v.path) ) )
+	v.image = love.graphics.newImage( love.image.newImageData(SMODS.NFS.newFileData( SMODS.current_mod.path .. "assets/extra_images/palettes/"..v.path) ) )
 	local w,h = v.image:getDimensions()
 	v.dims = {w,h}
 end
@@ -101,6 +101,7 @@ local joker_groups = {
 	"crossovers",
 	"waterbucketrelease",
 	"misc",
+	"gimmicks",
 	"legendaries"
 }
 -- Comment out jokers you want to disable
@@ -162,8 +163,12 @@ local jokers = {
 		"powerscaler",
 		"clubcard",
 		"combat",
-		"batcreditcard",
-		--"wordle"
+		"batcreditcard"
+	},
+
+	-- Gimmicky shit :33
+	gimmicks = {
+		"wordle"
 	},
 
 	-- Legendaries
