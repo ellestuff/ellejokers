@@ -3,7 +3,6 @@ local wordle = SMODS.Joker {
 	config = { extra = {
 		xmult = 1,
 		xmult_mod = 1,
-		xmult_fail = 0.75,
 		wordle = {
 			word = "joker",
 			guesses = {"slime","horse","japes","baked","alter"},
@@ -12,7 +11,7 @@ local wordle = SMODS.Joker {
 			inactive = false
 	}}},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult, card.ability.extra.xmult_fail } }
+		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult } }
 	end,
 	rarity = 3,
 	atlas = 'jokers',
@@ -153,7 +152,7 @@ SMODS.DrawStep {
 	key = 'wordlecanvas',
 	order = 100,
 	func = function(self, layer)
-		if self.config.center.key == "j_elle_wordle" then
+		if self.config.center.key == "j_elle_wordle" and not slimeutils.card_obscured(self) then
 			if not self.wordlecanvas then
 				self.wordlecanvas = SMODS.CanvasSprite({
 					canvasScale = 1
@@ -178,7 +177,7 @@ local function handle_wordle_end(card)
 	local win = wordledata.guesses[#wordledata.guesses] == wordledata.word
 
 	if win or #wordledata.guesses == 6 then
-		card.ability.extra.xmult = win and (7-#wordledata.guesses)*card.ability.extra.xmult_mod or card.ability.extra.xmult_fail
+		card.ability.extra.xmult = win and (8-#wordledata.guesses)*card.ability.extra.xmult_mod
 		wordledata.inactive = true
 
 		SMODS.calculate_effect({ message_card = card,

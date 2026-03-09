@@ -486,7 +486,6 @@ return {
 					{
 						"{C:white,X:mult}X#1#{} Mult for each",
 						"{C:attention}Remaining{} guess,",
-						"{C:white,X:mult}X#3#{} Mult on {C:attention}Fail",
 						"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
 					}
 				}
