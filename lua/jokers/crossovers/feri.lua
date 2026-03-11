@@ -11,7 +11,7 @@ local feri = SMODS.Joker {
 	end,
 	rarity = 2,
 	atlas = 'nsfw',
-	pos = { x = 0, y = ellejokers.mod_data.config.nsfw and 0 or 1 },
+	pos = { x = 0, y = ellejokers.mod_data.config.nsfw and 1 or 0 },
 	cost = 6,
 	blueprint_compat = true,
 	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=0} }

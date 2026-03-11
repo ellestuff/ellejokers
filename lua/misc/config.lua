@@ -148,6 +148,10 @@ SMODS.current_mod.custom_ui = function(mod_nodes)
 	}}
 end
 
+local nsfw_cards = {
+	"j_elle_feri"
+}
+
 local palette_options = {}
 for i, v in ipairs(ellejokers.palettes) do
 	palette_options[#palette_options+1] = v.name
@@ -236,6 +240,10 @@ SMODS.current_mod.config_tab = function()
 	local n2 = localnodes2.sfw:get_UIE_by_ID("textthing2")
 
 	local function toggle_nsfw(args)
+		for _, v in ipairs(nsfw_cards) do
+			G.P_CENTERS[v].pos.y = ellejokers.mod_data.config.nsfw and 1 or 0
+		end
+		
 		if(ellejokers.mod_data.config.nsfw) then
 			show_element(n)
 			hide_element(n2)

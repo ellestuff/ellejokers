@@ -2,7 +2,7 @@ local wordle = SMODS.Joker {
 	key = 'wordle',
 	config = { extra = {
 		xmult = 1,
-		xmult_mod = 1,
+		xmult_mod = .75,
 		wordle = {
 			word = "joker",
 			guesses = {"slime","horse","japes","baked","alter"},
@@ -177,7 +177,7 @@ local function handle_wordle_end(card)
 	local win = wordledata.guesses[#wordledata.guesses] == wordledata.word
 
 	if win or #wordledata.guesses == 6 then
-		card.ability.extra.xmult = win and (8-#wordledata.guesses)*card.ability.extra.xmult_mod
+		card.ability.extra.xmult = win and (7-#wordledata.guesses)*card.ability.extra.xmult_mod+1
 		wordledata.inactive = true
 
 		SMODS.calculate_effect({ message_card = card,
@@ -195,7 +195,7 @@ end
 local function submit_letter(card, char)
 	-- Check if valid letter
 	charkey = string.byte(string.lower(char))-string.byte("a")
-	if charkey == math.min(math.max(charkey,0),25) and #card.ability.extra.wordle.current_guess<5 then
+	if (charkey == math.min(math.max(charkey,0),25) or char == " ") and #card.ability.extra.wordle.current_guess<5 then
 		card.ability.extra.wordle.current_guess = card.ability.extra.wordle.current_guess .. char
 		card:juice_up(0.1,0.1)
 		play_sound("button",1,.5)
