@@ -185,6 +185,8 @@ local function handle_wordle_end(card)
 			colour = win and G.C.GREEN or G.C.GOLD
 		}, card)
 
+		if win and #wordledata.guesses <= 2 then check_for_unlock({type = "elle_wordlelucky"}) end
+
 		if card.states.hover.is then
 			card:stop_hover()
 			card:hover()

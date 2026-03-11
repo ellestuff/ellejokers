@@ -38,6 +38,14 @@ SMODS.Achievement {
 	end
 }
 
+SMODS.Achievement {
+	key="wordlelucky",
+	bypass_all_unlocked = true,
+	unlock_condition = function (self, args)
+		if args then return args.type == "elle_wordlelucky" end
+	end
+}
+
 function ellejokers.calculate.achievement(context)
 	if context.final_scoring_step then
 		-- Copycat check

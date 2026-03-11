@@ -207,10 +207,11 @@ SMODS.current_mod.config_tab = function()
 			})
 		}},config={}},
 
-		sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
-			{n=G.UIT.R, config={align = "cm"}, nodes={
-				{n=G.UIT.T, config={text = "Do not enable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}
-			}}
+		sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR, padding = 0.1}, nodes = {
+			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "Do not enable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}}},
+			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "There's nudity and shit...", scale = 0.30, colour = G.C.WHITE}}}},
+			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "...Like, immediately-", scale = 0.30, colour = G.C.WHITE}}}},
+			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "Don't enable if you're a kid either", scale = 0.30, colour = G.C.WHITE}}}}
 		}},config={}}
 	}
 	local localnodes2 = {
