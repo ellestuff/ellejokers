@@ -485,7 +485,22 @@ return {
 					},
 					{
 						"{C:white,X:mult}X#1#{} Mult for each",
-						"{C:attention}Remaining{} guess,",
+						"{C:attention}Remaining{} guess",
+						"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+					}
+				}
+			},
+			j_elle_tenna = {
+				name = "It's TV Time!",
+				text = {
+					{
+						"Before scoring, play a",
+						"{C:attention,s:1.5,e:1}Physical Challenge",
+						"{C:inactive}(Next up: {C:attention}#3#{C:inactive})"
+					},
+					{
+						"Gains {C:white,X:mult}X#1#{} Mult if you",
+						"survive, resetting on hit",
 						"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
 					}
 				}

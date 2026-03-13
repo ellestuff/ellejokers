@@ -168,7 +168,8 @@ local jokers = {
 
 	-- Gimmicky shit :33
 	gimmicks = {
-		"wordle"
+		"wordle",
+		"tvtime"
 	},
 
 	-- Legendaries
@@ -283,6 +284,24 @@ SMODS.Atlas {
 	px = 71,
 	py = 95
 }
+SMODS.Atlas {
+	key = "tenna_its_tv_time",
+	path = "tenna_its_tv_time.png",
+	px = 505,
+	py = 141,
+	atlas_table = 'ANIMATION_ATLAS',
+	frames = 2,
+	fps = 4
+}
+SMODS.Atlas {
+	key = "tenna_physical_challenge",
+	path = "tenna_physical_challenge.png",
+	px = 391,
+	py = 69,
+	atlas_table = 'ANIMATION_ATLAS',
+	frames = 18,
+	fps = 30
+}
 --#endregion
 
 --#region Sounds
@@ -302,8 +321,26 @@ SMODS.Sound {
 	key = "music_spamton",
 	path = "music_spamton.ogg",
 	sync = false,
+	pitch = 1
+}
+SMODS.Sound {
+	key = "music_tvtime",
+	path = "music_tvtime.ogg",
+	 sync = {
+		['elle_music_tvtime'] = true,
+		['elle_music_tvtime_guitar'] = true
+	},
+	pitch = 1
+}
+SMODS.Sound {
+	key = "music_tvtime_guitar",
+	path = "music_tvtime_guitar.ogg",
+	 sync = {
+		['elle_music_tvtime'] = true,
+		['elle_music_tvtime_guitar'] = true
+	},
 	select_music_track = function()
-		return G.GAME.elle_popup_shop_open == "spamton"
+		return #SMODS.find_card("j_elle_tenna", false)>0 and ellejokers.microgame.running and ellejokers.microgame.microgame and ellejokers.microgame.microgame.rhythm_layer
 	end,
 	pitch = 1
 }

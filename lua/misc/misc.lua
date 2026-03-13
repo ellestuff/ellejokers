@@ -82,12 +82,12 @@ local rarity2 = {1,2,3} 						-- Rarities to pick from
 local pr_hook = SMODS.poll_rarity
 function SMODS.poll_rarity(_pool_key, _rand_key, ...)
 	local pr = pr_hook(_pool_key, _rand_key, ...)
-	return (#SMODS.find_card("v_elle_mixup")>0 and rarity1[pr]) and pseudorandom_element(rarity2, "elle_rarity_mix") or pr
+	return (G.GAME.used_vouchers["v_elle_mixup"] and rarity1[pr]) and pseudorandom_element(rarity2, "elle_rarity_mix") or pr
 end
 
 -- 1 in 20 chance for shop Jokers to be Legendary
 local gcp_hook = get_current_pool
 function get_current_pool(_type, _rarity, _legendary, _append)
-	if #SMODS.find_card("v_elle_breakthrough")>0 and _type == 'Joker' and _append == 'sho' and pseudorandom('ellerar'..G.GAME.round_resets.ante.._append, 1, 20)==1 then _legendary = true end
+	if G.GAME.used_vouchers["v_elle_breakthrough"] and _type == 'Joker' and _append == 'sho' and pseudorandom('ellerar'..G.GAME.round_resets.ante.._append, 1, 20)==1 then _legendary = true end
 	return gcp_hook(_type, _rarity, _legendary, _append)
 end
