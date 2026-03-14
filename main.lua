@@ -344,6 +344,14 @@ SMODS.Sound {
 	end,
 	pitch = 1
 }
+SMODS.Sound {
+	key = "tenna_jump",
+	path = "tenna_jump.ogg"
+}
+SMODS.Sound {
+	key = "tenna_land",
+	path = "tenna_land.ogg"
+}
 --#endregion
 
 --		[[ Config / Optional Features ]]

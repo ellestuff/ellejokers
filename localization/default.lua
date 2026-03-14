@@ -500,7 +500,7 @@ return {
 					},
 					{
 						"Gains {C:white,X:mult}X#1#{} Mult if you",
-						"survive, resetting on hit",
+						"survive, resets on hit",
 						"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
 					}
 				}

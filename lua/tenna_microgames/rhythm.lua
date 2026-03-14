@@ -9,10 +9,12 @@ microgame.init = function()
 end
 
 microgame.update = function(dt)
-	print(ellejokers.microgame.timer)
 end
 
-microgame.draw = function(canvas)
+microgame.draw = function()
+	love.graphics.clear(0,0,0.5,1)
+	love.graphics.setColor(1,1,1)
+	love.graphics.print(math.floor(ellejokers.microgame.timer*10)/10,10,10)
 end
 
 return microgame
