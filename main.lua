@@ -352,6 +352,10 @@ SMODS.Sound {
 	key = "tenna_land",
 	path = "tenna_land.ogg"
 }
+SMODS.Sound {
+	key = "utdr_hurt",
+	path = "utdr_hurt.ogg"
+}
 --#endregion
 
 --		[[ Config / Optional Features ]]

@@ -1,34 +1,38 @@
-local microgames = {
-	rhythm = SMODS.load_file("lua/tenna_microgames/rhythm.lua")()
-}
+local microgames = {}
+local microgame_list = {}
 
 local tenna = SMODS.Joker {
 	key = 'tenna',
-	config = { extra = { xmult = 1, win = 0.5, microgame = "" } },
+	config = { extra = { xmult = 1, win = 0.4, hit = 0.2, microgame = "" } },
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.win, card.ability.extra.xmult, microgames[card.ability.extra.microgame] and microgames[card.ability.extra.microgame].loc_name or "Unknown" } }
+		local mg = microgames[card.ability.extra.microgame]
+		info_queue[#info_queue+1] = {set="Other",key="ellemicrogame_"..card.ability.extra.microgame,specific_vars = (mg and mg.loc_vars and mg:loc_vars() or {})}
+		return { vars = { card.ability.extra.win, card.ability.extra.hit, card.ability.extra.xmult, 
+		localize({type = 'name_text', key = "ellemicrogame_"..card.ability.extra.microgame, set = 'Other'}) } }
 	end,
 	rarity = 3,
-	--atlas = 'jokers',
+	atlas = 'jokers',
 	blueprint_compat = false,
-	--pos = { x = 5, y = 0 },
+	pos = { x = 6, y = 3 },
 	cost = 10
 }
-
-local microgame_list = {"rhythm"}
-
 local tennasprites = {
-	jump = love.graphics.newImage(love.image.newImageData(SMODS.NFS.newFileData(SMODS.current_mod.path .. "assets/extra_images/tenna_jump.png"))),
-	screen = love.graphics.newImage(love.image.newImageData(SMODS.NFS.newFileData(SMODS.current_mod.path .. "assets/extra_images/tenna.png"))),
-	static = love.graphics.newImage(love.image.newImageData(SMODS.NFS.newFileData(SMODS.current_mod.path .. "assets/extra_images/tenna_static.png")))
+	jump = love.graphics.newImage(love.image.newImageData(SMODS.NFS.newFileData(SMODS.current_mod.path .. "assets/extra_images/tvtime/tenna_jump.png"))),
+	screen = love.graphics.newImage(love.image.newImageData(SMODS.NFS.newFileData(SMODS.current_mod.path .. "assets/extra_images/tvtime/tenna.png"))),
+	static = love.graphics.newImage(love.image.newImageData(SMODS.NFS.newFileData(SMODS.current_mod.path .. "assets/extra_images/tvtime/tenna_static.png")))
 }
 local staticquad = love.graphics.newQuad(0,0,36,25,36*8,25)
-
 
 ellejokers.microgame = {
 	running = false
 }
 
+function ellejokers.microgame.register(name,path)
+	microgames[name] = SMODS.load_file(path)()
+	microgame_list[#microgame_list+1] = name
+end
+
+ellejokers.microgame.register("rhythm", "lua/tenna_microgames/rhythm.lua")
 
 tenna.set_ability = function(self, card, initial, delay_sprites)
 	card.ability.extra.microgame = pseudorandom_element(microgame_list, "elle_tenna_microgame")
@@ -40,21 +44,22 @@ function ellejokers.microgame.play(card, microgame)
 		-- first frame stuff
 		if not ellejokers.microgame.running then
 			-- Don't override the whole table!!!
-			ellejokers.microgame.timer = 1
+			ellejokers.microgame.microgame = microgames[microgame]
+			ellejokers.microgame.timer = ellejokers.microgame.microgame.duration or 10
 			ellejokers.microgame.running = true
 			ellejokers.microgame.playing = false
-			ellejokers.microgame.microgame = microgames[microgame]
 			ellejokers.microgame.card = card
-			ellejokers.microgame.hit = false
 			ellejokers.microgame.tennaanim = {
 				stage = 0,
 				timer = 1.5,
 			}
+			ellejokers.microgame.hits = 0
+
+			--SMODS.calculate_effect({message=localize({type = 'name_text', key = "ellemicrogame_"..microgame, set = 'Other'}),ellejokers.microgame.card})
 
 			-- Make a canvas with the correct dimensions, destroying the old one if it still exists
 			if ellejokers.microgame.canvas then ellejokers.microgame.canvas:release() end
 			ellejokers.microgame.canvas = love.graphics.newCanvas(ellejokers.microgame.microgame.width and ellejokers.microgame.microgame.width*2 or 640, ellejokers.microgame.microgame.height and ellejokers.microgame.microgame.height*2 or 480)
-
 			ellejokers.microgame.microgame.init()
 
 			play_sound("elle_tenna_jump")
@@ -68,10 +73,11 @@ function ellejokers.microgame.play(card, microgame)
 
 	-- Stop minigame
 	G.E_MANAGER:add_event(Event({func = function()
-		card.ability.extra.xmult = ellejokers.microgame.hit and 1 or card.ability.extra.xmult + card.ability.extra.win
 		ellejokers.microgame.playing = false
 		ellejokers.microgame.tennaanim.stage = 3
 		ellejokers.microgame.tennaanim.timer = 1.5
+
+		card.ability.extra.hits = ellejokers.microgame.hits
 	return true end}))
 
 	-- Tenna Jump Out
@@ -91,9 +97,12 @@ function love.update(dt)
 				ellejokers.microgame.tennaanim.stage = ellejokers.microgame.tennaanim.stage + 1
 				ellejokers.microgame.tennaanim.timer = 1.5
 
+				if ellejokers.microgame.tennaanim.stage == 1 then ellejokers.microgame.card:juice_up() end
+
 				if ellejokers.microgame.tennaanim.stage == 2 then ellejokers.microgame.playing = true
-				elseif ellejokers.microgame.tennaanim.stage == 5 then ellejokers.microgame.running = false
 				else play_sound(ellejokers.microgame.tennaanim.stage%2==1 and "elle_tenna_land" or "elle_tenna_jump") end
+				if ellejokers.microgame.tennaanim.stage == 5 then ellejokers.microgame.running = false end
+				
 			end
 		end
 		
@@ -125,6 +134,18 @@ local function stencilfunc()
 	love.graphics.setShader(sh)
 end
 
+local function draw_microgame()
+	local w,h = love.graphics.getDimensions()
+	local mw = (ellejokers.microgame.microgame.width or 320)*2
+	local mh = (ellejokers.microgame.microgame.height or 240)*2
+	local s = math.min(h/480,w/640,2)
+
+	love.graphics.setColor(0, 0, 0, 1)
+	love.graphics.rectangle("fill",0,0,w,h)
+	love.graphics.setColor(1, 1, 1, 1)
+	love.graphics.draw(ellejokers.microgame.canvas,w/2,h/2,0,s,s,mw/2,mh/2)
+end
+
 if not love.draw then function love.draw() end end
 local draw_hook = love.draw
 function love.draw()
@@ -139,23 +160,19 @@ function love.draw()
 		love.graphics.setCanvas(c)
 		love.graphics.pop()
 
-		local mw = (ellejokers.microgame.microgame.width or 320)*2
-		local mh = (ellejokers.microgame.microgame.height or 240)*2
 
 		local tanim = ellejokers.microgame.tennaanim
 
+
 		if tanim.stage == 0 then
-			love.graphics.draw(tennasprites.jump,(w+(w*tanim.timer/1.5*1.3))/2,h/2-math.sin(tanim.timer/1.5*math.pi)*400,0,2.25,2.25,45,41)
+			love.graphics.draw(tennasprites.jump,(w+(w*tanim.timer/1.5*1.3))/2,h/2-math.sin(tanim.timer/1.5*math.pi)*h/5*2,0,2.25,2.25,45,41)
 		elseif tanim.stage == 1 or tanim.stage == 3 then
 			local s = 1/math.min(tanim.stage == 1 and tanim.timer or 1.5-tanim.timer,1)
 			love.graphics.draw(tennasprites.screen,w/2,h/2,0,2.25*s,2.25*s,45,41)
 			
 			love.graphics.stencil(stencilfunc, "replace", 2)
 			love.graphics.setStencilTest("equal", 2)
-    		love.graphics.setColor(0, 0, 0, 1)
-			love.graphics.rectangle("fill",0,0,w,h)
-    		love.graphics.setColor(1, 1, 1, 1)
-			love.graphics.draw(ellejokers.microgame.canvas,w/2,h/2,0,h/720,h/720,mw/2,mh/2)
+			draw_microgame()
 
 			love.graphics.setStencilTest()
 
@@ -165,10 +182,9 @@ function love.draw()
 			staticquad:setViewport( math.floor(tanim.timer*4%8)*36, 0, 36, 26, 36*8, 25 )
 			love.graphics.draw(tennasprites.static,staticquad,w/2,h/2,0,2.25*s,2.25*s,18,12)
 		elseif tanim.stage == 4 then
-			love.graphics.draw(tennasprites.jump,(w+(w*(1.5-tanim.timer)/1.5*1.3))/2,h/2-math.sin(tanim.timer/1.5*math.pi)*400,0,-2.25,2.25,45,41)
+			love.graphics.draw(tennasprites.jump,(w+(w*(1.5-tanim.timer)/1.5*1.3))/2,h/2-math.sin(tanim.timer/1.5*math.pi)*h/5*2,0,-2.25,2.25,45,41)
 		else
-			love.graphics.clear(0,0,0,1)
-			love.graphics.draw(ellejokers.microgame.canvas,w/2,h/2,0,h/720,h/720,mw/2,mh/2)
+			draw_microgame()
 		end
 	end
 end
@@ -178,17 +194,28 @@ tenna.calculate = function(self, card, context)
 		ellejokers.microgame.play(card, card.ability.extra.microgame)
 	end
 
+	if (context.before and not context.blueprint) then
+		card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.win
+		SMODS.calculate_effect({ message = localize("k_upgrade_ex") }, card)
+		
+		if card.ability.extra.hits>0 then
+			for i = 1, card.ability.extra.hits, 1 do
+				card.ability.extra.xmult = math.max(card.ability.extra.xmult - card.ability.extra.hit,1)
+				SMODS.calculate_effect({
+					message = "-X"..card.ability.extra.hit,
+					colour = G.C.RED,
+					sound = "elle_utdr_hurt"
+				}, card)
+			end
+		end
+	end
+
 	if (context.after and not context.blueprint) then
 		card.ability.extra.microgame = pseudorandom_element(microgame_list, "elle_tenna_microgame")
 	end
 
 	if context.joker_main then
-		return {
-			message = localize(card.ability.extra.xmult==1 and "k_reset" or "k_upgrade_ex"),
-			extra = card.ability.extra.xmult==1 and nil or {
-				xmult = card.ability.extra.xmult
-			}
-		}
+		return { xmult = card.ability.extra.xmult }
 	end
 end
 

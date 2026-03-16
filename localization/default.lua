@@ -496,12 +496,12 @@ return {
 					{
 						"Before scoring, play a",
 						"{C:attention,s:1.5,e:1}Physical Challenge",
-						"{C:inactive}(Next up: {C:attention}#3#{C:inactive})"
+						"{C:inactive}(Next up: {C:attention}#4#{C:inactive})"
 					},
 					{
-						"Gains {C:white,X:mult}X#1#{} Mult if you",
-						"survive, resets on hit",
-						"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+						"Gains {C:white,X:mult}X#1#{} Mult if you survive",
+						"then lose {C:white,X:mult}X#2#{} Mult per hit",
+						"{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
 					}
 				}
 			},
@@ -723,6 +723,15 @@ return {
 					"{C:attention}#1#",
 					"{C:inactive,s:0.7}#2#"
 				}
+			},
+
+			ellemicrogame_rhythm = {
+				name = 'Lightners Live',
+				text = {
+					"Hit the {C:attention}#1#{} and {C:attention}#2#{} keys",
+					"to hit the notes",
+					"at the right time"
+				}
 			}
 		},
 		Tag = {
@@ -807,14 +816,16 @@ return {
 			ach_elle_copycat = "Redundancy",
 			ach_elle_lamp = "Familiar Bulb",
 			ach_elle_puritan = "Puritans be damned",
-			ach_elle_doublekill = "Double Kill"
+			ach_elle_doublekill = "Double Kill",
+			ach_elle_wordlelucky = "Lucky Guess"
 		},
 		achievement_descriptions = {
 			ach_elle_soretro = "Toggle the limited palette shader",
 			ach_elle_copycat = "Play 5 pointless Copycat cards",
 			ach_elle_lamp = "Obtain a unique lamp",
 			ach_elle_puritan = "Disable the \"Streamer Mode\", restoring the sprites to their original appearance",
-			ach_elle_doublekill = "Upgrade Furry with both cards present"
+			ach_elle_doublekill = "Upgrade Furry with both cards present",
+			ach_elle_wordlelucky = "Win Wordle in 1 or 2 guesses"
 		},
 		challenge_names = {
 			c_elle_cafe_frequent = "Café Frequent",
