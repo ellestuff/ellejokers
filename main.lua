@@ -358,6 +358,21 @@ SMODS.Sound {
 }
 --#endregion
 
+--#region Font stuff
+SMODS.Font {
+    key = "Determination",
+    path = "determination_mono.otf",
+    render_scale = 100,
+    TEXT_HEIGHT_SCALE = 0.83,
+    TEXT_OFFSET = {x=0,y=0},
+    FONTSCALE = 0.1,
+    squish = 1,
+    DESCSCALE = 1
+}
+-- Make this version for Tenna microgames 
+ellejokers.undertale_font = love.graphics.newFont(SMODS.NFS.newFileData( SMODS.current_mod.path .. "assets/fonts/determination_mono.otf"),13,"mono")
+--#endregion
+
 --		[[ Config / Optional Features ]]
 -- Optional Features
 SMODS.current_mod.optional_features = function()

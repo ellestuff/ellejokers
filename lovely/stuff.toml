@@ -78,3 +78,26 @@ if v.ability then
 end
 '''
 match_indent = true
+
+# Add "elle_pos_channel" channel to sound manager
+[[patches]]
+[patches.pattern]
+target = "engine/sound_manager.lua"
+pattern = "SMODS_Sounds = {}"
+position = "after"
+payload = '''
+ELLE_POS_CHANNEL = love.thread.getChannel('elle_pos_channel')
+'''
+match_indent = true
+
+# Add "elle_get_ambient" request type to sound manager
+[[patches]]
+[patches.pattern]
+target = "engine/sound_manager.lua"
+pattern = "elseif request.type == 'sound_source' then"
+position = "before"
+payload = '''
+elseif request.type == 'elle_get_ambient' then
+	ELLE_POS_CHANNEL:push(SOURCES[current_track][1])
+'''
+match_indent = true
