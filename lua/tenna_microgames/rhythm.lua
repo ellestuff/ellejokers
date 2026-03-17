@@ -131,7 +131,7 @@ microgame.draw = function()
 		if pos>20 then
 			love.graphics.rectangle("fill",200+100*v[2],pos,80,20)
 		end
-	end]]
+	end]] 
 
 	love.graphics.setFont(f)
 end
