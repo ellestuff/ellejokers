@@ -89,6 +89,7 @@ local lib = {
 	"popup_shop",
 	"enhancements",
 	"blindside",
+	--"morefluff", -- waiting for rewrite to have native enhancement colour card support :)
 	"achievements",
 	"config",
 	--"blinds"

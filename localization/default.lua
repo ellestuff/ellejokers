@@ -548,6 +548,26 @@ return {
 				}
 			},
 		},
+		Colour = {
+			c_elle_jessblue = {
+				name = "{E:mf_colour_title}Jess Blue",
+				text = {
+					"Converts a random card in",
+					"hand to a {C:attention}Jess{} Card for every",
+					"{C:attention}#4#{} round this has been held",
+					"{C:inactive}(Currently {C:attention}#1#{C:inactive}, {}[{C:attention,f:mf_emoji}#2#{C:inactive,f:mf_emoji}#3#{}]{C:inactive})",
+				}
+			},
+			c_elle_ellepink = {
+				name = "{E:mf_colour_title}Elle Pink",
+				text = {
+					"Converts a random card in",
+					"hand to a {C:attention}Slime{} Card for every",
+					"{C:attention}#4#{} round this has been held",
+					"{C:inactive}(Currently {C:attention}#1#{C:inactive}, {}[{C:attention,f:mf_emoji}#2#{C:inactive,f:mf_emoji}#3#{}]{C:inactive})",
+				}
+			},
+		},
 		Tarot = {
 			c_elle_resident = {
 				name = "Resident",

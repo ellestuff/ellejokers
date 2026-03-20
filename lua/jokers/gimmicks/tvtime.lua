@@ -12,7 +12,7 @@ local tenna = SMODS.Joker {
 	end,
 	rarity = 3,
 	atlas = 'jokers',
-	blueprint_compat = false,
+	blueprint_compat = true,
 	pos = { x = 6, y = 3 },
 	cost = 10
 }
@@ -45,7 +45,8 @@ function ellejokers.microgame.play(card, microgame)
 		if not ellejokers.microgame.running then
 			-- Don't override the whole table!!!
 			ellejokers.microgame.microgame = microgames[microgame]
-			ellejokers.microgame.timer = ellejokers.microgame.microgame.duration or 10
+			ellejokers.microgame.start_time = love.timer.getTime()
+			ellejokers.microgame.timer = -2
 			ellejokers.microgame.running = true
 			ellejokers.microgame.playing = false
 			ellejokers.microgame.card = card
@@ -68,7 +69,8 @@ function ellejokers.microgame.play(card, microgame)
 	
 	-- Start microgame
 	G.E_MANAGER:add_event(Event({func = function()
-		return ellejokers.microgame.timer <= 0
+		return ellejokers.microgame.timer > ellejokers.microgame.microgame.duration
+
 	end}))
 
 	-- Stop minigame
@@ -106,11 +108,8 @@ function love.update(dt)
 			end
 		end
 		
-		if ellejokers.microgame.playing and ellejokers.microgame.timer > 0 then
-			ellejokers.microgame.timer = ellejokers.microgame.timer - dt
-			ellejokers.microgame.microgame.update(dt)
-		end
-		
+		ellejokers.microgame.timer = love.timer.getTime() - ellejokers.microgame.start_time
+		ellejokers.microgame.microgame.update(dt)
 	end
 end
 

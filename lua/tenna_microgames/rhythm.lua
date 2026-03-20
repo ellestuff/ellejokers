@@ -22,6 +22,7 @@ end
 local song_len = 0
 local start_pos = 0
 local song_pos = 0
+local stream = nil
 
 local function update_inputs()
 	for k, v in pairs(inputs) do
@@ -43,24 +44,31 @@ local function init_inputs(binds)
 	end
 end
 
-local function load_chartdata(pos,length)
+local combo = 0
+local scrollspeed = 2.5
+
+local function get_note_y(current_time,note_time)
+	return 400-(note_time-current_time)*200*scrollspeed
+end
+
+local function load_chartdata(pos,length,offset)
 	for track, notetable in pairs(chart_full) do
 		chart_notes[track] = {}
-		for _, v in pairs(notetable) do
+		for _, v in ipairs(notetable) do
 			-- Account for wraparound in song looping
 			local rel_time = (v[1]+song_len-pos)%song_len
 			if rel_time>=0 and rel_time<length then
 				local note = SMODS.shallow_copy(v) -- Don't use the same references from the actual chart when overriding position
-				note[1] = rel_time
-				chart_notes[track][#chart_notes[track]+1] = note
+				note[1] = rel_time+(offset or 0)
+				-- Only include notes if they aren't onscreen at minigame start
+				if get_note_y(2,note[1])<0 then chart_notes[track][#chart_notes[track]+1] = note end
 			end
 		end
 		table.sort(chart_notes[track],function(a,b)return a[1]<b[1] end)
-		for _, v in pairs(chart_notes[track]) do
+		for _, v in ipairs(chart_notes[track]) do
 			print(track.." - "..v[1])
 		end
 	end
-	
 end
 
 local microgame = {
@@ -72,9 +80,6 @@ local microgame = {
 	duration = 10
 }
 
-local combo = 0
-local scrollspeed = 2.5
-
 local sprites = {
 	bg = "bg.png"
 }
@@ -85,20 +90,22 @@ end
 microgame.init = function()
 	print("INIT!!!")
 	init_inputs(binds)
-	local stream = get_song_source().sound
+	stream = get_song_source().sound
 	song_len = stream:getDuration()
 	start_pos = stream:tell()
-	song_pos = 0
-	load_chartdata(start_pos,10)
+	load_chartdata(start_pos,microgame.duration)
 end
+
+local testmarkers = {}
+local offset = 0
 
 microgame.update = function(dt)
 	update_inputs()
+
 	if inputs.miss_test.pressed then
 		play_sound("elle_utdr_hurt")
-		ellejokers.microgame.hits = ellejokers.microgame.hits+1
+		ellejokers.microgame.hits = ellejokers.microgame.hits + 1
 	end
-	song_pos = song_pos+dt
 end
 
 -- bpm = 148
@@ -106,14 +113,14 @@ end
 microgame.draw = function()
 	local f = love.graphics.getFont()
 	love.graphics.setFont(ellejokers.undertale_font)
-	love.graphics.clear(0,0,0.5,1)
+	love.graphics.clear(0,0,0,1)
 	love.graphics.setColor(1,1,1)
 	love.graphics.draw(sprites.bg,0,0,0,1,1)
-	love.graphics.print(song_pos,100,100)
-	love.graphics.print(microgame.duration-ellejokers.microgame.timer,100,120)
+	love.graphics.print(ellejokers.microgame.timer,100,100)
+	love.graphics.print(stream:tell()-start_pos,100,120)
 
-	local y = 200
-	for k, v in pairs(chart_full) do
+	--[[local y = 200
+	for k, v in pairs(chart_notes) do
 		love.graphics.print(k,10,y-30)
 		for _, v2 in ipairs(v) do
 			local pos = 10+v2[1]*20
@@ -122,16 +129,16 @@ microgame.draw = function()
 		y = y+100
 	end
 	love.graphics.rectangle("fill",10,200,1,240)
-	love.graphics.rectangle("fill",10+(song_pos+start_pos)*20,200,1,240)
+	love.graphics.rectangle("fill",10+song_pos*20,200,1,240)]]
 
-	--[[love.graphics.rectangle("fill",200,400,180,2)
+	love.graphics.rectangle("fill",200,400,180,2)
 	for i, v in ipairs(chart_notes.lead) do
-		local relt = v[1]-song_pos
-		local pos = 400-relt*200*scrollspeed
-		if pos>20 then
+		local pos = get_note_y(ellejokers.microgame.timer,v[1])
+		if pos>-20 then
 			love.graphics.rectangle("fill",200+100*v[2],pos,80,20)
+			love.graphics.print(get_note_y(2,v[1]),140+280*v[2],pos)
 		end
-	end]] 
+	end
 
 	love.graphics.setFont(f)
 end
