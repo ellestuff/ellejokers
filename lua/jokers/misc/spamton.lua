@@ -200,16 +200,17 @@ local oldsetcost = Card.set_cost
 function Card:set_cost()
     local g = oldsetcost(self)
     if self.area and self.area == G.elle_spamton_shop then
-		self.cost = math.max(pseudorandom("elle_spamton_price_" .. self.sort_id, 0, 100), 0.001)
+		self.cost = pseudorandom("elle_spamton_price_" .. self.sort_id, 1, 100)
     end
     return g
 end
 
+if not love.update then function love.update(dt) end end
 local cost_rate = 0.5
 local cost_dt = cost_rate
-local oldgameupdate = Game.update
-function Game:update(dt)
-    local g = oldgameupdate(self, dt)
+local oldgameupdate = love.update
+function love.update(dt)
+    local g = oldgameupdate(dt)
     if G.elle_spamton_shop and G.elle_spamton_shop.cards then
         cost_dt = cost_dt + dt
         if cost_dt >= cost_rate then
@@ -217,9 +218,8 @@ function Game:update(dt)
 			for i, v in ipairs(G.elle_spamton_shop.cards) do
 				v:set_cost()
 			end
-			cost_rate = pseudorandom("elle_spamton_rate", 2, 5)/10
-			G.GAME.elle_popup_shops.spamton.reroll = math.max(pseudorandom("elle_spamton_reroll", 0, 100), 0.001)
-			G.GAME.elle_popup_shops.spamton.reroll2 = math.max(pseudorandom("elle_spamton_big_reroll", 0, 100) + math.floor(G.GAME.elle_popup_shops.spamton.reroll), 0.001)
+			G.GAME.elle_popup_shops.spamton.reroll = pseudorandom("elle_spamton_reroll", 1, 100)
+			G.GAME.elle_popup_shops.spamton.reroll2 = pseudorandom("elle_spamton_big_reroll", 2, 200)
         end
     end
     return g

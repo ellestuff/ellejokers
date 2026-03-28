@@ -47,7 +47,7 @@ SMODS.Enhancement {
 		return { vars = { card.ability.extra.retrigger_count, card.ability.extra.req } }
 	end,
 	calculate = function(self, card, context)
-		if context.repetition and context.cardarea == G.play then
+		if context.repetition then
 			local retriggers = 0
 			for _,v in ipairs(ellejokers.get_jess_areas()) do
 				for _,v2 in ipairs(v.cards) do

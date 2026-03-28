@@ -109,6 +109,7 @@ SMODS.Challenge {
 	key = "pay2play",
 	rules = {
 		custom = {
+			{id = "elle_beat_credit", value = "VMan_2002"}
 		}
 	},
 	jokers = {

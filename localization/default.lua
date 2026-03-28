@@ -381,6 +381,15 @@ return {
 					"Jess {C:attention}retriggers"
 				}
 			},
+			j_elle_jessingit = {
+				name = 'Jessing It',
+				text = {
+					"If all scoring cards",
+					"are {C:attention}Jess Cards{},",
+					"Held {C:attention}Jess Cards",
+					"give {C:white,X:mult}X#1#{} Mult"
+				}
+			},
 			j_elle_powerscaler = {
 				name = 'Powerscaler',
 				text = {
@@ -590,11 +599,11 @@ return {
 			c_elle_experiment = {
 				name = "Experiment",
 				text = {
-					"Transfer the {C:edition}Edition",
+					"Transfer the {C:attention}Edition",
 					"from the selected {C:attention}Joker",
 					"to up to {C:attention}#1#{} selected",
 					"Cards in hand",
-					"{s:0.8,C:inactive}Incompatible with {s:0.8,C:dark_edition}Negative"
+					"{s:0.8,C:inactive}(Incompatible with {s:0.8,C:attention}Negative{s:0.8,C:inactive})"
 				}
 			},
 			c_elle_doppel = {
@@ -755,20 +764,20 @@ return {
 			}
 		},
 		Tag = {
-            tag_elle_rebecca={
-                name="Café Tag",
-                text={
-                    "Restocks",
-                    "{C:attention}Rebecca{}'s Shop"
-                }
-            },
+			tag_elle_rebecca={
+				name="Café Tag",
+				text={
+					"Restocks",
+					"{C:attention}Rebecca{}'s Shop"
+				}
+			},
 			tag_elle_spamton={
-                name="[[BIG]] Tag",
-                text={
-                    "Restocks the",
-                    "[[{V:1}BIG {V:2}SHOP{}]]"
-                }
-            }
+				name="[[BIG]] Tag",
+				text={
+					"Restocks the",
+					"[[{V:1}BIG {V:2}SHOP{}]]"
+				}
+			}
 		},
 		Voucher = {
 			v_elle_mixup = {
@@ -792,6 +801,18 @@ return {
 				name = "Familiar Face",
 				description = {
 					"{C:attention}Mall{} Jokers are debuffed"
+				}
+			}
+		},
+		Back={
+			b_elle_tenna={
+				name="{C:red}TV{} Deck",
+				text={
+					"{C:attention}X#1#{} base Blind size",
+					"Play {C:attention}Physical Challenges",
+					"for every {C:attention}#2#{} antes played",
+					"at the start of Blinds",
+					"{C:red}X#3#{} Blind size on hit"
 				}
 			}
 		},
@@ -856,8 +877,9 @@ return {
 		},
 		v_text = {
 			ch_c_elle_no_shop = { "Shop is {C:attention}skipped{} at end of round" },
-			ch_c_elle_not_all = { "Instantly {C:attention}lose{} the run if initial scoring hand is only {C:attention}#1#s" },
-			ch_c_elle_untested = { "{C:inactive}This challenge has not been tested and may be {C:red}impossible" }
+			ch_c_elle_not_all = { "Instantly {C:attention}lose{} the run if initial scoring hand is all {C:attention}#1#s" },
+			ch_c_elle_untested = { "{C:inactive}This challenge has not been tested and may be {C:red}impossible" },
+			ch_c_elle_beat_credit = { "{C:inactive}This challenge was first beaten by {C:attention}#1#" },
 		},
 		labels = {
 			elle_protected="Protected"

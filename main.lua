@@ -89,10 +89,11 @@ local lib = {
 	"popup_shop",
 	"enhancements",
 	"blindside",
-	--"morefluff", -- waiting for rewrite to have native enhancement colour card support :)
+	"morefluff",
 	"achievements",
 	"config",
-	--"blinds"
+	"tv_time",
+	"decks"
 }
 
 --		[[ Joker List ]]
@@ -136,6 +137,7 @@ local jokers = {
 		"vivian",
 		"jess",
 		"jessclip",
+		"jessingit",
 		"feri",
 		"ferisophie"
 	},
@@ -170,7 +172,7 @@ local jokers = {
 	-- Gimmicky shit :33
 	gimmicks = {
 		"wordle",
-		"tvtime"
+		"tenna"
 	},
 
 	-- Legendaries
@@ -341,7 +343,7 @@ SMODS.Sound {
 		['elle_music_tvtime_guitar'] = true
 	},
 	select_music_track = function()
-		return #SMODS.find_card("j_elle_tenna", false)>0 and ellejokers.microgame.running and ellejokers.microgame.microgame and ellejokers.microgame.microgame.rhythm_layer
+		return #SMODS.find_card("j_elle_tenna", false)>0 and ellejokers.tvtime.running and ellejokers.tvtime.microgame and ellejokers.tvtime.microgame.rhythm_layer
 	end,
 	pitch = 1
 }

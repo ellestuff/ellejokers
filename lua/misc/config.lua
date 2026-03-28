@@ -37,7 +37,7 @@ local splashes = {
 	"Yet another OC mod",
 	"Hi chat!",
 	"elle wuz here.",
-	"6 members and counting",
+	"7 members and counting",
 	"Can you believe the shit they let me write in here?",
 	"Beware the purple cat...",
 	"I'll make you pay! I've got friends on the inside!",

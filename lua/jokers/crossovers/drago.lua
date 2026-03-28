@@ -16,6 +16,7 @@ local drago = SMODS.Joker {
 	pos = { x = 0, y = 2 },
 	cost = 6,
 	blueprint_compat = false,
+	enhancement_gate = 'm_wild',
 	slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} }
 }
 

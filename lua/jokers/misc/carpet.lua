@@ -1,6 +1,6 @@
 local carpet = SMODS.Joker {
 	key = 'carpet',
-	config = { extra = { xmult_mod = 0.2, xmult = 1 } },
+	config = { extra = { xmult_mod = 0.35, xmult = 1 } },
 	loc_vars = function(self, info_queue, card) return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult } } end,
 	rarity = 3,
 	atlas = 'animated',

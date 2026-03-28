@@ -3,6 +3,7 @@ local cheshire = SMODS.Joker {
 	set_badges = function(self, card, badges) if (self.discovered) then badges[#badges+1] = slimeutils.table_create_badge(elle_badges.mall) end end,
 	config = { extra = { Xmult_mod = 0.1, Xmult = 1, used = false } },
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue+1] = {set = "Other", key = "elle_upgr_no_shop"}
 		return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult, card.ability.extra.used and "Inactive" or "Active" } }
 	end,
 	rarity = 3,
@@ -10,7 +11,9 @@ local cheshire = SMODS.Joker {
 	pos = { x = 2, y = 0 },
 	cost = 10,
 	blueprint_compat = true,
-	unlocked = false
+	unlocked = false,
+	in_pool = function(self) return false end,
+	no_doe = true
 }
 
 cheshire.calculate = function(self, card, context)

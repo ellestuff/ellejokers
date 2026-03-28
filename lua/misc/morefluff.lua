@@ -1,4 +1,4 @@
-if not next(SMODS.find_mod("MoreFluff")) and FLUFF.is_rewrite then return end -- Only continue if playing with the MoreFluff rewrite
+if not next(SMODS.find_mod("MoreFluff")) or FLUFF.is_rewrite then return end -- Only continue if playing with the MoreFluff rewrite
 
 FLUFF.Colour({
 	key = "jessblue",
@@ -9,8 +9,11 @@ FLUFF.Colour({
 		upgrade_rounds = 1,
         enhancement = "m_elle_jess"
 	},
-
-	mf_art_credit = "Multi"
+	slime_desc_icon = {
+		atlas = "elle_cornericons",
+		pos = {x=1,y=0}
+	},
+	mf_art_credit = "Multi + ellestuff."
 })
 
 FLUFF.Colour({
@@ -23,6 +26,6 @@ FLUFF.Colour({
         enhancement = "m_elle_slime"
 	},
 
-	mf_art_credit = "Multi"
+	mf_art_credit = "Multi + ellestuff."
 })
 
