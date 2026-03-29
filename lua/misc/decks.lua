@@ -2,12 +2,17 @@ local function create_tenna_uibox(queue)
 	local queuenodes = {}
 
 	for _, v in ipairs(queue) do
-		queuenodes[#queuenodes+1] = {n = G.UIT.R, config = {colour=G.C.BLUE, padding=.1, r=.1, emboss=.05}, nodes = {
+		local mg = ellejokers.tvtime.microgames[v]
+		local info = {set="Other",key="ellemicrogame_"..v,specific_vars = (mg and mg.loc_vars and mg:loc_vars() or {})}
+
+		local n = {n = G.UIT.R, config = {colour=G.C.BLUE, padding=.1, r=.1, emboss=.05, detailed_tooltip=info}, nodes = {
 			{n = G.UIT.T, config = {text = localize({type = 'name_text', key = "ellemicrogame_"..v, set = 'Other'}), scale = 0.3, colour = G.C.WHITE}}
 		}}
+		
+		queuenodes[#queuenodes+1] = n
 	end
 
-	return UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.UI.OUTLINE_LIGHT, padding = 0.05, r=.1, emboss=.05}, nodes = {
+	return UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.UI.OUTLINE_LIGHT, padding = 0.05, r=.1, emboss=.05, hover=true, shadow=true}, nodes = {
 		{n = G.UIT.C, config = {colour=G.C.L_BLACK, padding=.05, r=.1}, nodes={
 			{n = G.UIT.R, config={align="tm"}, nodes={{n= G.UIT.T, config = {text = "Next Up:", scale = 0.3, colour = G.C.WHITE }}}},
 			{n = G.UIT.R, config = {padding = 0.05,maxw=1.8,func="elle_tennadeck_colours"}, nodes=queuenodes}
@@ -18,7 +23,7 @@ end
 local function refresh_tenna_queue(back)
 	local queue = {}
 
-	for i = 1, math.ceil(G.GAME.round_resets.ante/4), 1 do
+	for i = 1, math.min(math.ceil(G.GAME.round_resets.ante/back.effect.config.extra.antes),back.effect.config.extra.max), 1 do
 		queue[#queue+1] = pseudorandom_element(ellejokers.tvtime.microgame_list, "elle_tennadeck_microgame")
 	end
 
@@ -54,9 +59,9 @@ SMODS.Back {
 	key = "tenna",
 	atlas = "enhancers",
 	pos = {x=0,y=1},
-	config = {ante_scaling = 0.5, extra = {queue = {}, hit = 1.25, antes = 4}},
+	config = {ante_scaling = 0.75, extra = {queue = {}, hit = 1.25, antes = 2, max = 6}},
 	loc_vars = function(self, info_queue, back)
-		return { vars = { self.config.ante_scaling, self.config.extra.antes, self.config.extra.hit } }
+		return { vars = { self.config.ante_scaling, self.config.extra.antes, self.config.extra.hit, self.config.extra.max } }
 	end,
 	apply = function(self, back)
 		refresh_tenna_queue(back)
@@ -96,6 +101,6 @@ end
 
 function G.FUNCS.elle_tennadeck_colours(e)
 	for i, v in ipairs(e.children) do
-		v.config.colour = slimeutils.microgames.running and (#e.children-i == #slimeutils.microgames.queue-1) and G.C.RED or G.C.BLUE
+		v.config.colour = mix_colours((slimeutils.microgames.running and (#e.children-i == #slimeutils.microgames.queue-1) and G.C.RED or G.C.BLUE), G.C.WHITE,v.states.hover.is and 0.8 or 1)
 	end
 end

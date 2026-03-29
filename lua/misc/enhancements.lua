@@ -133,7 +133,7 @@ local has_enhancement_hook = SMODS.has_enhancement
 function SMODS.has_enhancement(card, key)
     if card.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(card)
-		if target then return has_enhancement_hook(target) end
+		if target then return has_enhancement_hook(target, key) end
 	end
 	
 	return has_enhancement_hook(card, key)

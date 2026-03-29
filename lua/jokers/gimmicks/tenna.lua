@@ -21,8 +21,8 @@ local tenna = SMODS.Joker {
 	key = 'tenna',
 	config = { extra = { xmult = 1, win = 0.4, hit = 0.2, microgame = "rhythm" } },
 	loc_vars = function(self, info_queue, card)
-		--[[local mg = microgames[card.ability.extra.microgame]
-		info_queue[#info_queue+1] = {set="Other",key="ellemicrogame_"..card.ability.extra.microgame,specific_vars = (mg and mg.loc_vars and mg:loc_vars() or {})}]]
+		local mg = ellejokers.tvtime.microgames[card.ability.extra.microgame]
+		info_queue[#info_queue+1] = {set="Other",key="ellemicrogame_"..card.ability.extra.microgame,specific_vars = (mg and mg.loc_vars and mg:loc_vars() or {})}
 		return { vars = { card.ability.extra.win, card.ability.extra.hit, card.ability.extra.xmult, 
 		localize({type = 'name_text', key = "ellemicrogame_"..card.ability.extra.microgame, set = 'Other'}) } }
 	end,
@@ -37,11 +37,11 @@ tenna.set_ability = function(self, card, initial, delay_sprites)
 end
 
 tenna.calculate = function(self, card, context)
-	if (context.elle_on_play_press and not context.blueprint) then
-		slimeutils.microgames.enqueue(ellejokers.tvtime.pre_play_queue, ellejokers.tvtime.microgames[card.ability.extra.microgame],{juice = card, end_func = end_func})
+	if context.elle_on_play_press then
+		slimeutils.microgames.enqueue(ellejokers.tvtime.pre_play_queue, ellejokers.tvtime.microgames[card.ability.extra.microgame],{card = card, juice = card, end_func = end_func})
 	end
 
-	if (context.after and not context.blueprint) then
+	if context.after and not context.blueprint then
 		card.ability.extra.microgame = pseudorandom_element(ellejokers.tvtime.microgame_list, "elle_tenna_microgame")
 	end
 

@@ -812,7 +812,8 @@ return {
 					"Play {C:attention}Physical Challenges",
 					"for every {C:attention}#2#{} antes played",
 					"at the start of Blinds",
-					"{C:red}X#3#{} Blind size on hit"
+					"{C:red}X#3#{} Blind size on hit",
+					"{C:inactive}(Max {C:attention}#4#{C:inactive} per round)"
 				}
 			}
 		},

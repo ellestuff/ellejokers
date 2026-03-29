@@ -36,7 +36,7 @@ end
 local lastt=0
 ellejokers.tvtime.anims = {
 	durations = {start = 1, finish = 1, pre_game = 1, post_game = 1},
-	
+
 	start = function(time,frame)
 		local w,h = love.graphics.getDimensions()
 		if frame == 1 then play_sound("elle_tenna_jump") end

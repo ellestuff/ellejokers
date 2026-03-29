@@ -1,6 +1,7 @@
 --[[ Character animation notes:
 Kris:
 - Frame 1 while held, frame 2 on release
+- Normal notes are as short like Susie's, hold notes hold frame 1 until the end
 Susie:
 - Same as Kris, though she lacks hold notes
 - Left notes are drums, Right notes play the left snare
@@ -42,6 +43,7 @@ local characters = {
 	drums = {
 		sprite = sprites.susie,
 		spr_dims = {x=70,y=62},
+		offset = {x=35,y=58},
 		anim_handler = function (self)
 			-- Waiting before note plays
 			if not self.last_note then
@@ -50,18 +52,37 @@ local characters = {
 			end
 			
 			return {
-				x = (slimeutils.microgames.timer-self.last_note[1]<0.05) and 0 or 1,
+				x = slimeutils.microgames.timer-self.last_note[1]<0.05 and 0 or 1,
 				y = self.last_note[2]+1
 			}
-		end,
-		offset = {x=35,y=58}
+		end
 	},
-	guitar = {
-		offset = {x=18,y=44}
+	lead = {
+		sprite = sprites.kris,
+		spr_dims = {x=40,y=45},
+		offset = {x=21,y=44},
+		anim_handler = function (self)
+			-- Waiting before note plays
+			if not self.last_note then
+				return {x=0,y=0}
+			end
+			
+			local x = slimeutils.microgames.timer-self.last_note[1]<0.1 and 0 or 1
+
+			if self.last_note[3]>0 then
+				x = self.last_note and slimeutils.microgames.timer<self.last_note[1]+self.last_note[3] and 0 or 1
+			end
+
+			return {
+				x = x,
+				y = self.last_note[4]==1 and 3 or self.last_note[2]+1
+			}
+		end
 	},
 	vocals = {
 		sprite = sprites.ralsei,
 		spr_dims = {x=39,y=48},
+		offset = {x=21,y=46},
 		anim_handler = function (self)
 			local beat_time = ((slimeutils.microgames.timer+start_pos)/(60/148*2))%1
 			-- Clapping animation
@@ -95,8 +116,7 @@ local characters = {
 			end
 
 			return ret
-		end,
-		offset = {x=21,y=46}
+		end
 	}
 }
 local function draw_char(char,x,y,frame)
@@ -144,8 +164,10 @@ end
 local combo = 0
 local scrollspeed = 2.5
 
+local teststrumliney = 300
+
 local function get_note_y(current_time,note_time)
-	return 400-(note_time-current_time)*200*scrollspeed
+	return teststrumliney-(note_time-current_time)*200*scrollspeed
 end
 
 local microgame = {
@@ -183,20 +205,16 @@ microgame.init = function()
 	init_inputs(binds)
 	stream = get_song_source().sound
 	song_len = stream:getDuration()
-
-	microgame.hits = 0
-end
-
-microgame.start = function()
-	start_pos = stream:tell()
+	start_pos = stream:tell()-slimeutils.microgames.timer
 	load_chartdata(start_pos,microgame.duration)
+	microgame.hits = 0
 end
 
 local function get_hit_notes(notes,lanebinds)
 	local ret = {}
 	for i,v in ipairs(lanebinds) do
 		for i2, v2 in ipairs(notes) do
-			if v2[2] == i-1 then
+			if v2[2] == i-1 and not v2.miss then
 				if ret[v] and math.abs(v2[1]-slimeutils.microgames.timer) > math.abs(notes[ret[v]][1]-slimeutils.microgames.timer) then
 					break
 				else
@@ -210,6 +228,16 @@ end
 
 local targetnotes = nil
 local lanebinds = {"left","right"}
+local windows = {0.1,0.05,0.3}
+
+-- Note to self about hold notes in Lightners Live:
+-- Held notes snap to the position of the strumline, this is likely why hold notes are stored the way they are in DELTARUNE.
+
+local function handle_anim_note(lane, note)
+	characters[lane].last_note = SMODS.shallow_copy(note)
+	characters[lane].last_note[1] = slimeutils.microgames.timer
+	characters[lane].last_note[3] = math.max(note[3]-(note[1]-slimeutils.microgames.timer), 0)
+end
 
 local function handle_player_notes(notes)
 	-- Get nearest notes
@@ -218,34 +246,90 @@ local function handle_player_notes(notes)
 	-- Hit notes
 	for k, v in pairs(inputs) do
 		local target = notes[targetnotes[k]]
-		if target and math.abs(target[1]-slimeutils.microgames.timer)<=0.2 and v.pressed then
-			table.remove(notes,targetnotes[k])
-		end
-	end
+		if target then
+			if target.held then
+				target.held = v.held
+				local diff = target[1]-slimeutils.microgames.timer
+				target[1] = slimeutils.microgames.timer
+				target[3] = target[3]+diff
 
-	-- Miss notes
-	while notes and #notes>0 do
-		if notes[1] and notes[1][1]-slimeutils.microgames.timer < -0.3 then
-			table.remove(notes,1)
-			play_sound("elle_utdr_hurt")
-			microgame.hits = microgame.hits + 1
-		else
-			break
+				if target[3] <= 0 or (not target.held and target[3] <= windows[1]) then
+					table.remove(notes,targetnotes[k])
+				elseif not target.held then
+					target.miss = true
+					play_sound("elle_utdr_hurt")
+					microgame.hits = microgame.hits + 1
+				end
+			end
+			
+			if math.abs(target[1]-slimeutils.microgames.timer)<=windows[1] and v.pressed then
+				handle_anim_note("lead",target)
+				
+				if target[3]>0 then
+					target.held = true
+				else
+					table.remove(notes,targetnotes[k])
+				end
+			end
 		end
 	end
 end
 
 local function handle_bot_notes(lane)
 	local notes = chart_notes[lane]
-	while notes and #notes>0 do
-		if notes[1] and notes[1][1]-slimeutils.microgames.timer < 0 then
-			characters[lane].last_note = {slimeutils.microgames.timer, notes[1][2] or 0, notes[1][3] and notes[1][3] > 0 and math.max(notes[1][3]-(notes[1][1]-slimeutils.microgames.timer),0) or 0, notes[1][4] or 0}
-			table.remove(notes,1)
+	
+	for i, v in ipairs(notes) do
+		if v.held then
+			local diff = v[1]-slimeutils.microgames.timer
+			v[1] = slimeutils.microgames.timer
+			v[3] = v[3]+diff
 
-		else
+			if v[3] <= 0 then
+				table.remove(notes,i)
+			end
+		elseif v[1]-slimeutils.microgames.timer<=0 then
+			handle_anim_note(lane,v)
+
+			if v[3]>0 then
+				v.held = true
+			else
+				table.remove(notes,i)
+			end
+		end
+		
+		if not v.held and v[1]<=slimeutils.microgames.timer then
 			break
 		end
 	end
+end
+
+local function handle_miss_notes(miss)
+	for lane, notes in pairs(chart_notes) do
+		-- Miss notes
+		for i, v in ipairs(notes) do
+			if v[1]-slimeutils.microgames.timer < -windows[1] and not v.miss then
+				v.miss = true
+				if lane==miss then
+					play_sound("elle_utdr_hurt")
+					microgame.hits = microgame.hits + 1
+				end
+			end
+		end
+
+		-- Destroy notes
+		while notes[1] and notes[1][1]+notes[1][3]-slimeutils.microgames.timer < -windows[3] do
+			table.remove(notes,1)
+		end
+	end
+	
+	--[[while notes and #notes>0 do
+		if notes[1] and notes[1][1]-slimeutils.microgames.timer < -0.3 then
+			table.remove(notes,1)
+			
+		else
+			break
+		end
+	end]]
 end
 
 microgame.update = function(dt)
@@ -254,6 +338,7 @@ microgame.update = function(dt)
 	handle_player_notes(chart_notes.lead)
 	handle_bot_notes("drums")
 	handle_bot_notes("vocals")
+	handle_miss_notes("lead")
 end
 
 -- bpm = 148
@@ -263,25 +348,26 @@ microgame.draw = function()
 	love.graphics.setFont(ellejokers.undertale_font)
 	love.graphics.clear(0,0,0,1)
 	love.graphics.setColor(1,1,1)
-	love.graphics.draw(sprites.bg,0,0,0,1,1)
+	love.graphics.draw(sprites.bg,0,100,0,1,1)
 	love.graphics.print(slimeutils.microgames.timer,100,100)
 	love.graphics.print(stream:tell()-start_pos,100,120)
 	love.graphics.print(stream:tell(),100,140)
 
-	draw_char(characters.drums,100,300)
-	draw_char(characters.vocals,300,300)
+	draw_char(characters.drums,124,394)
+	draw_char(characters.lead,320,394)
+	draw_char(characters.vocals,504,394)
 
 	local x = 220
 	-- test rendering
-	love.graphics.rectangle("fill",x,400,180,2)
-	love.graphics.print("lead (kris)",x,400)
+	love.graphics.rectangle("fill",x,teststrumliney,180,2)
+	love.graphics.print("lead (kris)",x,teststrumliney)
 	for i, v in ipairs(chart_notes.lead) do
-		love.graphics.setColor(1-(targetnotes and (targetnotes.left == i or targetnotes.right == i) and 1 or 0),1,1-(v[4] or 0))
+		love.graphics.setColor(1-(targetnotes and (targetnotes.left == i or targetnotes.right == i) and 1 or 0),v.held and 0 or 1,1-(v[4] or 0),v.miss and 0.5 or 1)
 		local pos = get_note_y(slimeutils.microgames.timer,v[1])
-		local len = 400-get_note_y(0,v[3])
+		local len = teststrumliney-get_note_y(0,v[3])
 		if pos>-20 then
 			love.graphics.rectangle("fill",x+30+100*v[2],pos,20,-len)
-			love.graphics.rectangle("fill",x+100*v[2],pos,80,20)
+			if not v.held then love.graphics.rectangle("fill",x+100*v[2],pos,80,20) end
 		end
 	end
 	love.graphics.setColor(1,1,1)
@@ -289,11 +375,12 @@ microgame.draw = function()
 
 	x = 20
 	-- test rendering
-	love.graphics.rectangle("fill",x,400,180,2)
-	love.graphics.print("drums (susie)",x,400)
+	love.graphics.rectangle("fill",x,teststrumliney,180,2)
+	love.graphics.print("drums (susie)",x,teststrumliney)
 	for i, v in ipairs(chart_notes.drums) do
+		love.graphics.setColor(1,1,1-(v[4] or 0),v.miss and 0.5 or 1)
 		local pos = get_note_y(slimeutils.microgames.timer,v[1])
-		local len = 400-get_note_y(0,v[3])
+		local len = teststrumliney-get_note_y(0,v[3])
 		if pos>-20 then
 			love.graphics.rectangle("fill",x+30+100*v[2],pos,20,-len)
 			love.graphics.rectangle("fill",x+100*v[2],pos,80,20)
@@ -302,15 +389,21 @@ microgame.draw = function()
 
 	x = 420
 	-- test rendering
-	love.graphics.rectangle("fill",x,400,180,2)
-	love.graphics.print("vocals (ralsei)",x,400)
+	love.graphics.rectangle("fill",x,teststrumliney,180,2)
+	love.graphics.print("vocals (ralsei)",x,teststrumliney)
 	for i, v in ipairs(chart_notes.vocals) do
+		love.graphics.setColor(1,1,1-(v[4] or 0),v.miss and 0.5 or 1)
 		local pos = get_note_y(slimeutils.microgames.timer,v[1])
-		local len = 400-get_note_y(0,v[3])
+		local len = teststrumliney-get_note_y(0,v[3])
 		if pos>-20 then
 			love.graphics.rectangle("fill",x+30+50*v[2],pos,20,-len)
 		end
 	end
+
+	-- Fuckass Tenna timer thingy
+	love.graphics.setColor(0,0,0)
+	love.graphics.rectangle("fill",0,410,640,70)
+	love.graphics.setColor(1,1,1)
 
 	love.graphics.setFont(f)
 end
