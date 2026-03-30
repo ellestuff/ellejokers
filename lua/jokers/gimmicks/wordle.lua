@@ -65,9 +65,9 @@ local wordle_quads = {
 	chars = love.graphics.newQuad( 1, 1, 5, 5, 43, 25 )
 }
 
-local function draw_wordle_letter(x,y,char,back, xscale)
+local function draw_wordle_letter(x,y,char,back, yscale)
 	wordle_quads.back:setViewport( back%3*10+1, math.floor(back/3)*10+1, 9, 9, 31, 21 )
-	love.graphics.draw(wordle_sprites.back,wordle_quads.back,x+4.5,y+4.5,0,xscale,1,4.5,4.5)
+	love.graphics.draw(wordle_sprites.back,wordle_quads.back,x+4.5,y+4.5,0,1,yscale,4.5,4.5)
 	
 	local charnum = string.byte(string.lower(char))
 	if charnum == nil then return end
@@ -76,7 +76,7 @@ local function draw_wordle_letter(x,y,char,back, xscale)
 
 	if charnum == math.min(math.max(charnum,0),25) then
 		wordle_quads.chars:setViewport( charnum%7*6+1, math.floor(charnum/7)*6+1, 5, 5, 43, 25 )
-		love.graphics.draw(wordle_sprites.chars,wordle_quads.chars,x+4.5,y+4.5,0,xscale,1,2.5,2.5)
+		love.graphics.draw(wordle_sprites.chars,wordle_quads.chars,x+4.5,y+4.5,0,1,yscale,2.5,2.5)
 	end
 end
 
@@ -225,7 +225,7 @@ end
 if not love.textinput then function love.textinput(text) end end
 local text_input_hook = love.textinput
 function love.textinput(text)
-	if G.jokers then
+	if G.jokers and not G.CONTROLLER.locked then
 		for _, v in ipairs(G.jokers.cards) do
 			if v.config.center.key == "j_elle_wordle" and not v.ability.extra.wordle.inactive then
 				submit_letter(v, text)
@@ -238,7 +238,7 @@ end
 if not love.keypressed then function love.keypressed(key,unicode) end end
 local key_pressed_hook = love.keypressed
 function love.keypressed(key,unicode)
-	if G.jokers then
+	if G.jokers and not G.CONTROLLER.locked then
 		for _, v in ipairs(G.jokers.cards) do
 			if v.config.center.key == "j_elle_wordle" and not v.ability.extra.wordle.inactive then
 				if key == "backspace" and #v.ability.extra.wordle.current_guess>0 then

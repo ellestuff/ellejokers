@@ -52,7 +52,7 @@ local characters = {
 			end
 			
 			return {
-				x = slimeutils.microgames.timer-self.last_note[1]<0.05 and 0 or 1,
+				x = slimeutils.microgames.timer-self.last_note[1]<1/15 and 0 or 1,
 				y = self.last_note[2]+1
 			}
 		end
@@ -67,7 +67,7 @@ local characters = {
 				return {x=0,y=0}
 			end
 			
-			local x = slimeutils.microgames.timer-self.last_note[1]<0.1 and 0 or 1
+			local x = slimeutils.microgames.timer-self.last_note[1]<1/15 and 0 or 1
 
 			if self.last_note[3]>0 then
 				x = self.last_note and slimeutils.microgames.timer<self.last_note[1]+self.last_note[3] and 0 or 1
