@@ -12,19 +12,17 @@ ellejokers.Resident = SMODS.Center:extend{
 
 SMODS.current_mod.custom_collection_tabs = function()
 	return {
-		{
-			button = UIBox_button({
-				-- calls `G.FUNCS.your_collection_something` when pressed, define accordingly
-				button = 'resident_collection', 
-				id = 'resident_collection',
-				-- Displayed label on the button (using non-localized strings also works)
-				label = {localize('elle_residents')},
-				-- optional; should have numeric 'tally' and 'of' values (for discovery counts)
-				--count = G.DISCOVER_TALLIES['resident'], 
-				-- optional; minimum width of your button
-				minw = 5
-			})
-		}
+		button = UIBox_button({
+			-- calls `G.FUNCS.your_collection_something` when pressed, define accordingly
+			button = 'resident_collection', 
+			id = 'resident_collection',
+			-- Displayed label on the button (using non-localized strings also works)
+			label = {localize('elle_residents')},
+			-- optional; should have numeric 'tally' and 'of' values (for discovery counts)
+			count = G.DISCOVER_TALLIES['Resident'], 
+			-- optional; minimum width of your button
+			minw = 5
+		})
 	}
 end
 

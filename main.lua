@@ -182,6 +182,9 @@ local jokers = {
 		"elle"
 	}
 }
+local residents = {
+	"chloe"
+}
 
 --#region Atlases
 SMODS.Atlas{
@@ -193,6 +196,12 @@ SMODS.Atlas{
 SMODS.Atlas {
 	key = "jokers",
 	path = "jokers.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "residents",
+	path = "residents.png",
 	px = 71,
 	py = 95
 }
@@ -446,6 +455,10 @@ for _, v in ipairs(joker_groups) do
 	end
 end
 
+for _, v in ipairs(residents) do
+	assert(SMODS.load_file("lua/residents/"..v..".lua"))()
+end
+
 SMODS.current_mod.calculate = function(self,context)
 	for k, v in pairs(ellejokers.calculate) do
 		v(context)
@@ -458,76 +471,29 @@ SMODS.current_mod.reset_game_globals = function(run_start)
 	end
 end
 
-
-if SMODS.ScreenShader then
-	SMODS.Shader {
-		key = "pixelated",
-		path = "pixelated.fs"
-	}
-	
-	SMODS.ScreenShader {
-		key = "pixelated",
-		shader = "elle_pixelated", --modprefix is necessary, this now refers to the same shader defined above
-
-		send_vars = function(self)
-			local p = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
-			local w,h = love.graphics.getDimensions()
-			return {
-				palette = p.image,
-				paletteSize = p.dims,
-				dims = {w/2,h/2}
-			}
-		end,
-		should_apply = function(self)
-			return ellejokers.mod_data.config.pixel_shader.enabled
-		end,
-		order = 1
-	}
-else
-	SMODS.Shader {
-		key = 'pixelated_fallback',
-		path = 'pixelated_fallback.fs',
-
-		send_vars = function(self, sprite, card)
-			local p = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
-			return {
-				palette = p.image,
-				paletteSize = p.dims
-			}
-		end
-	}
-
-	SMODS.DrawStep {
-		key = "elle_pixelated",
-		order = 15,
-		func = function(self, layer)
-			if ellejokers.mod_data.config.pixel_shader.enabled then
-				self.children.center:draw_shader('elle_pixelated_fallback', nil, self.ARGS.send_to_shader)
-				if self.children.front and not self:should_hide_front() then
-					self.children.front:draw_shader('elle_pixelated_fallback', nil, self.ARGS.send_to_shader)
-				end
-			end
-		end,
-		conditions = { vortex = false, facing = 'front' }
-	}
-
-	SMODS.DrawStep {
-    key = 'elle_pixelated_floating_sprite',
-    order = 60,
-    func = function(self)
-        if ellejokers.mod_data.config.pixel_shader.enabled and self.config.center.soul_pos and (self.config.center.discovered or self.bypass_discovery_center) then
-            local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3
-            local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
-
-            if type(self.config.center.soul_pos.draw) ~= 'function' and self.children.floating_sprite then
-                self.children.floating_sprite:draw_shader('elle_pixelated_fallback',0, nil, nil, self.children.center,scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
-                self.children.floating_sprite:draw_shader('elle_pixelated_fallback', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
-            end
-        end
-    end,
-    conditions = { vortex = false, facing = 'front' },
+SMODS.Shader {
+	key = "pixelated",
+	path = "pixelated.fs"
 }
-end
+
+SMODS.ScreenShader {
+	key = "pixelated",
+	shader = "elle_pixelated", --modprefix is necessary, this now refers to the same shader defined above
+
+	send_vars = function(self)
+		local p = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
+		local w,h = love.graphics.getDimensions()
+		return {
+			palette = p.image,
+			paletteSize = p.dims,
+			dims = {w/2,h/2}
+		}
+	end,
+	should_apply = function(self)
+		return ellejokers.mod_data.config.pixel_shader.enabled
+	end,
+	order = 1
+}
 
 ellejokers.mod_data.menu_cards = function()
     return {
