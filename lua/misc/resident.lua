@@ -1,6 +1,8 @@
+G.P_CENTER_POOLS["elle_Resident"] = G.P_CENTER_POOLS["elle_Resident"] or {}
+
 ellejokers.Resident = SMODS.Center:extend{
 	unlocked = true,
-	set = 'Resident',
+	set = 'elle_Resident',
 	discovered = false,
 	class_prefix = 'j',
 	required_params = {
@@ -12,14 +14,14 @@ ellejokers.Resident = SMODS.Center:extend{
 
 SMODS.current_mod.custom_collection_tabs = function()
 	return {
-		button = UIBox_button({
+		UIBox_button({
 			-- calls `G.FUNCS.your_collection_something` when pressed, define accordingly
 			button = 'resident_collection', 
 			id = 'resident_collection',
 			-- Displayed label on the button (using non-localized strings also works)
 			label = {localize('elle_residents')},
 			-- optional; should have numeric 'tally' and 'of' values (for discovery counts)
-			count = G.DISCOVER_TALLIES['Resident'], 
+			count = G.DISCOVER_TALLIES['elle_Resident'], 
 			-- optional; minimum width of your button
 			minw = 5
 		})
@@ -50,7 +52,7 @@ local function create_UIBox_resident_collection()
 
 	for i = 1, 5 do
 		for j = 1, #G.your_collection do
-			local center = G.P_CENTER_POOLS["Resident"][i+(j-1)*5]
+			local center = G.P_CENTER_POOLS["elle_Resident"][i+(j-1)*5]
 			local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W, G.CARD_H, nil, center)
 			G.your_collection[j]:emplace(card)
 		end
