@@ -177,7 +177,7 @@ local function handle_wordle_end(card)
 	local win = wordledata.guesses[#wordledata.guesses] == wordledata.word
 
 	if win or #wordledata.guesses == 6 then
-		card.ability.extra.xmult = win and (7-#wordledata.guesses)*card.ability.extra.xmult_mod+1
+		card.ability.extra.xmult = win and (7-#wordledata.guesses)*card.ability.extra.xmult_mod+1 or 1
 		wordledata.inactive = true
 
 		SMODS.calculate_effect({ message_card = card,

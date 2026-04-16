@@ -35,12 +35,12 @@ end
 
 local lastt=0
 ellejokers.tvtime.anims = {
-	durations = {start = 0.5, finish = 0.5, pre_game = 0.25, post_game = 0.25},
+	durations = {start = 0.75, finish = 0.75, pre_game = 0.5, post_game = 0.5},
 
 	start = function(time,frame)
 		local w,h = love.graphics.getDimensions()
 		if frame == 1 then play_sound("elle_tenna_jump") end
-		local t = math.min(time/0.5,1)
+		local t = math.min(time/0.75,1)
 		if t == 1 and lastt~=t then play_sound("elle_tenna_land") end
 		
 		love.graphics.draw(tennasprites.jump,(w+(w*(1-t)*1.1))/2,h/2-math.sin(t*math.pi)*h/8*2,0,2,2,45,41)
@@ -50,7 +50,7 @@ ellejokers.tvtime.anims = {
 	finish = function(time,frame)
 		local w,h = love.graphics.getDimensions()
 		if frame == 1 then play_sound("elle_tenna_jump") end
-		local t = math.min(time/0.5,1)
+		local t = math.min(time/0.75,1)
 		if t == 1 and lastt~=t then play_sound("elle_tenna_land") end
 
 		love.graphics.draw(tennasprites.jump,(w+(w*t*1.1))/2,h/2-math.sin(t*math.pi)*h/5*2,0,-2,2,45,41)
@@ -60,7 +60,7 @@ ellejokers.tvtime.anims = {
 
 	pre_game = function (time,frame)
 		local w,h = love.graphics.getDimensions()
-		local t = time/0.25
+		local t = time/0.5
 		local s = 1/math.max((1-t),0.01)
 		
 		if frame == 1 and slimeutils.microgames.queue[1].t.juice then
@@ -83,7 +83,7 @@ ellejokers.tvtime.anims = {
 
 	post_game = function (time)
 		local w,h = love.graphics.getDimensions()
-		local t = time/0.25
+		local t = time/0.5
 		local s = math.max(1/t,1)
 		
 		love.graphics.draw(tennasprites.screen,w/2,h/2,0,2*s,2*s,45,41)

@@ -91,15 +91,16 @@ local lib = {
 	"blindside",
 	"morefluff",
 	"achievements",
-	"config",
+	--"config",
 	"tv_time",
-	"decks"
+	"decks",
+	"resident"
 }
 
 --		[[ Joker List ]]
 -- Using this to make sure the groups are in order
 local joker_groups = {
-	"mall",
+	--"mall",
 	"crossovers",
 	"waterbucketrelease",
 	"misc",

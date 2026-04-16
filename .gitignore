@@ -1,2 +1,4 @@
-.lovelyignore
+*.code-workspace
 .luarc.json
+.lovelyignore
+/.vscode

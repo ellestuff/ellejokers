@@ -58,6 +58,5 @@ feri.slime_active = {
 		return true end }))
 	end,
 	can_use = function(self, card) return card.ability.extra.charges > 0 and G.STATE == G.STATES.SELECTING_HAND and not card.ability.extra.active end,
-	should_close = function(self, card) return true end,
-	bypass_lock = true
+	should_close = function(self, card) return true end
 }

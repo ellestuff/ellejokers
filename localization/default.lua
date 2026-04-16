@@ -848,6 +848,8 @@ return {
 			elle_rebecca_consumable = "CONSUMABLES",
 			elle_rebecca_reroll = "Reroll All",
 			elle_shop_restock = "Restocked!",
+
+			elle_residents = "Residents",
 			
 			elle_41_activate = "Yeah~!",
 			elle_suggestion = "Forcefem!",
