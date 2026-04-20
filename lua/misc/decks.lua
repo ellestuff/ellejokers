@@ -87,7 +87,7 @@ SMODS.Back {
 	end
 }
 
-SMODS.current_mod.custom_card_areas = function(game)
+ellejokers.custom_card_areas.tenna = function(game)
 	if G.GAME.selected_back.effect.center.key == "b_elle_tenna" and G.STATE == G.STATES.BLIND_SELECT then
 		game.tennabox = create_tenna_uibox(G.GAME.selected_back.effect.config.extra.queue)
 	end

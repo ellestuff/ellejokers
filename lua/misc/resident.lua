@@ -1,98 +1,75 @@
 G.P_CENTER_POOLS["elle_Resident"] = G.P_CENTER_POOLS["elle_Resident"] or {}
 
-ellejokers.Resident = SMODS.Center:extend{
-	unlocked = true,
-	set = 'elle_Resident',
-	discovered = false,
-	class_prefix = 'j',
-	required_params = {
-		'key',
-	},
-		pos = { x = 0, y = 0 },
-		atlas = 'elle_residents',
+ellejokers.Resident = SMODS.Center:extend {
+    unlocked = true,
+    discovered = false,
+    pos = { x = 0, y = 0 },
+    atlas = "elle_residents",
+    cost = 8,
+    set = 'elle_Resident',
+    config = {},
+    class_prefix = 'elle_r',
+    required_params = {
+        'key',
+    }
 }
 
-SMODS.current_mod.custom_collection_tabs = function()
-	return {
-		UIBox_button({
-			-- calls `G.FUNCS.your_collection_something` when pressed, define accordingly
-			button = 'resident_collection', 
-			id = 'resident_collection',
-			-- Displayed label on the button (using non-localized strings also works)
-			label = {localize('elle_residents')},
-			-- optional; should have numeric 'tally' and 'of' values (for discovery counts)
-			count = G.DISCOVER_TALLIES['elle_Resident'], 
-			-- optional; minimum width of your button
-			minw = 5
-		})
-	}
-end
-
-local function create_UIBox_resident_collection()
-	local deck_tables = {}
-
-	G.your_collection = {}
-	for j = 1, 3 do
-		G.your_collection[j] = CardArea(
-			G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
-			5*G.CARD_W,
-			0.95*G.CARD_H, 
-			{card_limit = 5, type = 'title', highlight_limit = 0, collection = true})
-		table.insert(deck_tables, 
-		{n=G.UIT.R, config={align = "cm", padding = 0.07, no_fill = true}, nodes={
-			{n=G.UIT.O, config={object = G.your_collection[j]}}
-		}}
-		)
-	end
-
-	local resident_options = {}
-	for i = 1, math.ceil(#G.P_CENTER_POOLS.Joker/(5*#G.your_collection)) do
-		table.insert(resident_options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#G.P_CENTER_POOLS.Joker/(5*#G.your_collection))))
-	end
-
-	for i = 1, 5 do
-		for j = 1, #G.your_collection do
-			local center = G.P_CENTER_POOLS["elle_Resident"][i+(j-1)*5]
-			local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W, G.CARD_H, nil, center)
-			G.your_collection[j]:emplace(card)
-		end
-	end
-
-	INIT_COLLECTION_CARD_ALERTS()
-	
-	local t =  create_UIBox_generic_options({ back_func = 'your_collection', contents = {
-		{n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, 
-		{n=G.UIT.R, config={align = "cm"}, nodes={
-			create_option_cycle({options = resident_options, w = 4.5, cycle_shoulders = true, opt_callback = 'your_collection_resident_page', current_option = 1, colour = G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
-		}}
-	}})
-
-	return t
-end
-
-G.FUNCS.resident_collection = function ()
-	G.SETTINGS.paused = true
-		G.FUNCS.overlay_menu{
-			definition = create_UIBox_resident_collection(), -- this is the actual UI definition function
+function ellejokers.custom_card_areas.resident(game)
+	game.elle_resident_area = CardArea(
+		0,0,
+		G.CARD_W*1.1,G.CARD_H,
+		{
+			card_limit = 1,
+			type = "joker",
+			highlight_limit = 1,
+			no_card_count = false,
+			align_buttons = true
 		}
+	)
 end
 
-G.FUNCS.your_collection_resident_page = function(args)
-	if not args or not args.cycle_config then return end
-	for j = 1, #G.your_collection do
-		for i = #G.your_collection[j].cards,1, -1 do
-			local c = G.your_collection[j]:remove_card(G.your_collection[j].cards[i])
-			c:remove()
-			c = nil
-		end
+SMODS.UndiscoveredSprite{
+	key = 'elle_Resident',
+	atlas = 'residents',
+	pos = {x=0,y=0}
+}
+
+local gsr = Game.start_run
+function Game:start_run(args, ...)
+    gsr(self, args, ...)
+
+	local cons_t = G.consumeables.T
+
+    self.elle_resident_area.T.x = cons_t.x + cons_t.w - self.elle_resident_area.T.w
+    self.elle_resident_area.T.y = cons_t.y + 3
+end
+
+function ellejokers.mod_data.custom_collection_tabs()
+	local tally = 0
+	for _, v in pairs(G.P_CENTER_POOLS.elle_Resident) do
+		tally = tally + 1
 	end
-	for i = 1, 5 do
-		for j = 1, #G.your_collection do
-			local center = G.P_CENTER_POOLS["Resident"][i+(j-1)*5 + (5*#G.your_collection*(args.cycle_config.current_option - 1))]
-			if not center then break end
-			local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center)
-			G.your_collection[j]:emplace(card)
-		end
-	end
-	INIT_COLLECTION_CARD_ALERTS()
+	return {UIBox_button{
+		button = "elle_your_collection_residents",
+		label = {localize("b_quests")},
+		count = {tally = tally, of = #G.P_CENTER_POOLS.elle_Resident},
+		minw = 5,
+		id = "elle_your_collection_residents"
+	}}
+end
+
+slimeutils.upgrade_areas[#slimeutils.upgrade_areas+1] = "elle_resident_area"
+
+function ellejokers.create_UIBox_your_collection_residents()
+	return SMODS.card_collection_UIBox(G.P_CENTER_POOLS.elle_Resident, {1}, {
+		no_materialize = true,
+		h_mod = 0.95,
+	})
+end
+
+function G.FUNCS.elle_your_collection_residents(e)
+	G.SETTINGS.paused = true
+	G.FUNCS.overlay_menu{
+		definition = ellejokers.create_UIBox_your_collection_residents(),
+	}
 end

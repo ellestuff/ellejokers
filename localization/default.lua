@@ -5,7 +5,7 @@ return {
 	descriptions = {
 		Joker = {
 			-- Canon OCs
-			j_elle_chloe = {
+			--[[j_elle_chloe = {
 				name = 'Chloe',
 				text = {
 					"Gain {C:chips}+#1#{} Chips every",
@@ -218,7 +218,7 @@ return {
 					"Jokers change at",
 					"start of round"
 				}
-			},
+			},]]
 			
 			-- Other stuff
 			j_elle_drago = {
@@ -595,6 +595,24 @@ return {
 				}
 			}
 		},
+		Rotarot = {
+			c_elle_rot_resident = {
+				name = "{E:mf_rotarot_title}Resident!",
+				text = {
+					"Enhances {C:attention}#1#{} selected",
+					"cards into",
+					"{C:attention}Lime Cards"
+				}
+			},
+			c_elle_rot_jess = {
+				name = "{E:mf_rotarot_title}The Jess!",
+				text = {
+					"Enhances {C:attention}#1#{} selected",
+					"cards into",
+					"{C:attention}Less Cards"
+				}
+			}
+		},
 		Spectral = {
 			c_elle_experiment = {
 				name = "Experiment",
@@ -638,10 +656,25 @@ return {
 					"to the right",
 					"no rank or suit"
 				}
+			},
+			m_elle_less = {
+				name = "Less Card",
+				text = {
+					"{C:mult}+#1#{} Mult per {C:attention}Less Card",
+					"held in hand"
+				}
+			},
+			m_elle_less2 = {
+				name = "Less Card",
+				text = {
+					"{C:mult}+#1#{} Mult per {C:attention}Less Card",
+					"held in hand",
+					"Fills {C:edition}#2#{} hand space"
+				}
 			}
 		},
 		Other = {
-			slime_upgr_j_elle_chloe = {
+			--[[slime_upgr_j_elle_chloe = {
 				name = 'Upgrade..?',
 				text = {
 					"Discard {C:attention}#1#{C:inactive}[#2#]",
@@ -653,14 +686,6 @@ return {
 				text = {
 					"Have {C:red}Sarah",
 					"or {C:red}Cassie"
-				}
-			},
-			slime_upgr_j_elle_feri = {
-				name = 'Upgrade',
-				text = {
-					"Upgrade {C:attention}#1#{C:inactive}[#2#]{} cards",
-					"with {C:attention}Fallen Angel",
-					"present"
 				}
 			},
 			slime_upgr_j_elle_sophie = {
@@ -684,12 +709,27 @@ return {
 					"Trigger",
 					"{C:attention}#1#{C:inactive}[#2#]{} times"
 				}
+			},]]
+			slime_upgr_j_elle_feri = {
+				name = 'Upgrade',
+				text = {
+					"Upgrade {C:attention}#1#{C:inactive}[#2#]{} cards",
+					"with {C:attention}Fallen Angel",
+					"present"
+				}
 			},
 			slime_upgr_j_elle_drago = {
 				name = 'Upgrade',
 				text = {
 					"Have {C:attention}#1#{C:inactive}[#2#]{} Wild cards",
 					"with {C:attention}Cheshire{} present"
+				}
+			},
+			slime_upgr_elle_r_elle_chloe = {
+				name = 'Upgrade',
+				text = {
+					"Test Upgrade,",
+					"always returns true"
 				}
 			},
 			slime_upgr_j_credit_card = {
@@ -800,7 +840,7 @@ return {
 			psv_elle_familiar = {
 				name = "Familiar Face",
 				description = {
-					"{C:attention}Mall{} Jokers are debuffed"
+					"{C:attention}Residents{} are debuffed"
 				}
 			}
 		},
@@ -833,6 +873,21 @@ return {
 					"+20 Chips when",
 					"discarding blinds"
 				},
+			}
+		},
+		elle_Resident = {
+			elle_r_elle_chloe = {
+				name = "Chloe",
+				text = {
+					"Test Description"
+				}
+			},
+			elle_r_elle_furry = {
+				name = "Furry",
+				text = {
+					"Also a Test",
+					"Description"
+				}
 			}
 		}
 	},

@@ -4,7 +4,7 @@ SMODS.Consumable {
 	set = 'Tarot',
 	cost = 4,
 	atlas = 'consumables',
-	pos = { x = 1, y = 0 },
+	pos = { x = 0, y = 0 },
 	config = { extra = { }, max_highlighted = 2, mod_conv = "m_elle_slime" },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_slime
@@ -18,7 +18,7 @@ SMODS.Consumable {
 	set = 'Tarot',
 	cost = 4,
 	atlas = 'consumables',
-	pos = { x = 2, y = 0 },
+	pos = { x = 1, y = 0 },
 	config = { extra = { }, max_highlighted = 2, mod_conv = "m_elle_jess" },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_jess
@@ -33,7 +33,7 @@ SMODS.Consumable {
 	set = 'Spectral',
 	cost = 7,
 	atlas = 'consumables',
-	pos = { x = 1, y = 1 },
+	pos = { x = 0, y = 1 },
 	config = { extra = {max_highlighted = 2} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.max_highlighted } }
@@ -121,7 +121,7 @@ SMODS.Consumable {
 	set = 'Spectral',
 	cost = 7,
 	atlas = 'consumables',
-	pos = { x = 2, y = 1 },
+	pos = { x = 1, y = 1 },
 	config = { extra = { }, max_highlighted = 1, mod_conv = "m_elle_copycat" },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = G.P_CENTERS.m_elle_copycat

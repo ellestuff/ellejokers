@@ -101,3 +101,29 @@ elseif request.type == 'elle_get_ambient' then
 	ELLE_POS_CHANNEL:push(SOURCES[current_track][1])
 '''
 match_indent = true
+
+# Add debug give for resident cards
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = 'if key == "3" then'
+position = "after"
+payload = '''
+if _card.ability.set == 'elle_Resident' and G.elle_resident_area and #G.elle_resident_area.cards < G.elle_resident_area.config.card_limit then
+    SMODS.add_card({area = G.elle_resident_area, key = _card.config.center.key})
+    _card:set_sprites(_card.config.center)
+end
+'''
+match_indent = true
+
+# Add resident calculation
+# SMODS.get_card_areas
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own CardAreas for joker evaluation"
+position = "after"
+payload = '''
+t[#t+1] = G.elle_resident_area
+'''
+match_indent = true

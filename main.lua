@@ -68,6 +68,7 @@ ellejokers = {
 		"elle_censor_featureless"
 	},
 	calculate = {},
+	custom_card_areas = {},
 	reset_game_globals = {}
 }
 
@@ -183,7 +184,8 @@ local jokers = {
 	}
 }
 local residents = {
-	"chloe"
+	"chloe",
+	"furry"
 }
 
 --#region Atlases
@@ -517,3 +519,8 @@ ellejokers.mod_data.menu_cards = function()
 	}
 end
 
+SMODS.current_mod.custom_card_areas = function(game)
+	for k, v in pairs(ellejokers.custom_card_areas) do
+		v(game)
+	end
+end
