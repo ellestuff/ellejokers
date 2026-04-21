@@ -13,9 +13,6 @@ return {
 					"Amount resets at end",
 					"of round",
 					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
-				},
-				upgrade = {
-					"{C:money}$#3#"
 				}
 			},
 			j_elle_furry = {
@@ -726,10 +723,10 @@ return {
 				}
 			},
 			slime_upgr_elle_r_elle_chloe = {
-				name = 'Upgrade',
+				name = 'Upgrade..?',
 				text = {
-					"Test Upgrade,",
-					"always returns true"
+					"Discard {C:attention}#1#{C:inactive}[#2#]",
+					"{C:attention}face{} cards"
 				}
 			},
 			slime_upgr_j_credit_card = {
@@ -801,7 +798,24 @@ return {
 					"to hit the notes",
 					"at the right time"
 				}
-			}
+			},
+
+			undiscovered_elle_Resident={
+                name="Not Discovered",
+                text={
+                    "Use this resident in",
+					"an unseeded run to",
+                    "learn what it does",
+                },
+            },
+
+			undiscovered_elle_resident_bio={
+                name="Bio",
+                text={
+                    "Use this resident in an unseeded run",
+                    "to learn who they are",
+                },
+            },
 		},
 		Tag = {
 			tag_elle_rebecca={
@@ -877,9 +891,11 @@ return {
 		},
 		elle_Resident = {
 			elle_r_elle_chloe = {
-				name = "Chloe",
+				name = 'Chloe',
 				text = {
-					"Test Description"
+					"Gain {C:chips}+#1#{} Chips every",
+					"time you {C:attention}discard{} a card.",
+					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
 				}
 			},
 			elle_r_elle_furry = {

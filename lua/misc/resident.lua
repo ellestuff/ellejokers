@@ -31,7 +31,8 @@ end
 SMODS.UndiscoveredSprite{
 	key = 'elle_Resident',
 	atlas = 'residents',
-	pos = {x=0,y=0}
+	pos = {x=0,y=0},
+	no_overlay = true
 }
 
 local gsr = Game.start_run
