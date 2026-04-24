@@ -119,7 +119,7 @@ function SMODS.Sound:get_current_music()
 		return track
 	end
 
-	get_current_music_hook(self)
+	return get_current_music_hook(self)
 end
 
 local hook = G.FUNCS.play_cards_from_highlighted
