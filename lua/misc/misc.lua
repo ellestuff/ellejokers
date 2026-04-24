@@ -75,6 +75,39 @@ SMODS.Voucher {
 	requires = {"v_elle_mixup"}
 }
 
+SMODS.Voucher {
+	key = 'slumber',
+	atlas = "vouchers",
+	pos = { x = 0, y = 1 },
+	config = { extra = { rate = 4 } },
+	redeem = function(self, card)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.elle_resident_rate = card.ability.extra.rate
+				return true
+			end
+		}))
+	end
+}
+
+SMODS.Voucher {
+	key = 'friendship',
+	atlas = "vouchers",
+	pos = { x = 1, y = 1 },
+	config = { extra = { slots = 1 } },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.slots } }
+	end,
+	redeem = function(self, card)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.elle_resident_area.config.card_limit = G.elle_resident_area.config.card_limit + card.ability.extra.slots
+				return true
+			end
+		}))
+	end
+}
+
 local rarity1 = {[1]=true,[2]=true,[3]=true}	-- Rarities to check for, formatted for easier checking
 local rarity2 = {1,2,3} 						-- Rarities to pick from
 

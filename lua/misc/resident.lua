@@ -52,7 +52,7 @@ function ellejokers.mod_data.custom_collection_tabs()
 	end
 	return {UIBox_button{
 		button = "elle_your_collection_residents",
-		label = {localize("b_quests")},
+		label = {localize("b_elle_residents")},
 		count = {tally = tally, of = #G.P_CENTER_POOLS.elle_Resident},
 		minw = 5,
 		id = "elle_your_collection_residents"
@@ -73,4 +73,20 @@ function G.FUNCS.elle_your_collection_residents(e)
 	G.FUNCS.overlay_menu{
 		definition = ellejokers.create_UIBox_your_collection_residents(),
 	}
+end
+
+function ellejokers.reset_game_globals.residents(run_start)
+	if run_start then
+		G.GAME.elle_resident_rate = 0
+	end
+end
+
+local cfbshook = G.FUNCS.check_for_buy_space
+function G.FUNCS.check_for_buy_space(card)
+	if card.ability.set == 'elle_Resident' then
+		local a = #G.elle_resident_area.cards + (1 + card.ability.extra_slots_used) <= G.elle_resident_area.config.card_limit + card.ability.card_limit
+		if not a then alert_no_space(card, G.elle_resident_area) end
+		return a
+	end
+	return cfbshook(card)
 end

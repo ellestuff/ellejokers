@@ -92,7 +92,7 @@ local lib = {
 	"blindside",
 	"morefluff",
 	"achievements",
-	--"config",
+	"config",
 	"tv_time",
 	"decks",
 	"resident"

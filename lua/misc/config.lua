@@ -46,7 +46,7 @@ local splashes = {
 
 -- ty aiko for telling me how to do this lol
 -- ..also i'm referencing aikoshen code for this lmao
-SMODS.current_mod.custom_ui = function(mod_nodes)
+--[[SMODS.current_mod.custom_ui = function(mod_nodes)
 	mod_nodes = EMPTY(mod_nodes)
 	
 	mod_nodes[#mod_nodes+1] = {n = G.UIT.C, config = {padding = 0.1}, nodes = {
@@ -146,7 +146,7 @@ SMODS.current_mod.custom_ui = function(mod_nodes)
 			}}
 		}}
 	}}
-end
+end]]
 
 local nsfw_cards = {
 	"j_elle_feri"
@@ -320,7 +320,7 @@ SMODS.current_mod.config_tab = function()
 					}, nodes={}},
 				}},
 			}},
-			{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie(pseudorandom_element({"j_elle_sophie","j_elle_fallen"},"elle_nsfw_sophie")) }}}}
+			--{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie(pseudorandom_element({"j_elle_sophie","j_elle_fallen"},"elle_nsfw_sophie")) }}}}
 		}}
 	}}
 end
