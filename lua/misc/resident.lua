@@ -81,12 +81,57 @@ function ellejokers.reset_game_globals.residents(run_start)
 	end
 end
 
+local function do_replace(card)
+	local a = #G.elle_resident_area.cards + (1 + card.ability.extra_slots_used) <= G.elle_resident_area.config.card_limit + card.ability.card_limit
+	return card.ability.set == 'elle_Resident' and #G.elle_resident_area.highlighted == 1 or #G.elle_resident_area.cards == 1 and not a
+end
+
 local cfbshook = G.FUNCS.check_for_buy_space
 function G.FUNCS.check_for_buy_space(card)
 	if card.ability.set == 'elle_Resident' then
+		-- Force allow if replacing
+		if do_replace(card) then return true end
+
 		local a = #G.elle_resident_area.cards + (1 + card.ability.extra_slots_used) <= G.elle_resident_area.config.card_limit + card.ability.card_limit
 		if not a then alert_no_space(card, G.elle_resident_area) end
 		return a
 	end
 	return cfbshook(card)
+end
+
+local cbhook = G.FUNCS.can_buy
+function G.FUNCS.can_buy(e)
+	local card = e.config.ref_table
+	local res = do_replace(card)
+	
+	-- Update Box
+	local txt = localize(res and "elle_resident_replace" or "b_buy")
+	if e.children[1].config.text ~= txt and card.highlighted then
+		-- Update text
+		e.children[1].config.text = txt
+		e.children[1].config.text = e.children[1].config.text
+		e.children[1].config.text_drawable = nil
+		e.children[1]:update_text()
+
+		-- Temporarily set func to nil to prevent crash
+		e.config.func = nil
+		e.UIBox:recalculate()
+		e.config.func = "can_buy"
+	end
+
+	if res then
+		local buy = not (card.cost > G.GAME.dollars - G.GAME.bankrupt_at) and (card.cost > 0)
+		e.config.colour = buy and G.C.PURPLE or G.C.UI.BACKGROUND_INACTIVE
+		e.config.button = buy and 'elle_replace_from_shop' or nil
+	else cbhook(e) end
+end
+
+function G.FUNCS.elle_replace_from_shop(e)
+	G.E_MANAGER:add_event(Event({func = function()
+		SMODS.destroy_cards(G.elle_resident_area.highlighted[1] or G.elle_resident_area.cards[1])
+	return true end}))
+
+	G.E_MANAGER:add_event(Event({func = function()
+		G.FUNCS.buy_from_shop(e)
+	return true end}))
 end

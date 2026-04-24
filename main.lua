@@ -82,10 +82,10 @@ end
 
 --		[[ File List ]]
 local lib = {
+	"http",
 	"skins",
 	"consumables",
 	"misc",
-	"http",
 	"challenges",
 	"popup_shop",
 	"enhancements",
@@ -93,8 +93,8 @@ local lib = {
 	"morefluff",
 	"achievements",
 	"config",
-	"tv_time",
 	"decks",
+	"tv_time",
 	"resident"
 }
 
@@ -104,8 +104,8 @@ local joker_groups = {
 	--"mall",
 	"crossovers",
 	"waterbucketrelease",
-	"misc",
 	"gimmicks",
+	"misc",
 	"legendaries"
 }
 -- Comment out jokers you want to disable
@@ -336,7 +336,10 @@ SMODS.Sound {
 	key = "music_spamton",
 	path = "music_spamton.ogg",
 	sync = false,
-	pitch = 1
+	pitch = 1,
+	select_music_track = function()
+		return G.GAME.elle_popup_shop_open == "spamton" and 10
+	end,
 }
 SMODS.Sound {
 	key = "music_tvtime",
@@ -354,9 +357,6 @@ SMODS.Sound {
 		['elle_music_tvtime'] = true,
 		['elle_music_tvtime_guitar'] = true
 	},
-	select_music_track = function()
-		return #SMODS.find_card("j_elle_tenna", false)>0 and ellejokers.tvtime.running and ellejokers.tvtime.microgame and ellejokers.tvtime.microgame.rhythm_layer
-	end,
 	pitch = 1
 }
 SMODS.Sound {

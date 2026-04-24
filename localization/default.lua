@@ -924,7 +924,10 @@ return {
 			
 			elle_41_activate = "Yeah~!",
 			elle_suggestion = "Forcefem!",
-			elle_ourple_kill = "!!!"
+			elle_ourple_kill = "!!!",
+
+			b_elle_residents = "Residents",
+			elle_resident_replace = "REPLACE"
 		},
 		achievement_names = {
 			ach_elle_soretro = "So Retro",
