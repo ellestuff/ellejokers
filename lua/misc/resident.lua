@@ -135,3 +135,17 @@ function G.FUNCS.elle_replace_from_shop(e)
 		G.FUNCS.buy_from_shop(e)
 	return true end}))
 end
+
+local w_offset = 0.6
+local achook = CardArea.align_cards
+function CardArea.align_cards(self)
+	if self == G.elle_resident_area then
+		self.T.x = self.T.x-w_offset
+		self.T.w = self.T.w+w_offset*2
+		
+		achook(self)
+		
+		self.T.x = self.T.x+w_offset
+		self.T.w = self.T.w-w_offset*2
+	else achook(self) end
+end
