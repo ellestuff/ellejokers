@@ -123,7 +123,7 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "-- TARGET: add your own CardAreas for joker evaluation"
 position = "after"
 payload = '''
-t[#t+1] = G.elle_resident_area
+table.insert(t,G.elle_resident_area,1)
 '''
 match_indent = true
 
