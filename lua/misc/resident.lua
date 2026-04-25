@@ -86,7 +86,7 @@ end
 
 local function do_replace(card)
 	local a = #G.elle_resident_area.cards + (1 + card.ability.extra_slots_used) <= G.elle_resident_area.config.card_limit + card.ability.card_limit
-	return card.ability.set == 'elle_Resident' and #G.elle_resident_area.highlighted == 1 or #G.elle_resident_area.cards == 1 and not a
+	return card.ability.set == 'elle_Resident' and (#G.elle_resident_area.highlighted == 1 or (#G.elle_resident_area.cards == 1 and not a))
 end
 
 local cfbshook = G.FUNCS.check_for_buy_space

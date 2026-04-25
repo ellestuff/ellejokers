@@ -1,4 +1,4 @@
-local chloe = ellejokers.Resident {
+local furry = ellejokers.Resident {
 	key = 'furry',
 	pos = { x = 0, y = 1 },
 	config = { extra = {mult_mod = 2, mult = 0, eaten = 0} },
@@ -11,6 +11,36 @@ local chloe = ellejokers.Resident {
     }} end,
 	in_pool = function (self, args) return false end
 }
+
+furry.calculate = function(self, card, context)
+    if context.before and #G.hand.cards > 0 then
+        local target = pseudorandom_element(G.hand.cards,"elle_furry_eat")
+        SMODS.destroy_cards(target)
+        card.ability.extra.eaten = card.ability.extra.eaten + 1
+        
+        return {
+            message = "+1"
+        }
+    end
+
+    if context.joker_main and card.ability.extra.mult ~= 0 then
+        return {
+            mult = card.ability.extra.mult
+        }
+    end
+
+    if context.end_of_round and context.main_eval and card.ability.extra.eaten > 0 then
+        local mod = card.ability.extra.eaten * card.ability.extra.mult_mod
+        
+        card.ability.extra.mult = card.ability.extra.mult + mod
+        card.ability.extra.eaten = 0
+
+        return {
+            message = localize { type = 'variable', key = 'a_mult', vars = { mod } },
+            colour = G.C.MULT
+        }
+    end
+end
 
 --[[ellejokers.Resident {
 	key = 'chloe',

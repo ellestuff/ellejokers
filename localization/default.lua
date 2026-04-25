@@ -850,14 +850,6 @@ return {
 				}
 			}
 		},
-		Passives = {
-			psv_elle_familiar = {
-				name = "Familiar Face",
-				description = {
-					"{C:attention}Residents{} are debuffed"
-				}
-			}
-		},
 		Back={
 			b_elle_tenna={
 				name="{C:red}TV{} Deck",
@@ -909,11 +901,11 @@ return {
 			elle_r_elle_furry = {
 				name = "Furry",
 				text = {
-					"#1# a {C:attention}random{} held", -- destroy/eat
+					"#1# a {C:attention}random{} held", -- #1# -> destroy/eat
 					"card before scoring",
 					"At end of round,",
 					"gain {C:mult}+#2#{} Mult per",
-					"card #3# {C:inactive}[#4#]",
+					"card #3# {C:inactive}[#4#]", -- #3# -> destroyed/eaten
 					"{C:inactive}(Currently {C:mult}+#5# {C:inactive}Mult)"
 				}
 			}
