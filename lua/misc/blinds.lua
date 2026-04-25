@@ -1,17 +1,15 @@
 SMODS.Blind {
-	key = "cassie",
+	key = "awoken",
 	atlas = "blinds",
-	dollars = 0, 
-	mult = 4, 
-	phases = 3,
+	dollars = 5, 
+	mult = 2, 
 	pos = { x = 0, y = 0 },
-	in_pool = function(self) return false end,
-	ignore_showdown_check = true,
-	boss_colour = HEX("538a68"),
+	in_pool = function(self) return G.elle_resident_area and #G.elle_resident_area.cards>0 end,
+	boss_colour = HEX("e461a2"),
 	phase_refresh = true,
-	boss = {showdown = true, min = 10, max = 10},
-	vars = {}, 
-	passives = {
-		"psv_elle_familiar"
-	}
+	boss = {},
+	recalc_debuff = function(self, card, from_blind)
+		print(card.area.ID)
+		return card.ability.set == 'elle_Resident'
+	end
 }

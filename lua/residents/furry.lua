@@ -1,8 +1,14 @@
 local chloe = ellejokers.Resident {
 	key = 'furry',
 	pos = { x = 0, y = 1 },
-	config = { extra = {} },
-	loc_vars = function(self, info_queue, card) return { vars = { } } end,
+	config = { extra = {mult_mod = 2, mult = 0, eaten = 0} },
+	loc_vars = function(self, info_queue, card) return { vars = {
+        localize(ellejokers.mod_data.config.nsfw and "elle_furry_eat" or "elle_furry_destroy"),
+        card.ability.extra.mult_mod,
+        localize(ellejokers.mod_data.config.nsfw and "elle_furry_eaten" or "elle_furry_destroyed"),
+        card.ability.extra.eaten,
+        card.ability.extra.mult
+    }} end,
 	in_pool = function (self, args) return false end
 }
 

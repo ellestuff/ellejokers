@@ -13,6 +13,9 @@ ellejokers.Resident = SMODS.Center:extend {
         'key',
     }
 }
+G.C.SET.elle_Resident = HEX("ff53a9")
+G.C.SECONDARY_SET.elle_Resident = HEX("ff53a9")
+
 
 function ellejokers.custom_card_areas.resident(game)
 	game.elle_resident_area = CardArea(

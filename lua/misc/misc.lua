@@ -102,7 +102,7 @@ SMODS.Voucher {
 	redeem = function(self, card)
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				G.elle_resident_area.config.card_limit = G.elle_resident_area.config.card_limit + card.ability.extra.slots
+				G.elle_resident_area:change_size(1)
 				return true
 			end
 		}))

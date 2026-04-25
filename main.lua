@@ -95,6 +95,7 @@ local lib = {
 	"config",
 	"decks",
 	"tv_time",
+	"blinds",
 	"resident"
 }
 

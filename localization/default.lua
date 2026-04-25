@@ -872,6 +872,14 @@ return {
 			}
 		},
 		Blind = {
+			bl_elle_awoken={
+                name="The Awoken",
+                text={
+                    "All Residents",
+                    "are debuffed",
+                },
+            },
+
 			-- Blindside stuff
 			bl_elle_suggestion = {
 				name = "Suggestion",
@@ -901,8 +909,12 @@ return {
 			elle_r_elle_furry = {
 				name = "Furry",
 				text = {
-					"Also a Test",
-					"Description"
+					"#1# a {C:attention}random{} held", -- destroy/eat
+					"card before scoring",
+					"At end of round,",
+					"gain {C:mult}+#2#{} Mult per",
+					"card #3# {C:inactive}[#4#]",
+					"{C:inactive}(Currently {C:mult}+#5# {C:inactive}Mult)"
 				}
 			}
 		}
@@ -926,8 +938,15 @@ return {
 			elle_suggestion = "Forcefem!",
 			elle_ourple_kill = "!!!",
 
+			k_elle_resident = "Resident",
 			b_elle_residents = "Residents",
-			elle_resident_replace = "REPLACE"
+			elle_resident_replace = "REPLACE",
+
+			-- Change Furry/Chesh wording for NSFW toggle
+			elle_furry_eat = "Eat",
+			elle_furry_destroy = "Destroy",
+			elle_furry_eaten = "eaten",
+			elle_furry_destroyed = "destroyed"
 		},
 		achievement_names = {
 			ach_elle_soretro = "So Retro",

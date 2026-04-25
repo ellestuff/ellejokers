@@ -160,13 +160,12 @@ position = "after"
 payload = "elseif _type == 'elle_Resident' then _pool[#_pool + 1] = 'elle_r_elle_chloe'"
 match_indent = true
 
-# Add joker to Extra Deck when buying from the shop
+# Put residents in the correct area when buying from the shop
 [[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "G.jokers:emplace(c1)"
 position = 'at'
-match_indent = true
 payload = '''
 if c1.ability.set == "elle_Resident" then
     G.elle_resident_area:emplace(c1)
@@ -174,3 +173,17 @@ else
     G.jokers:emplace(c1)
 end
 '''
+match_indent = true
+
+# Let residents get debuffed by blinds
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "--add new debuffs"
+position = 'after'
+payload = '''
+for _, v in ipairs(G.elle_resident_area.cards) do
+    if not reset then self:debuff_card(v, true) end
+end
+'''
+match_indent = true
