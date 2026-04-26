@@ -198,31 +198,37 @@ SMODS.Atlas{
 }
 SMODS.Atlas {
 	key = "jokers",
-	path = "jokers.png",
+	path = "joker/jokers.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "residents",
-	path = "residents.png",
+	path = "resident/residents.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "furrychesh",
+	path = "resident/furrychesh.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "nsfw",
-	path = "nsfw.png",
+	path = "joker/nsfw.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "animated",
-	path = "animated.png",
+	path = "joker/animated.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "legendary",
-	path = "legendary.png",
+	path = "joker/legendary.png",
 	px = 71,
 	py = 95
 }
@@ -266,43 +272,43 @@ SMODS.Atlas {
 }
 SMODS.Atlas {
 	key = "cornericons",
-	path = "cornericons.png",
+	path = "ui/cornericons.png",
 	px = 34,
 	py = 34
 }
 SMODS.Atlas {
 	key = "crossover_icon",
-	path = "crossover_icon.png",
+	path = "ui/crossover_icon.png",
 	px = 50,
 	py = 50
 }
 SMODS.Atlas {
 	key = "lamps",
-	path = "lamps.png",
+	path = "joker/lamps.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "censor_default",
-	path = "censorship/default.png",
+	path = "joker/sophieold/default.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "censor_bar",
-	path = "censorship/bar.png",
+	path = "joker/sophieold/bar.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "censor_featureless",
-	path = "censorship/featureless.png",
+	path = "joker/sophieold/featureless.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "tenna_its_tv_time",
-	path = "tenna_its_tv_time.png",
+	path = "ui/tenna_its_tv_time.png",
 	px = 505,
 	py = 141,
 	atlas_table = 'ANIMATION_ATLAS',
@@ -311,7 +317,7 @@ SMODS.Atlas {
 }
 SMODS.Atlas {
 	key = "tenna_physical_challenge",
-	path = "tenna_physical_challenge.png",
+	path = "ui/tenna_physical_challenge.png",
 	px = 391,
 	py = 69,
 	atlas_table = 'ANIMATION_ATLAS',

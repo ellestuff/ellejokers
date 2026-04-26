@@ -1,0 +1,90 @@
+[manifest]
+version = "0.1.0"
+dump_lua = true
+priority = 0
+
+# Add debug give for resident cards
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = 'if key == "3" then'
+position = "after"
+payload = '''
+if _card.ability.set == 'elle_Resident' and G.elle_resident_area and #G.elle_resident_area.cards < G.elle_resident_area.config.card_limit then
+    SMODS.add_card({area = G.elle_resident_area, key = _card.config.center.key})
+    _card:set_sprites(_card.config.center)
+end
+'''
+match_indent = true
+
+# Add resident calculation
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own CardAreas for joker evaluation"
+position = "after"
+payload = '''
+table.insert(t,1,G.elle_resident_area)
+'''
+match_indent = true
+
+# Add residents appearing in shop
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "for _,v in ipairs(SMODS.ConsumableType.obj_buffer) do"
+position = "before"
+payload = 'total_rate = total_rate + G.GAME.elle_resident_rate'
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "for _, v in ipairs(rates) do"
+position = "before"
+payload = "table.insert(rates, {type = 'elle_Resident', val = G.GAME.elle_resident_rate})"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = "for _,v in ipairs(SMODS.ConsumableType.obj_buffer) do"
+position = "before"
+payload = "args.types[#args.types + 1] = 'elle_Resident'"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "elseif _type == 'Edition' then _pool[#_pool + 1] = \"e_foil\""
+position = "after"
+payload = "elseif _type == 'elle_Resident' then _pool[#_pool + 1] = 'elle_r_elle_chloe'"
+match_indent = true
+
+# Put residents in the correct area when buying from the shop
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.jokers:emplace(c1)"
+position = 'at'
+payload = '''
+if c1.ability.set == "elle_Resident" then
+    G.elle_resident_area:emplace(c1)
+else
+    G.jokers:emplace(c1)
+end
+'''
+match_indent = true
+
+# Let residents get debuffed by blinds
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "--add new debuffs"
+position = 'after'
+payload = '''
+for _, v in ipairs(G.elle_resident_area.cards) do
+    if not reset then self:debuff_card(v, true) end
+end
+'''
+match_indent = true

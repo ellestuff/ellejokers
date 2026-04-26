@@ -152,3 +152,38 @@ function CardArea.align_cards(self)
 		self.T.w = self.T.w-w_offset*2
 	else achook(self) end
 end
+
+SMODS.DrawStep {
+	key = 'elle_resident_tail',
+	order = -200, -- before the Card and UI buttons are drawn
+	func = function(self)
+		if self.config.center.elle_tail and (self.config.center.discovered or self.bypass_discovery_center) then
+			local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))
+			local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
+
+			scale_mod = scale_mod * 1.1
+
+			local spr = SMODS.shallow_copy(self.children.center.sprite_pos)
+
+			self.children.center:set_sprite_pos(self.config.center.elle_tail)
+
+			self.children.center:draw_shader('dissolve',0, nil, nil, self.children.center,scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
+			self.children.center:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+
+			self.children.center:set_sprite_pos(spr)
+		end
+	end,
+	conditions = { vortex = false, facing = 'front' },
+}
+
+--#region Resident Buttons
+SMODS.DrawStep {
+	key = 'elle_resident_buttons',
+	order = -30, -- before the Card is drawn
+	func = function(card, layer)
+		if card.children.elle_resident_buttons then
+			card.children.elle_resident_buttons:draw()
+		end
+	end
+}
+--#endregion

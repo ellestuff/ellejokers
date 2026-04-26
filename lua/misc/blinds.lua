@@ -9,7 +9,6 @@ SMODS.Blind {
 	phase_refresh = true,
 	boss = {},
 	recalc_debuff = function(self, card, from_blind)
-		print(card.area.ID)
 		return card.ability.set == 'elle_Resident'
 	end
 }

@@ -1,13 +1,13 @@
 -- Furry (Diamonds)
 SMODS.Atlas {
 	key = "skin_hc_furry",
-	path = "skin_hc_furry.png",
+	path = "faceskins/skin_hc_furry.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "skin_lc_furry",
-	path = "skin_lc_furry.png",
+	path = "faceskins/skin_lc_furry.png",
 	px = 71,
 	py = 95
 }
@@ -37,13 +37,13 @@ SMODS.DeckSkin {
 -- Sarah (Clubs)
 SMODS.Atlas {
 	key = "skin_hc_sarah",
-	path = "skin_hc_clubs.png",
+	path = "faceskins/skin_hc_clubs.png",
 	px = 71,
 	py = 95
 }
 SMODS.Atlas {
 	key = "skin_lc_sarah",
-	path = "skin_lc_clubs.png",
+	path = "faceskins/skin_lc_clubs.png",
 	px = 71,
 	py = 95
 }

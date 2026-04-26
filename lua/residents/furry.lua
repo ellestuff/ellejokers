@@ -1,6 +1,7 @@
 local furry = ellejokers.Resident {
 	key = 'furry',
-	pos = { x = 0, y = 1 },
+    atlas = 'furrychesh',
+	pos = { x = 0, y = 0 },
 	config = { extra = {mult_mod = 2, mult = 0, eaten = 0} },
 	loc_vars = function(self, info_queue, card) return { vars = {
         localize(ellejokers.mod_data.config.nsfw and "elle_furry_eat" or "elle_furry_destroy"),
@@ -9,7 +10,8 @@ local furry = ellejokers.Resident {
         card.ability.extra.eaten,
         card.ability.extra.mult
     }} end,
-	in_pool = function (self, args) return false end
+	in_pool = function (self, args) return false end,
+    elle_tail = { x = 7, y = 0 }
 }
 
 furry.calculate = function(self, card, context)
@@ -19,7 +21,8 @@ furry.calculate = function(self, card, context)
         card.ability.extra.eaten = card.ability.extra.eaten + 1
         
         return {
-            message = "+1"
+            message = "+1",
+            sound = "slice1"
         }
     end
 
