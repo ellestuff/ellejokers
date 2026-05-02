@@ -729,10 +729,17 @@ return {
 					"{C:attention}face{} cards"
 				}
 			},
+			slime_upgr_elle_r_elle_furry = {
+				name = 'Upgrade',
+				text = {
+					"#1# {C:attention}#2# {C:inactive}[#3#]{} Cards",
+					"And have {C:attention}Cassie"
+				}
+			},
 			slime_upgr_j_credit_card = {
 				name = 'Upgrade',
 				text = {
-					"End {C:attention}#1#{C:inactive}[#2#]{} rounds",
+					"End {C:attention}#1# {C:inactive}[#2#]{} rounds",
 					"at or below {C:red}-$#3#"
 				}
 			},
@@ -908,6 +915,19 @@ return {
 					"card #3# {C:inactive}[#4#]", -- #3# -> destroyed/eaten
 					"{C:inactive}(Currently {C:mult}+#5# {C:inactive}Mult)"
 				}
+			},
+			elle_r_elle_cheshire = {
+				name = "Cheshire",
+				text = {
+					"Once per hand,",
+					"use to #1# a", -- #1# -> destroy/eat
+					"{C:attention}selected{} playing card",
+					"At end of round,",
+					"gain {X:mult,C:white}X#2#{} Mult per",
+					"card #3# {C:inactive}[#4#]", -- #3# -> destroyed/eaten
+					"{C:inactive}(Currently {X:mult,C:white}X#5#{C:inactive} Mult)",
+					"{C:attention}#6#"
+				}
 			}
 		}
 	},
@@ -931,6 +951,7 @@ return {
 			elle_ourple_kill = "!!!",
 
 			k_elle_resident = "Resident",
+			k_elle_visitor = "Visitor",
 			b_elle_residents = "Residents",
 			elle_resident_replace = "REPLACE",
 
@@ -938,7 +959,12 @@ return {
 			elle_furry_eat = "Eat",
 			elle_furry_destroy = "Destroy",
 			elle_furry_eaten = "eaten",
-			elle_furry_destroyed = "destroyed"
+			elle_furry_destroyed = "destroyed",
+
+			elle_active_used = "Used",
+			elle_active_available = "Available",
+			elle_active_refreshed = "Refreshed!"
+
 		},
 		achievement_names = {
 			ach_elle_soretro = "So Retro",

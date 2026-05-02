@@ -1,6 +1,6 @@
 ellejokers.Resident {
 	key = 'chloe',
-	pos = { x = 1, y = 0 },
+	pos = { x = 2, y = 0 },
 	config = { extra = { chip_mod = 1, chips = 0, count = 0, req = 20 } },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.chip_mod, card.ability.extra.chips } }
@@ -29,5 +29,6 @@ ellejokers.Resident {
 				}
 			end
 		end
-	end
+	end,
+	resident_colour = HEX("ffa747")
 }

@@ -1,12 +1,63 @@
 ellejokers.Resident {
 	key = 'cheshire',
-	pos = { x = 2, y = 1 },
-	config = { extra = { } },
+	atlas = 'furrychesh',
+	pos = { x = 0, y = 1 },
+	config = { extra = { xmult_mod = 0.1, xmult = 1, eaten = 0, active = true } },
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.chip_mod, card.ability.extra.chips } }
+		return { vars = {
+			localize(ellejokers.mod_data.config.nsfw and "elle_furry_eat" or "elle_furry_destroy"):lower(),
+			card.ability.extra.xmult_mod,
+			localize(ellejokers.mod_data.config.nsfw and "elle_furry_eaten" or "elle_furry_destroyed"),
+			card.ability.extra.eaten,
+			card.ability.extra.xmult,
+			localize(card.ability.extra.active and "elle_active_available" or "elle_active_used")
+		}}
 	end,
 	in_pool = function (self, args) return false end,
-    elle_tail = { x = 4, y = 2 },
+	elle_tail = { x = 7, y = 1 },
 	calculate = function(self, card, context)
-	end
+		if context.joker_main and card.ability.extra.mult ~= 0 then
+			return {
+				mult = card.ability.extra.mult
+			}
+		end
+
+		if context.end_of_round and context.main_eval and card.ability.extra.eaten > 0 then
+			local mod = card.ability.extra.eaten * card.ability.extra.mult_mod
+			
+			card.ability.extra.mult = card.ability.extra.mult + mod
+			card.ability.extra.eaten = 0
+			
+
+			local ret = {
+				message = localize { type = 'variable', key = 'a_mult', vars = { mod } },
+				colour = G.C.MULT
+			}
+
+			if not card.ability.extra.active then
+				ret.extra = { message = localize("elle_active_refreshed") }
+			end
+
+			return ret
+		end
+	end,
+	resident_buttons = {
+		{
+			text = function() return localize(ellejokers.mod_data.config.nsfw and "elle_furry_eat" or "elle_furry_destroy") end,
+			can_use = function(self, card) return card.ability.extra.active and #G.hand.highlighted == 1 end,
+			use = function(self, card)
+				card.ability.extra.active = false
+				SMODS.destroy_cards(G.hand.highlighted[1])
+				card.ability.extra.eaten = card.ability.extra.eaten + 1
+				
+				SMODS.calculate_effect({
+					message = "+1",
+					sound = "slice1"
+				},card)
+			end,
+			colour = HEX("917bad"),
+			scale = 1.6
+		}
+	},
+	resident_colour = HEX("917bad")
 }

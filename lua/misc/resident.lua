@@ -11,7 +11,12 @@ ellejokers.Resident = SMODS.Center:extend {
     class_prefix = 'elle_r',
     required_params = {
         'key',
-    }
+    },
+	set_card_type_badge = function(self, card, badges)
+		badges[#badges + 1] = create_badge(self.resident_visitor and localize('k_elle_visitor') or localize('k_elle_resident'),
+            self.resident_colour or get_type_colour(card.config.center or card.config, card), G.C.WHITE,
+            1.2)
+	end
 }
 G.C.SET.elle_Resident = HEX("ff53a9")
 G.C.SECONDARY_SET.elle_Resident = HEX("ff53a9")
@@ -175,15 +180,3 @@ SMODS.DrawStep {
 	end,
 	conditions = { vortex = false, facing = 'front' },
 }
-
---#region Resident Buttons
-SMODS.DrawStep {
-	key = 'elle_resident_buttons',
-	order = -30, -- before the Card is drawn
-	func = function(card, layer)
-		if card.children.elle_resident_buttons then
-			card.children.elle_resident_buttons:draw()
-		end
-	end
-}
---#endregion

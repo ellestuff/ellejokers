@@ -96,7 +96,8 @@ local lib = {
 	"decks",
 	"tv_time",
 	"blinds",
-	"resident"
+	"resident",
+	"resident_buttons"
 }
 
 --		[[ Joker List ]]
@@ -186,7 +187,8 @@ local jokers = {
 }
 local residents = {
 	"chloe",
-	"furry"
+	"furry",
+	"cheshire"
 }
 
 --#region Atlases
