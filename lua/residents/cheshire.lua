@@ -56,7 +56,8 @@ ellejokers.Resident {
 				},card)
 			end,
 			colour = HEX("917bad"),
-			scale = 1.6
+			scale = 1.6,
+			close = true
 		}
 	},
 	resident_colour = HEX("917bad")

@@ -188,7 +188,8 @@ local jokers = {
 local residents = {
 	"chloe",
 	"furry",
-	"cheshire"
+	"cheshire",
+	"rebecca"
 }
 
 --#region Atlases

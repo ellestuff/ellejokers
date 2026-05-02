@@ -928,6 +928,13 @@ return {
 					"{C:inactive}(Currently {X:mult,C:white}X#5#{C:inactive} Mult)",
 					"{C:attention}#6#"
 				}
+			},
+			elle_r_elle_rebecca = {
+				name = 'Rebecca',
+				text = {
+					"Go to a separate {C:attention}Shop",
+					"{C:inactive}(Restocks at end of Ante)"
+				}
 			}
 		}
 	},

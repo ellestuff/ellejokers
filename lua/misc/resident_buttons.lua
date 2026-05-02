@@ -10,6 +10,9 @@ SMODS.DrawStep {
 
 function G.FUNCS.elle_resident_button(e)
 	e.config.button_thingy:use(e.config.ref_table)
+	if e.config.button_thingy.close and (type(e.config.button_thingy.close) == "function" and e.config.button_thingy:close(e.config.ref_table) or true) then
+		e.config.ref_table.area:remove_from_highlighted(e.config.ref_table)
+	end
 end
 
 function G.FUNCS.elle_resident_button_func(e)
