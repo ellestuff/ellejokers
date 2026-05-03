@@ -180,3 +180,18 @@ SMODS.DrawStep {
 	end,
 	conditions = { vortex = false, facing = 'front' },
 }
+
+local cae = CardArea.emplace
+function CardArea:emplace(card,...)
+	if self == G.consumeables and card.ability.set == 'elle_Resident' then
+		card:remove_from_area()
+		G.elle_resident_area:emplace(card, ...)
+		discover_card(card.config.center)
+		card.bypass_discovery_center = true
+		card.bypass_discovery_ui = true
+		card.discovered = true
+		return
+	end
+
+	cae(self, card, ...)
+end

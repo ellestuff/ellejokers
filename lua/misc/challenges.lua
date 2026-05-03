@@ -1,7 +1,7 @@
 SMODS.Challenge {
 	key = "cafe_frequent",
 	jokers = {{
-			id = "j_elle_rebecca",
+			id = "elle_r_elle_rebecca",
 			eternal=true
 	}},
 	rules = {
@@ -48,7 +48,7 @@ SMODS.Challenge {
 			{id="tag_coupon"},
 			{id="tag_d_six"},
 		},
-		banned_cards = next(SMODS.find_mod("Cryptid")) and {{id="c_cry_run"}, {id="j_elle_rebecca"}} or {{id="j_elle_rebecca"}}
+		banned_cards = next(SMODS.find_mod("Cryptid")) and {{id="c_cry_run"}, {id="elle_r_elle_rebecca"}} or {{id="elle_r_elle_rebecca"}}
 	}
 }
 
@@ -98,7 +98,7 @@ local shopless = SMODS.Challenge {
 			{id="tag_d_six"},
 		},
 		banned_cards = {
-			{id="j_elle_rebecca"},
+			{id="elle_r_elle_rebecca"},
 			{id="j_elle_spamton"}
 		}
 	}
