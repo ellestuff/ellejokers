@@ -1248,6 +1248,12 @@ return {
 
 			elle_r_elle_p41 = {
 				name = 'Prototype #1#41',
+				text = {
+					"Copy abilities of",
+					"{C:attention}#2#{} random {C:attention}Jokers{},",
+					"Jokers change at",
+					"start of round"
+				},
 				res_bio = {
 					"Apparently, turning attempts",
 					"at {C:attention}sentient, humanoid life{} into",

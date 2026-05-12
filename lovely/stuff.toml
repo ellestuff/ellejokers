@@ -32,7 +32,7 @@ pattern = '''G.challenge_tab = G.GAME and G.GAME.challenge and G.GAME.challenge_
 position = "after"
 payload = '''
 if type(G.challenge_tab) == "string" and G.GAME and G.GAME.challenge then
-    G.challenge_tab = G.CHALLENGES[get_challenge_int_from_id(G.GAME.challenge or '') or ''] or {name = 'ERROR'}
+	G.challenge_tab = G.CHALLENGES[get_challenge_int_from_id(G.GAME.challenge or '') or ''] or {name = 'ERROR'}
 end
 '''
 match_indent = true
@@ -103,11 +103,56 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = '''card.lua'''
-pattern = '''bonus_h_dollars = self.ability.perma_h_dollars ~= 0 and self.ability.perma_h_dollars or nil,'''
+target = 'card.lua'
+pattern = 'bonus_h_dollars = self.ability.perma_h_dollars ~= 0 and self.ability.perma_h_dollars or nil,'
 position = "after"
-payload = '''
-elle_burns = self.ability.elle_burns ~= 0 and self.ability.elle_burns or nil,
-'''
+payload = 'elle_burns = self.ability.elle_burns ~= 0 and self.ability.elle_burns or nil,'
 match_indent = true
 times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '-- TARGET: adding to hand effects'
+position = 'before'
+payload = '''
+local effects = {}
+SMODS.calculate_context({elle_add_card = true},effects)
+local flags = SMODS.trigger_effects(effects)
+print(flags)
+if flags.elle_add_cards then
+	for i,v in ipairs(flags.elle_add_cards) do
+		if type(v)=="table" then
+			v.area:remove_card(v)
+			G.play:emplace(v)
+			table.insert(final_scoring_hand,v)
+		end
+	end
+end
+'''
+match_indent = true
+
+# Juice Issues Patch from https://github.com/MathIsFun0/Talisman/blob/main/lovely.toml
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "func = (function() card:juice_up(0.7);return true end)"
+position = "at"
+payload = "func = (function() if card and card.juice_up then card:juice_up(0.7) end;return true end)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if card then card:juice_up(0.8, 0.5) end"
+position = "at"
+payload = "if card and card.juice_up then card:juice_up(0.8, 0.5) end"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "card:juice_up(0.6, 0.1)"
+position = "at"
+payload = "if card and card.juice_up then card:juice_up(0.6, 0.1) end"
+match_indent = true

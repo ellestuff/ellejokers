@@ -112,7 +112,7 @@ end
 
 local cie_hook = SMODS.calculate_individual_effect
 function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
-	if (scored_card.config.center.set == "Default" or scored_card.config.center.set == "Enhanced") and key~= "message" and scored_card and scored_card.ability and scored_card.ability.elle_burns and scored_card.ability.elle_burns > 0 then
+	if scored_card and scored_card.ability and scored_card.ability.elle_burns and scored_card.ability.elle_burns > 0 and (scored_card.config.center.set == "Default" or scored_card.config.center.set == "Enhanced") and key~= "message" then
 		local base = scoring_numbers[key] or 0
 
 		local burn_mult = 1+scored_card.ability.elle_burns*ellejokers.burn_vars()[1]
