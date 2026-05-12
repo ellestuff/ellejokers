@@ -69,7 +69,7 @@ end
 function ellejokers.mod_data.custom_collection_tabs()
 	local tally = 0
 	for _, v in pairs(G.P_CENTER_POOLS.elle_Resident) do
-		tally = tally + 1
+		tally = tally + (v.discovered and 1 or 0)
 	end
 	return {UIBox_button{
 		button = "elle_your_collection_residents",
