@@ -14,7 +14,7 @@ payload = '''
 if (card) then
 	-- Sophie Burn support
 	if specific_vars and specific_vars.elle_burns then
-		info_queue[#info_queue+1] = {set="Other",key="elle_burn"}
+		info_queue[#info_queue+1] = ellejokers.burn_desc()
 	end
 	-- Drago support
 	if #SMODS.find_card("j_elle_drago", false)>0 then

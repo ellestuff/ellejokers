@@ -1,16 +1,24 @@
+function ellejokers.burn_vars() return {1,3} end -- Can be hooked for silly joker effects
+
 function ellejokers.add_burn(card,count)
 	if card.config.center.set == "Default" or card.config.center.set == "Enhanced" then
-		if (card.ability.elle_burns or 0)+(count or 1) > 3 then SMODS.destroy_cards(card) else
-		
-		card:juice_up(.4,.4)
-		card.ability.elle_burns = (card.ability.elle_burns or 0) + (count or 1)
-		play_sound("elle_fizz")
+		if (card.ability.elle_burns or 0)+(count or 1) > ellejokers.burn_vars()[2] then
+			SMODS.destroy_cards(card)
+			SMODS.calculate_context({
+				elle_burned_up = true,
+				card = card
+			})
+		else
+			card:juice_up(.4,.4)
+			card.ability.elle_burns = (card.ability.elle_burns or 0) + (count or 1)
 		end
+		play_sound("elle_fizz")
 	end
 end
 
-function ellejokers.burn_vars(card)
-	return {}
+
+function ellejokers.burn_desc()
+	return {set="Other",key="elle_burn",vars=ellejokers.burn_vars()}
 end
 
 ellejokers.Resident {
@@ -19,20 +27,66 @@ ellejokers.Resident {
 	config = { extra = { charges = 0, xmult=1, xmult_mod = 0.25 } },
 	resident_colour = HEX("ffcce9"),
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue+1] = {set="Other",key="elle_burn"}
+		info_queue[#info_queue+1] = ellejokers.burn_desc()
 		return {vars = {card.ability.extra.charges,card.ability.extra.xmult_mod,card.ability.extra.xmult,card.ability.extra.charges==1 and "" or "s"}}
 	end,
 	calculate = function(self, card, context)
-		-- Add the mult stuff
 		if context.after and SMODS.last_hand_oneshot then
-			for i, v in ipairs(context.scoring_hand) do
-				G.E_MANAGER:add_event(Event({func=function()
-					ellejokers.add_burn(v)
-				return true end}))
-			end
-			return { message = localize("elle_sophie_burn") }
+			card.ability.extra.charges = card.ability.extra.charges+#context.scoring_hand
+			return {
+				message = "+"..#context.scoring_hand.." Charges",
+				colour = G.ARGS.LOC_COLOURS.elle_burn
+			}
 		end
-	end
+
+		if context.elle_burned_up then
+			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
+			return {
+				message = localize("k_upgrade_ex")
+			}
+		end
+	end,
+	resident_buttons = {
+		{
+			text = "Burn",
+			can_use = function(self, card) return slimeutils.can_use(card,G.elle_resident_area) and card.ability.extra.charges >= #G.hand.highlighted and #G.hand.highlighted > 0 end,
+			use = function(self, card)
+				card.ability.extra.charges = card.ability.extra.charges - #G.hand.highlighted
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					delay = 0.4,
+					func = function()
+						play_sound('tarot1')
+						card:juice_up(0.3, 0.5)
+						return true
+					end
+				}))
+				for i = 1, #G.hand.highlighted do
+					local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 0.2,
+						func = function()
+							ellejokers.add_burn(G.hand.highlighted[i])
+							return true
+						end
+					}))
+				end
+				delay(0.2)
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					delay = 0.2,
+					func = function()
+						G.hand:unhighlight_all()
+						return true
+					end
+				}))
+			end,
+			colour = G.ARGS.LOC_COLOURS.elle_burn,
+			scale = 1.6,
+			close = true
+		}
+	},
 }
 
 -- Hooks
@@ -41,7 +95,7 @@ function SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
 	lpb_hook(specific_vars,desc_nodes)
 
 	if specific_vars and specific_vars.elle_burns then
-		localize{type = 'other', key = specific_vars.elle_burns == 1 and 'elle_card_burn' or 'elle_card_burns', nodes = desc_nodes, vars = {specific_vars.elle_burns, specific_vars.elle_burns+1}}
+		localize{type = 'other', key = specific_vars.elle_burns == 1 and 'elle_card_burn' or 'elle_card_burns', nodes = desc_nodes, vars = {specific_vars.elle_burns, 1+specific_vars.elle_burns*ellejokers.burn_vars()[1]}}
 	end
 end
 
@@ -61,7 +115,7 @@ function SMODS.calculate_individual_effect(effect, scored_card, key, amount, fro
 	if (scored_card.config.center.set == "Default" or scored_card.config.center.set == "Enhanced") and key~= "message" and scored_card and scored_card.ability and scored_card.ability.elle_burns and scored_card.ability.elle_burns > 0 then
 		local base = scoring_numbers[key] or 0
 
-		local burn_mult = 1+scored_card.ability.elle_burns
+		local burn_mult = 1+scored_card.ability.elle_burns*ellejokers.burn_vars()[1]
 
 		local new = (amount-base)*burn_mult+base
 

@@ -835,9 +835,9 @@ return {
 			elle_burn = {
 				name = "Burnt",
 				text = {
-					"{X:elle_burn,C:white}X1{} Scored values",
+					"{X:elle_burn,C:white}X#1#{} Scored values",
 					"per {E:elle_burn}Burn{}, destroys when",
-					"card exceeds {C:attention}3{} burns"
+					"card exceeds {C:attention}#2#{} burns"
 				}
 			},
 
@@ -1314,7 +1314,8 @@ return {
 					{
 						"If score {E:elle_burn}catches on",
 						"{E:elle_burn}fire{}, gain a {C:attention}charge{} for",
-						"each played card",
+						"each played card in",
+						"winning hand",
 						"{C:inactive}(Currently {C:attention}#1#{C:inactive} Charge#4#)"
 					},{
 						"Spend {C:attention}charges{} to add",

@@ -36,7 +36,7 @@ SMODS.Consumable {
 	pos = { x = 2, y = 0 },
 	config = { extra = { }, max_highlighted = 1 },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue+1] = {set="Other",key="elle_burn"}
+		info_queue[#info_queue+1] = ellejokers.burn_desc()
 		return { vars = { card.ability.max_highlighted } }
 	end,
 	use = function(self, card, area, copier)
