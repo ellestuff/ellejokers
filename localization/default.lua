@@ -595,7 +595,7 @@ return {
 				name = "The Fallen",
 				text = {
 					"{E:elle_burn}Burn{} {C:attention}#1#{} selected",
-					"cards once"
+					"card once"
 				}
 			}
 		},

@@ -9,23 +9,33 @@ ellejokers.Resident {
 		}, bio_key = G.P_CENTERS.elle_r_elle_cheshire.discovered and self.key.."_chesh" or nil }
 	end,
 	calculate = function(self, card, context)
-		if #G.discard.cards>0 and context.elle_add_card then
-			return {
-				message = "TEST",
-				elle_add_cards={pseudorandom_element(G.discard.cards,"elle_p23")}
-			}
+		if context.elle_add_card then
+			local pool = {}
+			for _,v in pairs(G.discard.cards) do
+				if not v.elle_extra_scoring_card then
+					pool[#pool+1] = v
+				end
+			end
+
+			if #pool > 0 then
+				local c = pseudorandom_element(pool,"elle_p23")
+				c.elle_extra_scoring_card = true
+				ellejokers.extra_scoring_cards[#ellejokers.extra_scoring_cards + 1] = c
+				return {
+					message = "TEST"
+				}
+			end
 		end
 	end
 }
 
-SMODS.other_calculation_keys[#SMODS.other_calculation_keys+1] = 'elle_add_cards'
+--[[SMODS.other_calculation_keys[#SMODS.other_calculation_keys+1] = 'elle_add_cards'
 
 local cie_hook = SMODS.calculate_individual_effect
 function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
 	if key == 'elle_add_cards' then
-		print(amount)
 		return {[key] = amount}
 	end
 
 	return cie_hook(effect, scored_card, key, amount, from_edition)
-end
+end]]

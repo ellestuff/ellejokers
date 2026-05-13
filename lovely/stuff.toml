@@ -116,19 +116,17 @@ target = "functions/state_events.lua"
 pattern = '-- TARGET: adding to hand effects'
 position = 'before'
 payload = '''
-local effects = {}
+ellejokers.extra_scoring_cards = {}
 SMODS.calculate_context({elle_add_card = true},effects)
-local flags = SMODS.trigger_effects(effects)
-print(flags)
-if flags.elle_add_cards then
-	for i,v in ipairs(flags.elle_add_cards) do
-		if type(v)=="table" then
-			v.area:remove_card(v)
-			G.play:emplace(v)
-			table.insert(final_scoring_hand,v)
-		end
+for i,v in ipairs(ellejokers.extra_scoring_cards) do
+	if type(v)=="table" then
+		table.insert(final_scoring_hand,v)
+		v.area:remove_card(v)
+		G.play:emplace(v)
+		v.elle_extra_scoring_card = nil
 	end
 end
+ellejokers.extra_scoring_cards = nil
 '''
 match_indent = true
 

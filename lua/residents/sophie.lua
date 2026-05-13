@@ -117,7 +117,7 @@ function SMODS.calculate_individual_effect(effect, scored_card, key, amount, fro
 
 		local burn_mult = 1+scored_card.ability.elle_burns*ellejokers.burn_vars()[1]
 
-		local new = (amount-base)*burn_mult+base
+		local new = ((amount or 0)-base)*burn_mult+base
 
 		if effect.message then
 			effect.message = effect.message:gsub(amount,new)
