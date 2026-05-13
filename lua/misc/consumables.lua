@@ -34,7 +34,7 @@ SMODS.Consumable {
 	cost = 4,
 	atlas = 'consumables',
 	pos = { x = 2, y = 0 },
-	config = { extra = { }, max_highlighted = 1 },
+	config = { extra = { }, max_highlighted = 2 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = ellejokers.burn_desc()
 		return { vars = { card.ability.max_highlighted } }

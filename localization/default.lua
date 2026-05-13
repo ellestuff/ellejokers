@@ -595,7 +595,7 @@ return {
 				name = "The Fallen",
 				text = {
 					"{E:elle_burn}Burn{} {C:attention}#1#{} selected",
-					"card once"
+					"cards once"
 				}
 			}
 		},
@@ -1249,10 +1249,9 @@ return {
 			elle_r_elle_p41 = {
 				name = 'Prototype #1#41',
 				text = {
-					"Copy abilities of",
-					"{C:attention}#2#{} random {C:attention}Jokers{},",
-					"Jokers change at",
-					"start of round"
+					"Copy abilities of {C:attention}#2#{} random",
+					"{C:attention}Jokers{}, Jokers change",
+					"when blind is selected"
 				},
 				res_bio = {
 					"Apparently, turning attempts",
@@ -1286,6 +1285,10 @@ return {
 			
 			elle_r_elle_p23 = {
 				name = "Prototype #1#23",
+				text = {
+					"Add a random {C:attention}discarded",
+					"card to scoring hand"
+				},
 				res_bio = {
 					"One of the earlier {C:attention}Artificial",
 					"{C:attention}Resident experiments{}, before",
