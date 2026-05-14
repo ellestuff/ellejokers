@@ -22,7 +22,7 @@ ellejokers.Resident {
 				c.elle_extra_scoring_card = true
 				ellejokers.extra_scoring_cards[#ellejokers.extra_scoring_cards + 1] = c
 				return {
-					message = "TEST"
+					message = localize("elle_23_activate")
 				}
 			end
 		end

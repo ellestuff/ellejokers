@@ -14,7 +14,7 @@ FLUFF.Colour({
 	pos = { x = 1, y = 1 },
 	config = {
 		upgrade_rounds = 1,
-        enhancement = "m_elle_jess"
+		enhancement = "m_elle_jess"
 	},
 	slime_desc_icon = {
 		atlas = "elle_cornericons",
@@ -30,7 +30,7 @@ FLUFF.Colour({
 	pos = { x = 2, y = 1 },
 	config = {
 		upgrade_rounds = 1,
-        enhancement = "m_elle_slime"
+		enhancement = "m_elle_slime"
 	},
 
 	mf_art_credit = "Multi + ellestuff."
@@ -74,6 +74,50 @@ SMODS.Consumable({
 
 		return { vars = { card.ability.max_highlighted } }
 	end,
+})
+
+SMODS.Consumable({
+	set = "Rotarot",
+	key = "rot_fallen",
+	pos = { x = 2, y = 0 },
+	config = { extra = { max = 40 } },
+	cost = 3,
+	atlas = "morefluff",
+	unlocked = true,
+	discovered = true,
+	mf_rotate_by = math.pi / 4,
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = ellejokers.burn_desc()
+
+		local burns = 0
+		if G.playing_cards then
+			for _,v in ipairs(G.playing_cards) do
+				if v.ability.elle_burns then burns = burns + v.ability.elle_burns end
+			end
+		end
+
+		return { vars = { card.ability.extra.max, math.min(burns,card.ability.extra.max) } }
+	end,
+	use = function(self, card, area, copier)
+		local money = 0
+		for _,v in ipairs(G.playing_cards) do
+			if v.ability.elle_burns then money = money + v.ability.elle_burns end
+		end
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = 0.4,
+			func = function()
+				play_sound('timpani')
+				card:juice_up(0.3, 0.5)
+				ease_dollars(money, true)
+				return true
+			end
+		}))
+		delay(0.6)
+	end,
+	can_use = function(self, card)
+		return true
+	end
 })
 
 SMODS.Enhancement {

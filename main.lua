@@ -457,7 +457,7 @@ SMODS.DynaTextEffect {
 
         letter.offset = {
 			x = 0,
-            y = math.cos(t) * 4
+            y = math.cos(t) * 8
         }
 
 		local c = math.sin(t * 0.683) + 2

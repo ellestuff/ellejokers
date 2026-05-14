@@ -615,6 +615,14 @@ return {
 					"cards into",
 					"{C:attention}Less Cards"
 				}
+			},
+			c_elle_rot_fallen = {
+				name = "{E:mf_rotarot_title}The Fallen!",
+				text = {
+					"Gives money equal to amount of",
+					"{E:elle_burn}Burns{} in full deck {C:inactive}(Max of {C:money}$#1#{C:inactive})",
+					"{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+				}
 			}
 		},
 		Spectral = {
@@ -1381,7 +1389,7 @@ return {
 			elle_residents = "Residents",
 			k_booster_group_p_elle_resident = "Resident Pack",
 			
-			elle_41_activate = "Yeah~!",
+			elle_23_activate = "Yeah~!",
 			elle_suggestion = "Forcefem!",
 			elle_ourple_kill = "!!!",
 
