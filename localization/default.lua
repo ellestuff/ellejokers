@@ -1307,8 +1307,10 @@ return {
 			elle_r_elle_p23 = {
 				name = "Prototype #1#23",
 				text = {
-					"Add a random {C:attention}discarded",
-					"card to scoring hand"
+					"Add {C:attention}#2#{} random {C:attention}discarded",
+					"card#3# to scoring hand,",
+					"increases by {C:attention}#4#{} when",
+					"{C:attention}Boss Blind{} is defeated"
 				},
 				res_bio = {
 					"One of the earlier {C:attention}Artificial",

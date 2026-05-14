@@ -44,7 +44,7 @@ ellejokers.Resident {
 	end,
 	calculate = function(self, card, context)
 		ret = {}
-		if context.setting_blind then
+		if context.setting_blind and not context.retrigger_joker then
 			card.ability.extra.targets = {}
 
 			list = {}

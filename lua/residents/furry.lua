@@ -68,7 +68,7 @@ furry.calculate = function(self, card, context)
 		}
 	end
 
-	if context.end_of_round and context.main_eval and card.ability.extra.eaten > 0 then
+	if context.end_of_round and context.main_eval and card.ability.extra.eaten > 0 and not context.retrigger_joker then
 		local mod = card.ability.extra.eaten * card.ability.extra.mult_mod
 		
 		card.ability.extra.mult = card.ability.extra.mult + mod
