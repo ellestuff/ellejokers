@@ -1,10 +1,10 @@
 SMODS.Booster{
 	key = "resident",
 	atlas = "booster",
-	weight = 1,
+	weight = 0.5,
 	kind = 'elle_Resident',
 	cost = 6,
-	config = { extra = 2, choose = 1 },
+	config = { extra = 4, choose = 1 },
 	ease_background_colour = function(self)
 		ease_background_colour({
 			new_colour = G.C.SET.elle_Resident,
