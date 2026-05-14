@@ -835,7 +835,7 @@ return {
 			elle_burn = {
 				name = "Burnt",
 				text = {
-					"{X:elle_burn,C:white}X#1#{} Scored values",
+					"Gain {X:elle_burn,C:white}X#1#{} Scored values",
 					"per {E:elle_burn}Burn{}, destroys when",
 					"card exceeds {C:attention}#2#{} burns"
 				}
