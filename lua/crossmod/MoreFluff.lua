@@ -53,7 +53,7 @@ SMODS.Consumable({
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_elle_lime
 
 		return { vars = { card.ability.max_highlighted } }
-	end,
+	end
 })
 
 SMODS.Consumable({
@@ -124,11 +124,40 @@ SMODS.Enhancement {
 	key = 'lime',
 	atlas = 'morefluff',
 	pos = { x = 0, y = 1 },
-	config = { extra = { } },
+	config = { extra = { hits = 0, odds = 3 } },
 	loc_vars = function(self, info_queue, card)
-		return { vars = { } }
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'elle_slime_card', false, true)
+		return { vars = { numerator, denominator } }
 	end,
 	calculate = function(self, card, context)
+		if context.main_scoring and context.cardarea == G.play then
+			local hit = SMODS.pseudorandom_probability(card, 'elle_lime_card', 1, card.ability.extra.odds,nil,true)
+			
+			if hit then
+				card.ability.extra.hits = card.ability.extra.hits + 1
+				return {
+					message = "X2 Odds",
+					colour = G.C.GREEN
+				}
+			end
+
+			return {
+				message = localize('k_nope_ex'),
+				colour = G.C.SECONDARY_SET.Tarot
+			}
+		end
+		
+		if context.final_scoring_step then
+			G.E_MANAGER:add_event(Event({func = function()
+				card.ability.extra.hits = 0
+			return true end}))
+		end
+
+		if context.mod_probability and not context.blueprint then
+			return {
+				numerator = context.numerator * (2^card.ability.extra.hits)
+			}
+		end
 	end
 }
 

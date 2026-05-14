@@ -166,8 +166,10 @@ SMODS.DrawStep {
 			self.wordlecanvas.canvas:renderTo(function() wordle_draw(self) end)
 			love.graphics.pop()
 
+			
+
 			self.wordlecanvas.role.draw_major = self
-			self.wordlecanvas:draw_shader("dissolve", nil, nil, nil, self.children.center)
+			self.wordlecanvas:draw_shader(self.edition and G.P_CENTERS[self.edition.key].shader or "dissolve", nil, nil, nil, self.children.center)
 		end
 	end
 }

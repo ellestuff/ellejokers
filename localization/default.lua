@@ -669,6 +669,8 @@ return {
 					"no rank or suit"
 				}
 			},
+			
+			-- MoreFluff crossmod
 			m_elle_less = {
 				name = "Less Card",
 				text = {
@@ -682,6 +684,17 @@ return {
 					"{C:mult}+#1#{} Mult per {C:attention}Less Card",
 					"held in hand",
 					"Fills {C:edition}#2#{} hand space"
+				}
+			},
+
+			m_elle_lime = {
+				name = "Lime Card",
+				text = {
+					"{C:attention}Fixed {C:green}#1# in #2#{} chance",
+					"to double all {C:attention}listed",
+					"{C:green,E:1,S:1.1}probabilites{} for",
+					"current hand",
+					"when scored"
 				}
 			}
 		},
