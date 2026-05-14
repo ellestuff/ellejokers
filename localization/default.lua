@@ -1341,7 +1341,17 @@ return {
 			elle_r_elle_triangle = {
 				name = "Triangle",
 				text = {
-					
+					{
+						"Destroy a selected {C:tarot}Tarot{} card",
+						"to gain a {C:attention}charge{}, or destroy",
+						"a selected {C:rotarot}Rotarot{} to gain {C:attention}#1#",
+						"{C:inactive}(Currently {C:attention}#2#{C:inactive} Charge#3#)"
+					},
+					{
+						"Use this on a {C:colourcard}Colour{} card",
+						"to give it a round for every",
+						"{C:attention}charge{}, spending all of them"
+					}
 				},
 				res_bio = {
 					"waow",
@@ -1391,8 +1401,9 @@ return {
 
 			elle_active_used = "Used",
 			elle_active_available = "Available",
-			elle_active_refreshed = "Refreshed!"
+			elle_active_refreshed = "Refreshed!",
 
+			elle_triangle_destroyed = "Destroyed!",
 		},
 		achievement_names = {
 			ach_elle_soretro = "So Retro",
