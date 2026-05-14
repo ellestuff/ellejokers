@@ -209,23 +209,24 @@ ellejokers.Resident {
 					(FLUFF.is_colour(G.consumeables.highlighted[1]) and (card.ability.extra.charges) > 0)
 			end,
 			use = function(self, card)
-				if FLUFF.is_colour(G.consumeables.highlighted[1]) then
+				local target = G.consumeables.highlighted[1]
+				if FLUFF.is_colour(target) then
 					for _ = 1, card.ability.extra.charges do
-						trigger_colour_end_of_round(G.consumeables.highlighted[1])
+						trigger_colour_end_of_round(target)
 					end
 					card.ability.extra.charges = 0
 				else
-					for _, other_card in ipairs(G.consumeables.highlighted) do
-						local set = other_card.ability.set
-						if set == "Rotarot" then
-							card.ability.extra.charges = card.ability.extra.charges + card.ability.extra.rotarot_bonus
-						else
-							card.ability.extra.charges = card.ability.extra.charges + 1
-						end
-						SMODS.calculate_individual_effect({ message = localize "elle_triangle_destroyed", colour = G.C.RED }, card, "message", nil, nil)
+					local set = target.ability.set
+					if set == "Rotarot" then
+						card.ability.extra.charges = card.ability.extra.charges + card.ability.extra.rotarot_bonus
+					else
+						card.ability.extra.charges = card.ability.extra.charges + 1
 					end
-
-					SMODS.destroy_cards(G.consumeables.highlighted)
+					SMODS.calculate_individual_effect({ message = localize "elle_triangle_destroyed", colour = G.C.RED }, card, "message", nil, nil)
+					
+					SMODS.destroy_cards(target)
+					target.states.click.can = false
+					G.consumeables:unhighlight_all()
 				end
 			end,
 			colour = HEX("ff6868"),
