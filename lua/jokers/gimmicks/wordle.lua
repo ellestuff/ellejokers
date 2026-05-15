@@ -197,6 +197,8 @@ local function handle_wordle_end(card)
 end
 
 local function submit_letter(card, char)
+	if card.ability.extra.wordle.inactive or #card.ability.extra.wordle.current_guess == 5 then return end
+
 	-- Check if valid letter
 	charkey = string.byte(string.lower(char))-string.byte("a")
 	if (charkey == math.min(math.max(charkey,0),25) or char == " ") and #card.ability.extra.wordle.current_guess<5 then
@@ -229,7 +231,7 @@ local text_input_hook = love.textinput
 function love.textinput(text)
 	if G.jokers and not G.CONTROLLER.locked then
 		for _, v in ipairs(G.jokers.cards) do
-			if v.config.center.key == "j_elle_wordle" and not v.ability.extra.wordle.inactive then
+			if v.config.center.key == "j_elle_wordle" then
 				submit_letter(v, text)
 			end
 		end
@@ -237,17 +239,23 @@ function love.textinput(text)
 	text_input_hook(text)
 end
 
+local function wordle_backspace(card)
+	if card.ability.extra.wordle.inactive or #card.ability.extra.wordle.current_guess==0 then return end
+
+	card.ability.extra.wordle.current_guess = string.sub(card.ability.extra.wordle.current_guess,1,#card.ability.extra.wordle.current_guess-1)
+	card:juice_up(0.1,0.1)
+	play_sound("button",1.2,.5)
+end
+
 if not love.keypressed then function love.keypressed(key,unicode) end end
 local key_pressed_hook = love.keypressed
 function love.keypressed(key,unicode)
 	if G.jokers and not G.CONTROLLER.locked then
 		for _, v in ipairs(G.jokers.cards) do
-			if v.config.center.key == "j_elle_wordle" and not v.ability.extra.wordle.inactive then
-				if key == "backspace" and #v.ability.extra.wordle.current_guess>0 then
-					v.ability.extra.wordle.current_guess = string.sub(v.ability.extra.wordle.current_guess,1,#v.ability.extra.wordle.current_guess-1)
-					v:juice_up(0.1,0.1)
-					play_sound("button",1.2,.5)
-				elseif key == "return" and #v.ability.extra.wordle.current_guess == 5 then
+			if v.config.center.key == "j_elle_wordle" then
+				if key == "backspace" then
+					wordle_backspace(v)
+				elseif key == "return" then
 					submit_word(v)
 				end
 			end
@@ -267,4 +275,132 @@ wordle.update = function (self, card, dt)
 			table.remove(wordledata.reveal_status,#wordledata.reveal_status)
 		end
 	end
+end
+
+function G.FUNCS.elle_wordle_button(e)
+	local card = e.config.wordle_card
+	local char = e.config.wordle_char
+
+	if char == "BCK" then wordle_backspace(card)
+	elseif char == "ENTR" then submit_word(card)
+	elseif char == "          " then submit_letter(card,' ')
+	else submit_letter(card, char) end
+end
+
+local colours = {
+	HEX('939bb1'),
+	G.C.BLACK,
+	G.C.GOLD,
+	G.C.GREEN
+}
+
+function G.FUNCS.elle_wordle_button_func(e)
+	if #e.config.wordle_char > 1 then return end
+
+	local c = -1
+	for _,v in ipairs(e.config.wordle_card.ability.extra.wordle.guesses) do
+		local clist = get_wordle_colours(v,e.config.wordle_card.ability.extra.wordle.word)
+		for i,v2 in ipairs(clist) do
+			if v:sub(i,i) == e.config.wordle_char then c = math.max(c,v2) end
+		end
+	end
+	e.config.colour = colours[c+2]
+end
+
+
+local function create_wordle_ui(card)
+	local chars = {
+		"qwertyuiop",
+		"asdfghjkl",
+		"zxcvbnm",
+		{"BCK","          ","ENTR"}
+	}
+
+	local nodes = {}
+
+	for l, kb_line in ipairs(chars) do
+		local line_nodes = {}
+
+		for i = 1, #kb_line do
+			local char = type(kb_line) == 'table' and kb_line[i] or kb_line:sub(i,i)
+
+			line_nodes[#line_nodes+1] = {
+				n = G.UIT.C,
+				config = {
+					colour = G.C.CLEAR,
+					--minw = 0.2,
+					--maxw = 0.2,
+					align = 'cm',
+					padding = 0.025
+				},
+				nodes = {
+					{n = G.UIT.C,
+					config = {
+						colour = colours[1],
+						align = 'cm',
+						minh = 0.3,
+						maxh = 0.3,
+						padding = 0.05,
+						r = 0.1,
+						button = 'elle_wordle_button',
+						func = 'elle_wordle_button_func',
+						wordle_card = card,
+						wordle_char = char
+					},
+					nodes = {
+						{ n = G.UIT.T, config = { text = char:upper(), scale = 0.4, colour = G.C.WHITE } }
+			}}}}
+		end
+		nodes[#nodes+1] = {
+			n = G.UIT.R,
+			config = { align = 'cm' },
+			nodes = line_nodes
+		}
+	end
+
+	return UIBox{
+		definition = {
+			n = G.UIT.ROOT,
+			config = {
+				colour = G.C.L_BLACK,
+				shadow = true,
+				padding = 0.1,
+				r = 0.1,
+				align = "cm"
+			},
+			nodes = {{
+				n = G.UIT.C,
+				align = 'cm',
+				nodes = nodes
+			}}
+		},
+		config = {
+			align = 'bm',
+			major = card,
+			parent = card,
+			offset = { x = 0, y = 0.1 }
+		}
+	}
+end
+
+SMODS.DrawStep {
+	key = 'elle_wordle_buttons',
+	order = 10,
+	func = function(card, layer)
+		if card.children.elle_wordle_buttons then
+			card.children.elle_wordle_buttons:draw()
+		end
+	end
+}
+
+local highlight_ref = Card.highlight
+function Card.highlight(self, is_highlighted)
+	if is_highlighted and self.config.center_key == 'j_elle_wordle' and self.area == G.jokers then
+		self.children.elle_wordle_buttons = create_wordle_ui(self)
+	elseif self.children.elle_wordle_buttons then
+		self.children.elle_wordle_buttons:remove()
+		self.children.elle_wordle_buttons = nil
+	end
+
+	return highlight_ref(self, is_highlighted)
 end
