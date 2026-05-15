@@ -30,7 +30,7 @@ G.C.SECONDARY_SET.elle_Resident = HEX("ff53a9")
 function ellejokers.custom_card_areas.resident(game)
 	game.elle_resident_area = CardArea(
 		0,0,
-		G.CARD_W*1.1,G.CARD_H,
+		G.CARD_W,G.jokers.T.h,
 		{
 			card_limit = 1,
 			type = "joker",
@@ -52,18 +52,17 @@ local gsr = Game.start_run
 function Game:start_run(args, ...)
 	gsr(self, args, ...)
 
-	local cons_t = G.consumeables.T
+	local cons_t = G.jokers.T
+	local cons_t2 = G.consumeables.T
 
-	self.elle_resident_area.T.x = cons_t.x + cons_t.w - self.elle_resident_area.T.w
-	self.elle_resident_area.T.y = cons_t.y + 3
+	self.elle_resident_area.T.x = cons_t.x
+	self.elle_resident_area.T.y = cons_t.y
 
-	-- Fuckass MP compat
-	if SMODS.find_mod("Multiplayer") and MP and MP.shared then
-		cons_t = self.elle_resident_area.T
+	cons_t.x = cons_t.x + self.elle_resident_area.T.w + 0.2
+	cons_t.w = cons_t.w - self.elle_resident_area.T.w + 0.8
 
-		MP.shared.T.x = cons_t.x + cons_t.w - MP.shared.T.w
-		MP.shared.T.y = cons_t.y + 3
-	end
+	cons_t2.x = cons_t2.x + 1
+	cons_t2.w = cons_t2.w - 1
 end
 
 function ellejokers.mod_data.custom_collection_tabs()
