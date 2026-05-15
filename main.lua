@@ -91,7 +91,7 @@ local lib = {
 	"enhancements",
 	"achievements",
 	"config",
-	"tv_time",
+	--"tv_time",
 	"blinds",
 	"resident",
 	"resident_buttons",
@@ -174,7 +174,7 @@ local jokers = {
 	-- Gimmicky shit :33
 	gimmicks = {
 		"wordle",
-		"tenna"
+		--"tenna"
 	},
 
 	-- Legendaries
@@ -204,7 +204,7 @@ local crossmod = {
 }
 local decks = {
 	"mall",
-	"tv"
+	--"tv"
 }
 
 --#region Atlases
