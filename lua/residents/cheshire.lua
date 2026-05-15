@@ -16,7 +16,7 @@ ellejokers.Resident {
 	in_pool = function (self, args) return false end,
 	elle_tail = { x = 7, y = 1 },
 	calculate = function(self, card, context)
-		if card.ability.extra.active and context.setting_blind then
+		if card.ability.extra.active and context.setting_blind and not context.retrigger_joker then
 				print(G.STATE)
 				juice_card_until(card,function(card)
 					return card.ability.extra.active and G.STATE ~= G.STATES.ROUND_EVAL
@@ -24,7 +24,7 @@ ellejokers.Resident {
 		end
 		
 		if context.joker_main then
-			if not card.ability.extra.active then
+			if not card.ability.extra.active and not context.retrigger_joker then
 				G.E_MANAGER:add_event(Event({func = function()
 					card.ability.extra.active = true
 					juice_card_until(card,function(card)
@@ -33,10 +33,12 @@ ellejokers.Resident {
 				return true end}))
 			end
 			
-			return {
-				mult = card.ability.extra.xmult ~= 1 and card.ability.extra.xmult or nil,
-				extra = not card.ability.extra.active and { message = localize("elle_active_refreshed") } or nil
-			}
+			if card.ability.extra.xmult ~= 1 or (not card.ability.extra.activee and not context.retrigger_joker) then
+				return {
+					mult = card.ability.extra.xmult ~= 1 and card.ability.extra.xmult or nil,
+					extra = not card.ability.extra.activee and not context.retrigger_joker and { message = localize("elle_active_refreshed") } or nil
+				}
+			end
 		end
 
 		if context.end_of_round and context.main_eval and card.ability.extra.eaten > 0 and not context.retrigger_joker then
