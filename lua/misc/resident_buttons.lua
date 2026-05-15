@@ -34,7 +34,7 @@ local function create_resident_buttons_ui(card)
 		buttons[#buttons+1] = {
 			n = G.UIT.R,
 			config = {
-				align = "cr"
+				align = "cl"
 			},
 			nodes = {
 				{ n = G.UIT.R,
@@ -52,10 +52,10 @@ local function create_resident_buttons_ui(card)
 					button_thingy = bTable
 				},
 				nodes = {
+					{ n = G.UIT.C },
 					{ n = G.UIT.C, nodes = {
 						{ n = G.UIT.T, config = { text = type(bTable.text or localize("b_use")) == "function" and bTable:text(card) or bTable.text or localize("b_use"), scale = 0.3*bTable.scale, } }
-					}},
-					{ n = G.UIT.C }
+					}}
 				}
 		}}}
 	end
@@ -66,15 +66,15 @@ local function create_resident_buttons_ui(card)
 			config = {
 				colour = G.C.CLEAR,
 				padding = 0.1,
-				align = "cr"
+				align = "cl"
 			},
 			nodes = buttons
 		},
 		config = {
-			align = 'cl', -- position relative to the card, meaning "center left". Follow the SMODS UI guide for more alignment options
+			align = 'cr', -- position relative to the card, meaning "center left". Follow the SMODS UI guide for more alignment options
 			major = card,
 			parent = card,
-			offset = { x = .5, y = 0 } -- depends on the alignment you want, without an offset the button will look as if floating next to the card, instead of behind it
+			offset = { x = -.5, y = 0 } -- depends on the alignment you want, without an offset the button will look as if floating next to the card, instead of behind it
 		}
 	}
 end
