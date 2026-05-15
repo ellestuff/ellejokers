@@ -26,7 +26,7 @@ ellejokers.Resident {
 				else break end
 			end
 			if count > 0 then
-				return { message = localize("elle_23_activate") }
+				return { message = localize("elle_prototype_activate") }
 			end
 		end
 

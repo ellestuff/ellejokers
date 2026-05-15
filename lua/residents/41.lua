@@ -65,7 +65,7 @@ ellejokers.Resident {
 			end
 			
 			SMODS.calculate_effect({ message_card = card,
-				message = localize("elle_41_activate"),
+				message = localize("elle_prototype_activate"),
 			}, card)
 		end
 	

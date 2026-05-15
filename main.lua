@@ -146,7 +146,7 @@ local jokers = {
 
 	-- Jess's Minecraft Idea
 	waterbucketrelease = {
-		"cobble_gen",
+		--"cobble_gen",
 		"water_bucket",
 		"lava_bucket",
 		"cobblestone",
@@ -155,7 +155,7 @@ local jokers = {
 
 	-- Random shit :)
 	misc = {
-		"diamond_pickaxe",
+		--"diamond_pickaxe",
 		"carpet",
 		"spamton",
 		"polyamory",
@@ -591,6 +591,22 @@ ellejokers.mod_data.menu_cards = function()
 					v.bypass_lock = true
 				end
 			end
+			G.E_MANAGER:add_event(Event({func = function()
+				local card = nil
+				for i, v in ipairs(G.title_top.cards) do
+					if v.config.center.set == "Default" or v.config.center.set == "Enhanced" then
+						card = v
+						break
+					end
+				end
+				if card then
+					for i = 1, 3 do
+						G.E_MANAGER:add_event(Event({trigger = 'after', delay = (i+1)*.2, func = function()
+							ellejokers.add_burn(card)
+						return true end}))
+					end
+				end
+			return true end}))
 		end
 	}
 end

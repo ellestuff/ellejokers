@@ -29,7 +29,7 @@ ellejokers.lamps = {
 	}
 }
 
-ellejokers.Resident {
+local lamp = ellejokers.Resident {
 	key = 'spearlamp',
 	atlas = 'lamps',
 	pos = { x = 0, y = 0 },
@@ -39,14 +39,15 @@ ellejokers.Resident {
 		info_queue[#info_queue+1] = lamp.crossover
 
 		card.config.center.slime_desc_icon = lamp.icon
-		
+
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'elle_vivian')
 		return {
-			vars = { },
+			vars = { card.ability.extra.count, self.config.extra.count, numerator, denominator },
 			key = self.key..(lamp.key_suffix or ""),
 			bio_key = card.ability.extra.variant>1 and self.key..(ellejokers.mod_data.config.nsfw and "_cameo_nsfw" or "_cameo") or nil
 		}
 	end,
-	config = { extra = { variant = 1 } },
+	config = { extra = { count = 2, odds = 8, variant = 1 } },
 	resident_colour = HEX("81cefd"),
 	set_ability = function(self, card, initial, delay_sprites)
 		-- 1 in 5 chance of silly lamp
@@ -61,4 +62,57 @@ ellejokers.Resident {
 		if not slimeutils.card_obscured(card) then
 			card.children.center:set_sprite_pos({x = card.ability.extra.variant-1, y = ellejokers.mod_data.config.nsfw and 1 or 0})
 	end end
+}
+
+function lamp:calculate(card,context)
+	-- Don't retrigger these!!!!
+	if not context.retrigger_joker then
+		-- Pick lamp card, can just be the card's table since it doesn't have to be saved after scoring
+		if context.before then
+			card.ability.extra.target = pseudorandom_element(context.scoring_hand,"e_lamp")
+		end
+
+		-- Forget the card
+		if context.final_scoring_step then
+			G.E_MANAGER:add_event(Event({func = function()
+				card.ability.extra.target = nil
+			return true end}))
+		end
+
+		-- Card scaling :)
+		if context.end_of_round and context.main_eval then
+			local reset = SMODS.pseudorandom_probability(card,'elle_lamp_reset',1,card.ability.extra.odds)
+			card.ability.extra.count = reset and self.config.extra.count or card.ability.extra.count + self.config.extra.count
+			return {message = localize(reset and 'k_reset' or 'k_upgrade_ex')}
+		end
+	end
+	
+	if context.repetition and context.cardarea == G.play and context.other_card == card.ability.extra.target then
+		return {
+			repetitions = card.ability.extra.count
+		}
+	end
+end
+
+SMODS.Shader {
+	key = "lamp_shader",
+	path = "lamp_shader.fs"
+}
+
+SMODS.ScreenShader {
+	key = 'lamp_shader',
+	shader = 'elle_lamp_shader',
+	order = -1,
+	send_vars = function(self)
+		local lamp = SMODS.find_card('elle_r_elle_spearlamp')[1]
+		local w,h = love.graphics.getDimensions()
+		return {
+			dims = {w,h},
+			pos = ellejokers.get_movable_pixel_pos(lamp.ability.extra.target)
+		}
+	end,
+	should_apply = function(self)
+		local lamp = SMODS.find_card('elle_r_elle_spearlamp')[1]
+		return lamp and lamp.ability.extra.target or false
+	end
 }

@@ -10,6 +10,7 @@ local obsidian = SMODS.Joker {
 	cost = 10,
 	blueprint_compat = false,
 	in_pool = function(self) return false end,
+	no_collection = true,
 	no_doe = true
 }
 

@@ -1208,7 +1208,15 @@ return {
 			elle_r_elle_spearlamp = {
 				name = 'Spearlamp',
 				text = {
-					""
+					{
+						"Retrigger a random",
+						"scoring card {C:attention}#1#{} times"
+					},{
+						"Retrigger count",
+						"increases by {C:attention}#2#{} at end",
+						"of round, {C:green}#3# in #4#{} chance",
+						"to {C:attention}reset{} instead"
+					}
 				},
 				res_bio = {
 					"After finding out that",
@@ -1249,21 +1257,45 @@ return {
 			elle_r_elle_spearlamp_vivi = {
 				name = '{C:purple}Vivi{}lamp',
 				text = {
-					""
+					{
+						"Retrigger a random",
+						"scoring card {C:attention}#1#{} times"
+					},{
+						"Retrigger count",
+						"increases by {C:attention}#2#{} at end",
+						"of round, {C:green}#3# in #4#{} chance",
+						"to {C:attention}reset{} instead"
+					}
 				}
 			},
 
 			elle_r_elle_spearlamp_jess = {
 				name = '{C:elle_r_elle_sarah}Jess{}lamp',
 				text = {
-					""
+					{
+						"Retrigger a random",
+						"scoring card {C:attention}#1#{} times"
+					},{
+						"Retrigger count",
+						"increases by {C:attention}#2#{} at end",
+						"of round, {C:green}#3# in #4#{} chance",
+						"to {C:attention}reset{} instead"
+					}
 				}
 			},
 			
 			elle_r_elle_spearlamp_drago = {
 				name = '{C:elle_r_elle_cheshire}Drago{}lamp',
 				text = {
-					""
+					{
+						"Retrigger a random",
+						"scoring card {C:attention}#1#{} times"
+					},{
+						"Retrigger count",
+						"increases by {C:attention}#2#{} at end",
+						"of round, {C:green}#3# in #4#{} chance",
+						"to {C:attention}reset{} instead"
+					}
 				}
 			},
 
@@ -1404,7 +1436,7 @@ return {
 			elle_residents = "Residents",
 			k_booster_group_p_elle_resident = "Resident Pack",
 			
-			elle_23_activate = "Yeah~!",
+			elle_prototype_activate = "Yeah~!",
 			elle_suggestion = "Forcefem!",
 			elle_ourple_kill = "!!!",
 
