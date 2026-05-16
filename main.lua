@@ -99,89 +99,35 @@ local lib = {
 }
 
 --		[[ Joker List ]]
--- Using this to make sure the groups are in order
-local joker_groups = {
-	--"mall",
-	"crossovers",
-	"waterbucketrelease",
-	"gimmicks",
-	"misc",
-	"legendaries"
-}
 -- Comment out jokers you want to disable
 local jokers = {
-	-- Canon OCs
-	mall = {
-		"chloe",
-		"furry",
-		"cheshire",
-		"sophie",
-		"fallen angel",
-		"sarah",
-		"mint",
-		--"spearmint.prog",
-		--"spearmint",
-		"spearlamp",
-		"marie",
-		"bea",
-		"rebecca",
-		"cassie",
-		--"cassie_stasis",
-		--"not_cassie",
-		"41",
-		"prototypes"
-	},
-
-	-- Friends & Partners
-	crossovers = {
-		"drago",
-		"cheshdrago",
-		"vivian",
-		"jess",
-		"jessclip",
-		"jessingit",
-		"feri",
-		"ferisophie"
-	},
-
-	-- Jess's Minecraft Idea
-	waterbucketrelease = {
-		--"cobble_gen",
-		"water_bucket",
-		"lava_bucket",
-		"cobblestone",
-		"obsidian"
-	},
-
-	-- Random shit :)
-	misc = {
-		--"diamond_pickaxe",
-		"carpet",
-		"spamton",
-		"polyamory",
-		--"bf",
-		"ourple",
-		"nitro",
-		"eraser",
-		"magic_fingers",
-		"suggestion",
-		"powerscaler",
-		"clubcard",
-		"combat",
-		"batcreditcard"
-	},
-
-	-- Gimmicky shit :33
-	gimmicks = {
-		"wordle",
-		--"tenna"
-	},
-
-	-- Legendaries
-	legendaries = {
-		"twy",
-		"elle"
-	}
+	"insomniac",
+	--"cassie",
+	"carpet",
+	"polyamory",
+	"nitro",
+	"ourple",
+	"eraser",
+	"magic_fingers",
+	"suggestion",
+	"powerscaler",
+	"clubcard",
+	"combat",
+	"batcreditcard",
+	"wordle",
+	"spamton",
+	"vivian",
+	"jess",
+	"jessclip",
+	"jessingit",
+	"drago",
+	--"cheshdrago",
+	"feri",
+	--"ferisophie",
+	--"bf",
+	--"tenna",
+	"elle",
+	"twy"
 }
 local residents = {
 	"marie",
@@ -242,7 +188,10 @@ SMODS.Atlas {
 	key = "animated",
 	path = "joker/animated.png",
 	px = 71,
-	py = 95
+	py = 95,
+	atlas_table = 'ANIMATION_ATLAS',
+	frames = 2,
+	fps = 2
 }
 SMODS.Atlas {
 	key = "legendary",
@@ -482,47 +431,12 @@ elle_badges = {
 	}
 }
 
--- Add joker animations
-local upd = Game.update
-anim_elle_spearmint_dt = 0
-anim_elle_spearmint_f = 0
-anim_elle_spearmint_spd = 0.25
-function Game:update(dt)
-	upd(self,dt)
-	anim_elle_spearmint_dt = anim_elle_spearmint_dt + dt
-	if G.P_CENTERS and anim_elle_spearmint_dt > anim_elle_spearmint_spd then
-		local _f = math.floor(anim_elle_spearmint_dt / anim_elle_spearmint_spd)
-		anim_elle_spearmint_dt = anim_elle_spearmint_dt % anim_elle_spearmint_spd
-		
-		-- spearmint.prog animation
-		if G.P_CENTERS.j_elle_spearmintprog then
-			local obj = G.P_CENTERS.j_elle_spearmintprog
-			obj.pos.x = (obj.pos.x + _f) % 2
-		end
-		
-		-- Spearmint animation
-		if G.P_CENTERS.j_elle_spearmint then
-			local obj = G.P_CENTERS.j_elle_spearmint
-			anim_elle_spearmint_f = (anim_elle_spearmint_f + _f) % 4 -- Taking extra steps to ping-pong the middle frame
-			obj.pos.x = anim_elle_spearmint_f > 2 and 2-(anim_elle_spearmint_f-2) or anim_elle_spearmint_f
-		end
-		
-		-- Check It Out animation
-		if G.P_CENTERS.j_elle_carpet then
-			local obj = G.P_CENTERS.j_elle_carpet
-			obj.pos.x = (obj.pos.x + _f) % 2
-		end
-	end
-end
-
 for i, v in ipairs(lib) do
 	assert(SMODS.load_file("lua/misc/"..v..".lua"))()
 end
 
-for _, v in ipairs(joker_groups) do
-	for _, v2 in ipairs(jokers[v]) do
-		assert(SMODS.load_file("lua/jokers/"..v.."/"..v2..".lua"))()
-	end
+for _, v in ipairs(jokers) do
+	assert(SMODS.load_file("lua/jokers/"..v..".lua"))()
 end
 
 for _, v in ipairs(residents) do

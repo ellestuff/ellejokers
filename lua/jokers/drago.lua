@@ -55,7 +55,7 @@ local function get_wild_count()
 	return c
 end
 
-drago.slime_upgrade = {
+--[[drago.slime_upgrade = {
 	card = "j_elle_cheshdrago",
 	values = function(self, card) return {
 		xmult = #SMODS.find_card("j_elle_cheshire", false)>0 and SMODS.find_card("j_elle_cheshire", false)[1].ability.extra.Xmult or 1,
@@ -77,4 +77,4 @@ drago.slime_upgrade = {
 		end
 	end,
 	bypass_lock = true
-}
+}]]

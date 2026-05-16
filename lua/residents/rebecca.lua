@@ -6,16 +6,7 @@
 --			- 1 Pack per ante
 --		- Talk about the Café
 --		- Explain how modifiers work
---	- Add modifiers
---		- Plus-size
---			- X2 Stored Values
---			- X2 Cost
---		- Oops! All [ConsumableType]
---			- Consumables tray is only [ConsumableType]
---		- Steam Sale
---			- X0.5 Cost (Rounded Down)
---		- Secret Menu
---			- Only Modded Jokers and Consumables appear
+
 ellejokers.rebecca_modifiers = {}
 
 ellejokers.Resident {
@@ -35,6 +26,7 @@ ellejokers.Resident {
 	calculate = function(self, card, context)
 		if context.main_eval and context.ante_change and not context.retrigger_joker then
 			G.GAME.elle_popup_shops.rebecca.reset_on_open = true
+			ellejokers.set_rebecca_modifier(pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier'))
 			return { message = localize("elle_shop_restock") }
 		end
 	end,
@@ -334,6 +326,7 @@ end
 	loc_vars(self) - localize() vars table
 	jokers(self)/consumables(self)/booster(self) - modify SMODS.create_card for respective areas
 	vars = arbitrary values for things that could change over time
+	cost_mod(self,card) - Change the cost of cards
 ]]
 
 ellejokers.rebecca_modifiers.none = {}	-- Nothing :)
@@ -366,8 +359,21 @@ ellejokers.rebecca_modifiers.modded = {
 					table.insert(new_pool, v)
 				end
 			end
+			if #new_pool == 0 then table.insert(new_pool, 'j_joker') end -- Go, my Jimbo!
 			return new_pool
 		end}
+	end
+}
+
+ellejokers.rebecca_modifiers.pcards = {
+	consumables = function(self) return {set ='Enhanced'} end,
+	cardfunc = function(self,card)
+		if card.area == G.elle_becca_shop_consumables then
+			card:set_seal(SMODS.poll_seal({guaranteed=true}),true,true)
+		end
+	end,
+	cost_mod = function(self,card)
+		return card.area == G.elle_becca_shop_consumables and 4 or card.cost
 	end
 }
 

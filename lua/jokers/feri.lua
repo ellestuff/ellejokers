@@ -21,7 +21,7 @@ feri.calculate = function(self, card, context)
 	if context.individual and context.cardarea == G.play and context.other_card:is_suit("Hearts") then
 		context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) +
 			card.ability.extra.mult
-		if #SMODS.find_card("j_elle_fallen", false)>0 then card.ability.extra.upgrade.count = card.ability.extra.upgrade.count + 1 end
+		--if #SMODS.find_card("j_elle_fallen", false)>0 then card.ability.extra.upgrade.count = card.ability.extra.upgrade.count + 1 end
 		return {
 			message = localize('k_upgrade_ex'),
 			colour = G.C.MULT
@@ -29,7 +29,7 @@ feri.calculate = function(self, card, context)
 	end
 end
 
-feri.slime_upgrade = {
+--[[feri.slime_upgrade = {
 	card = "j_elle_ferisophie",
 	values = function(self, card) return {charges = #SMODS.find_card("j_elle_fallen", false)>0 and SMODS.find_card("j_elle_fallen", false)[1].ability.extra.charges*4 or 0} end,
 	can_use = function(self, card) return #SMODS.find_card("j_elle_fallen", false)>0 and (card.ability.extra.upgrade.count>=card.ability.extra.upgrade.req) end,
@@ -45,4 +45,4 @@ feri.slime_upgrade = {
 			return true end }))
 		end
 	end
-}
+}]]

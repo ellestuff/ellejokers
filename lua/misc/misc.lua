@@ -12,6 +12,7 @@ SMODS.Tag {
 		if context.type == 'immediate' then
 			tag:yep('Restocked!', G.C.MONEY, function()
 				G.GAME.elle_popup_shops.rebecca.reset_on_open = true
+				ellejokers.set_rebecca_modifier(pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier'))
 				return true
 			end)
 			tag.triggered = true

@@ -4,220 +4,14 @@ local caption = '{C:elle,s:0.7,E:1}'
 return {
 	descriptions = {
 		Joker = {
-			-- Canon OCs
-			--[[j_elle_chloe = {
-				name = 'Chloe',
+			j_elle_insomniac = {
+				name = "Insomniac",
 				text = {
-					"Gain {C:chips}+#1#{} Chips every",
-					"time you {C:attention}discard{} a card.",
-					"Amount resets at end",
-					"of round",
-					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+					"{C:mult}+#1#{} Mult if you",
+					"have no {C:elle}Residents"
 				}
 			},
-			j_elle_furry = {
-				name = 'Furry',
-				text = {
-					"{C:attention}Once per Round:",
-					"Destroy a single card",
-					"and gain {C:mult}+#1#{} Mult",
-					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
-					"{C:inactive}(#3#)",
-					caption..'"Chloe always sucked at names~"'
-				}
-			},
-			j_elle_cheshire = {
-				name = 'Cheshire',
-				text = {
-					"{C:attention}Once per Hand:",
-					"Destroy a single card",
-					"and gain {X:mult,C:white}X#1#{} Mult",
-					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-					"{C:inactive}(#3#)",
-					caption.."Finally flying solo!"
-				},
-				unlock = {
-					"Upgrade into",
-					"this card"
-				}
-			},
-			j_elle_sophie = {
-				name = 'Sophie',
-				text = {
-					"{C:attention}Stores{} {C:mult}+#1#{} Mult if",
-					"score {C:attention}catches on fire",
-					"Use to {C:attention}release{} stored",
-					"Mult and {C:attention}reset",
-					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
-					caption.."Could do no wrong...?"
-				}
-			},
-			j_elle_fallen = {
-				name = 'Fallen Angel',
-				text = {
-					"{C:attention}Stores{} {X:mult,C:white}X#1#{} Mult if",
-					"score {C:attention}catches on fire",
-					"Use to {C:attention}release{} stored",
-					"Mult and {C:attention}reset",
-					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-					caption.."\"It burns so good~\""
-				},
-				unlock = {
-					"Reach {C:attention}10x",
-					"Blind Score"
-				}
-			},
-			j_elle_sarah = {
-				name = 'Sarah',
-				text = {
-					"Scoring {C:clubs}Clubs",
-					"retrigger one",
-					"additional time",
-					caption.."Keeping things working"
-				}
-			},
-			j_elle_mint = {
-				name = 'Mint',
-				text = {
-					"Played cards with",
-					"{C:clubs}Club{} suit give",
-					"{X:mult,C:white}X#1#{} Mult when scored",
-					caption..'"She looks better like this."',
-					caption..'"...Happier, even~"'
-				},
-				unlock = {
-					"Make a {C:red}grave",
-					"{C:red}mistake"
-				}
-			},
-			j_elle_spearmintprog = {
-				name = 'spearmint.prog',
-				text = {
-					"idk",
-					caption..'"At your service."'
-				}
-			},
-			j_elle_spearmint = {
-				name = 'Spearmint',
-				text = {
-					"idk",
-					caption..'"Can we wander for a spell?"'
-				}
-			},
-			j_elle_spearlamp = {
-				name = 'Spearlamp',
-				text = {
-					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
-					"{C:attention}share effects",
-					caption..'This was Chloe\'s Idea...'
-				}
-			},
-			j_elle_spearlamp_vivi = {
-				name = 'Vivilamp',
-				text = {
-					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
-					"{C:attention}share effects",
-					caption..'She asked for this...'
-				}
-			},
-			j_elle_spearlamp_jess = {
-				name = 'Jesslamp',
-				text = {
-					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
-					"{C:attention}share effects",
-					caption..'She\'s fine.'
-				}
-			},
-			j_elle_spearlamp_drago = {
-				name = 'Dragolamp',
-				text = {
-					"{C:enhanced}Steel{} and {C:enhanced}Slime{} Cards",
-					"{C:attention}share effects",
-					caption..'Probably better like this.'
-				}
-			},
-			j_elle_marie = {
-				name = 'Marie',
-				text = {
-					"Upgrade {C:attention}Unenhanced",
-					"playing cards into",
-					"{C:attention}Slime{} cards by",
-					"paying {C:money}$#1#{}, increase",
-					"the cost by {C:money}$#2#",
-					"afterwards"
-				}
-			},
-			j_elle_bea = {
-				name = 'Bea',
-				text = {
-					"Played {C:attention}cards{} permanently",
-					"gain {C:mult}+#1#{} Mult when scored",
-					"if played hand is a {C:attention}#2#{},",
-					"poker hand changes at",
-					"end of round"
-				}
-			},
-			j_elle_rebecca = {
-				name = 'Rebecca',
-				text = {
-					"Go to a separate {C:attention}Shop",
-					"{C:inactive}(Restocks at end of Ante)"
-				}
-			},
-			j_elle_cassie = {
-				name = 'Cassie',
-				text = {
-					"Gains {C:mult}+#1#{} Mult",
-					"at {C:attention}end of round",
-					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
-					caption.."Looking for her sister..."
-				}
-			},
-			j_elle_cassie2 = {
-				name = '...',
-				text = {
-					caption..'"You really kept it?',
-					caption..'No amount of magic will',
-					caption..'bring her back, you know?"'
-				},
-				unlock = {
-					"Make a {C:red}grave",
-					"{C:red}mistake"
-				}
-			},
-			j_elle_not_cassie = {
-				name = 'Prototype #1#39',
-				text = {
-					"Held hand is scored",
-					"{C:attention}before{} played hand",
-					caption..'"I\'m sorry..."'
-				},
-				unlock = {
-					"Beat {C:attention}???",
-					"Boss Blind"
-				}
-			},
-			j_elle_p41 = {
-				name = 'Prototype #1#41',
-				text = {
-					"If played hand contains",
-					"an {C:attention}Ace{} and {C:attention}4{},",
-					"Copy abilities of",
-					"neighbouring {C:attention}Jokers",
-					caption.."Protected innocence..."
-				}
-			},
-			j_elle_prototypes = {
-				name = 'The Prototypes',
-				text = {
-					"Copy abilities of",
-					"{C:attention}#1#{} random {C:attention}Jokers{},",
-					"Jokers change at",
-					"start of round"
-				}
-			},]]
 			
-			-- Other stuff
 			j_elle_drago = {
 				name = 'Drago',
 				text = {
@@ -905,6 +699,14 @@ return {
 				text = {
 					"Only {C:attention}Modded{} Jokers",
 					"appear in shop"
+				}
+			},
+
+			elle_rebecca_modifier_pcards = {
+				name = "Collector's Market",
+				text = {
+					"Enhanced, Sealed {C:attention}Playing Cards",
+					"appear instead of {C:attention}Consumables"
 				}
 			}
 		},

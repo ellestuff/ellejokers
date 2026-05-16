@@ -212,7 +212,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     
     col = clamp(vec4(col.xyz*mix(vec3(1.),getColour(2),amp/3.),col.a),0.,1.);
     
-    col = dist>noise ? vec4(0.) : vec4(mix(col.xyz,burnc,clamp(burn*1.7,0.,1.)),col.a/*>0. ? clamp(burn*1.7,col.a,1.) : 0*/);
+    col = dist>noise ? vec4(0.) : vec4(mix(col.xyz,burnc,clamp(burn*1.7,0.,1.)),col.a);
 
 	return col;
 }]])
