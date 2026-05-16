@@ -175,36 +175,44 @@ function create_UIbox_becca()
 		end}))
 	end
 	
-	--[[local mod_txt = 'elle_rebecca_modifier_'..G.GAME.elle_popup_shops.rebecca.modifier
+	local mod_txt = 'elle_rebecca_modifier_'..G.GAME.elle_popup_shops.rebecca.modifier
 	local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
 
 	local modifier_lines = {}
-	localize({set='Other', key=mod_txt, type='descriptions', vars=modifier.loc_vars and modifier:loc_vars() or nil, nodes = modifier_lines,default_col=G.C.UI.TEXT_LIGHT})
+	localize({set='Other', key=mod_txt, type='descriptions', vars=modifier.loc_vars and modifier:loc_vars() or nil, nodes = modifier_lines,})
 	local modifier_desc = {}
 	for _, v in ipairs(modifier_lines) do
-		modifier_lines[#modifier_lines+1] = {n=G.UIT.R,config={align = "cl"},nodes=v}
-	end]]
+		modifier_desc[#modifier_desc+1] = {n=G.UIT.R,config={align = "cm"},nodes=v}
+	end
+
+	local mod_ui = G.GAME.elle_popup_shops.rebecca.modifier ~= 'none' and {
+	n = G.UIT.C, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.05, r=.1, emboss=.05}, nodes = {
+		{n = G.UIT.C, config = {align="cm", padding=.1}, nodes = {
+			{n = G.UIT.R, config = {align="cm"}, nodes = {
+				{n = G.UIT.T, config = {text = localize({set='Other', key=mod_txt, type='name_text', vars=modifier.loc_vars and modifier:loc_vars() or nil}), colour=G.C.WHITE, scale=0.5}}}},
+				{n = G.UIT.R, config = {align="cm", colour=G.C.WHITE, r=.1, emboss=-.05, padding=.1}, nodes = {
+					{n = G.UIT.R, config = {align="cm"}, nodes = modifier_desc}
+	}}}}}} or nil
 
 	return create_UIBox_generic_options({
 		no_back = true,
 		contents = {
 			-- Title stuff
 			{n = G.UIT.R, config = {align="cm"}, nodes = {
-				-- Center box
-				{n = G.UIT.R, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.2, r=.1, emboss=.05}, nodes = {
-					{n = G.UIT.C, config = {align="cm", padding=.1}, nodes = {
-						{n = G.UIT.R, config = {align="cm"}, nodes = {
-							{n = G.UIT.T, config = {text = localize("elle_rebecca_title1"), colour=G.C.WHITE, scale=0.5}}}},
-							{n = G.UIT.R, config = {align="cm"}, nodes = {
-								{n = G.UIT.T, config = {text = localize("elle_rebecca_title2"), colour=G.C.UI.TEXT_INACTIVE, scale=0.3}}}}
-					}}}},
-				--[[{n = G.UIT.R, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.2, r=.1, emboss=.05}, nodes = {
-					{n = G.UIT.C, config = {align="cm", padding=.1}, nodes = {
-						{n = G.UIT.R, config = {align="cm"}, nodes = {
-							{n = G.UIT.T, config = {text = localize({set='Other', key=mod_txt, type='name_text', vars=modifier.loc_vars and modifier:loc_vars() or nil}), colour=G.C.WHITE, scale=0.5}}}},
-						{n = G.UIT.R, config = {align="cm"}, nodes = modifier_desc}
-				}}}}]]
-			}},
+				{n = G.UIT.R, config = {align="cm", padding = .1}, nodes = {
+					-- Center box
+					{n = G.UIT.C, config = {align="cm"}, nodes = {
+						{n = G.UIT.C, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.1, r=.1, emboss=.05}, nodes = {
+						{n = G.UIT.C, config = {align="cm", minw=2, colour=G.P_CENTERS.elle_r_elle_rebecca.resident_colour, padding=.1, r=.1}, nodes = {
+						{n = G.UIT.C, config = {align="cm", minw=2, colour=G.C.BLACK, r=.1}, nodes = {
+							{n = G.UIT.C, config = {align="cm", padding=.1}, nodes = {
+								{n = G.UIT.R, config = {align="cm"}, nodes = {
+									{n = G.UIT.T, config = {text = localize("elle_rebecca_title1"), colour=G.C.WHITE, scale=0.5}}}},
+									{n = G.UIT.R, config = {align="cm"}, nodes = {
+										{n = G.UIT.T, config = {text = localize("elle_rebecca_title2"), colour=G.C.UI.TEXT_INACTIVE, scale=0.3}}}}
+					}}}}}}}}}},
+					mod_ui
+			}}}},
 			-- Main Area
 			{n = G.UIT.R, config = {align="cm"}, nodes = {
 				-- Left side (Actual shop)
