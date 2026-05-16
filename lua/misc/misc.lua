@@ -3,10 +3,10 @@ SMODS.Tag {
 	atlas = "tag",
 	pos = {x=0,y=0},
 	in_pool = function(self, args)
-		return next(SMODS.find_card("j_elle_rebecca"))
+		return next(SMODS.find_card("elle_r_elle_rebecca"))
 	end,
 	loc_vars = function (self, info_queue, tag)
-		info_queue[#info_queue+1] = G.P_CENTERS.j_elle_rebecca
+		info_queue[#info_queue+1] = G.P_CENTERS.elle_r_elle_rebecca
 	end,
 	apply = function(self, tag, context)
 		if context.type == 'immediate' then
