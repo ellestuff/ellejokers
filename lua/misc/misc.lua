@@ -157,6 +157,14 @@ function get_current_pool(_type, _rarity, _legendary, _append)
 	return gcp_hook(_type, _rarity, _legendary, _append)
 end
 
+function ellejokers.table_keys(t)
+	local r = {}
+	for k,_ in pairs(t) do
+		r[#r+1] = k
+	end
+	return r
+end
+
 -- Borrowed from https://github.com/real-niacat/Aquillarri/blob/70b99dc8dec14a0e4e8c4ca5e56c259fa8bb32fd/items/p_utils.lua#L236-L241
 function ellejokers.get_movable_pixel_pos(mov)
     return {

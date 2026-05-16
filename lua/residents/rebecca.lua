@@ -1,7 +1,37 @@
+-- TO-DO:
+--	- Dialogue stuff
+--	- Sprite stuff
+--	- Dialogue writing
+--		- Mention shop info
+--			- 1 Pack per ante
+--		- Talk about the Café
+--		- Explain how modifiers work
+--	- Add modifiers
+--		- Plus-size
+--			- X2 Stored Values
+--			- X2 Cost
+--		- Oops! All [ConsumableType]
+--			- Consumables tray is only [ConsumableType]
+--		- Steam Sale
+--			- X0.5 Cost (Rounded Down)
+--		- Secret Menu
+--			- Only Modded Jokers and Consumables appear
+ellejokers.rebecca_modifiers = {}
+
 ellejokers.Resident {
 	key = 'rebecca',
 	pos = { x = 1, y = 3 },
 	config = { extra = { } },
+	loc_vars = function (self, info_queue, card)
+		local modkey = G.GAME.elle_popup_shops.rebecca.modifier
+		local modifier = ellejokers.rebecca_modifiers[modkey]
+		local mod_txt = 'elle_rebecca_modifier_'..modkey
+		info_queue[#info_queue+1] = {set='Other', key=mod_txt, vars=modifier.loc_vars and modifier:loc_vars() or nil}
+
+		return {
+			vars = { localize({set='Other',key=mod_txt, type='name_text',vars=modifier.loc_vars and modifier:loc_vars() or nil}) }
+		}
+	end,
 	calculate = function(self, card, context)
 		if context.main_eval and context.ante_change and not context.retrigger_joker then
 			G.GAME.elle_popup_shops.rebecca.reset_on_open = true
@@ -26,8 +56,12 @@ ellejokers.Resident {
 
 --local becca_obj = Sprite(0,0,192,256,"rebecca",{x=0,y=0})
 
+--#region Shop UI
+
 -- Reroll shop while inside UI (targetting cardareas)
 local function becca_visible_reroll(booster)
+	modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
+
 	-- Remove old cards
 	for i,v in ipairs(ellejokers.popup_shop.shop_cardareas.rebecca) do
 		for i2 = #G[v].cards,1, -1 do
@@ -40,16 +74,33 @@ local function becca_visible_reroll(booster)
 
 	-- Jokers
 	for i = 1, 2 -#G.elle_becca_shop_jokers.cards do
-		local new_shop_card = SMODS.create_card({set="Joker", area=G.elle_becca_shop_jokers, skip_materialize = true, bypass_discovery_center = true})
+		local t = modifier.joker and SMODS.shallow_copy(modifier:joker()) or {}
+		t.set = t.set or "Joker"
+		t.area = G.elle_becca_shop_jokers
+		t.skip_materialize = true
+		t.bypass_discovery_center = true
+
+		
+		local new_shop_card = SMODS.create_card(t)
+
 		G.elle_becca_shop_jokers:emplace(new_shop_card)
+		if modifier.cardfunc then modifier:cardfunc(new_shop_card) end
+		new_shop_card:set_cost()
 		create_shop_card_ui(new_shop_card)
 		new_shop_card:juice_up()
-		--print("added joker")
 	end
 	-- Consumables
 	for i = 1, 2-#G.elle_becca_shop_consumables.cards do
-		local new_shop_card = SMODS.create_card({set="Consumeables", area=G.elle_becca_shop_consumables, skip_materialize = true, bypass_discovery_center = true})
+		local t = modifier.consumables and SMODS.shallow_copy(modifier:consumables()) or {}
+		t.set = t.set or "Consumeables"
+		t.area = G.elle_becca_shop_consumables
+		t.skip_materialize = true
+		t.bypass_discovery_center = true
+
+		local new_shop_card = SMODS.create_card(t)
 		G.elle_becca_shop_consumables:emplace(new_shop_card)
+		if modifier.cardfunc then modifier:cardfunc(new_shop_card) end
+		new_shop_card:set_cost()
 		create_shop_card_ui(new_shop_card)
 		
 		new_shop_card:juice_up()
@@ -58,8 +109,16 @@ local function becca_visible_reroll(booster)
 	-- Booster pack
 	if booster then
 		for i = 1, 1-#G.elle_becca_shop_booster.cards do
-			local new_shop_card = SMODS.create_card({set="Booster", area=G.elle_becca_shop_booster, skip_materialize = true, bypass_discovery_center = true})
+			local t = modifier.booster and SMODS.shallow_copy(modifier:booster()) or {}
+			t.set = t.set or "Booster"
+			t.area = G.elle_becca_shop_booster
+			t.skip_materialize = true
+			t.bypass_discovery_center = true
+
+			local new_shop_card = SMODS.create_card(t)
 			G.elle_becca_shop_booster:emplace(new_shop_card)
+			if modifier.cardfunc then modifier:cardfunc(new_shop_card) end
+			new_shop_card:set_cost()
 			create_shop_card_ui(new_shop_card)
 			
 			new_shop_card:juice_up()
@@ -116,21 +175,35 @@ function create_UIbox_becca()
 		end}))
 	end
 	
+	--[[local mod_txt = 'elle_rebecca_modifier_'..G.GAME.elle_popup_shops.rebecca.modifier
+	local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
+
+	local modifier_lines = {}
+	localize({set='Other', key=mod_txt, type='descriptions', vars=modifier.loc_vars and modifier:loc_vars() or nil, nodes = modifier_lines,default_col=G.C.UI.TEXT_LIGHT})
+	local modifier_desc = {}
+	for _, v in ipairs(modifier_lines) do
+		modifier_lines[#modifier_lines+1] = {n=G.UIT.R,config={align = "cl"},nodes=v}
+	end]]
+
 	return create_UIBox_generic_options({
 		no_back = true,
 		contents = {
 			-- Title stuff
 			{n = G.UIT.R, config = {align="cm"}, nodes = {
 				-- Center box
-				{n = G.UIT.C, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.2, r=.1, emboss=.05}, nodes = {
-					-- Please stack them vertically pretty please :innocent:
+				{n = G.UIT.R, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.2, r=.1, emboss=.05}, nodes = {
 					{n = G.UIT.C, config = {align="cm", padding=.1}, nodes = {
 						{n = G.UIT.R, config = {align="cm"}, nodes = {
 							{n = G.UIT.T, config = {text = localize("elle_rebecca_title1"), colour=G.C.WHITE, scale=0.5}}}},
+							{n = G.UIT.R, config = {align="cm"}, nodes = {
+								{n = G.UIT.T, config = {text = localize("elle_rebecca_title2"), colour=G.C.UI.TEXT_INACTIVE, scale=0.3}}}}
+					}}}},
+				--[[{n = G.UIT.R, config = {align="cm", minw=2, colour=G.C.BLACK, padding=.2, r=.1, emboss=.05}, nodes = {
+					{n = G.UIT.C, config = {align="cm", padding=.1}, nodes = {
 						{n = G.UIT.R, config = {align="cm"}, nodes = {
-							{n = G.UIT.T, config = {text = localize("elle_rebecca_title2"), colour=G.C.UI.TEXT_INACTIVE, scale=0.3}}}}
-					}}
-				}}
+							{n = G.UIT.T, config = {text = localize({set='Other', key=mod_txt, type='name_text', vars=modifier.loc_vars and modifier:loc_vars() or nil}), colour=G.C.WHITE, scale=0.5}}}},
+						{n = G.UIT.R, config = {align="cm"}, nodes = modifier_desc}
+				}}}}]]
 			}},
 			-- Main Area
 			{n = G.UIT.R, config = {align="cm"}, nodes = {
@@ -223,3 +296,101 @@ function G.FUNCS.elle_rebecca_reroll(e)
 		return true
 	end}))
 end
+
+--#endregion
+
+function ellejokers.set_rebecca_modifier(mod_key)
+	G.GAME.elle_popup_shops.rebecca.modifier = mod_key
+	if ellejokers.rebecca_modifiers[mod_key].init then ellejokers.rebecca_modifiers[mod_key]:init() end
+end
+
+function ellejokers.reset_game_globals.rebecca(run_start)
+	if run_start then
+		ellejokers.set_rebecca_modifier(pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier'))
+	end
+end
+
+local oldsetcost = Card.set_cost
+function Card:set_cost()
+    oldsetcost(self)
+
+	local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
+	for i, v in ipairs(ellejokers.popup_shop.shop_cardareas.rebecca) do
+		if self.area == G[v] and modifier.cost_mod then
+			self.cost = modifier:cost_mod(self,G[v])
+		end
+	end
+end
+--[[ List of modifier thingies
+	init(self) - when modifier is set
+	loc_vars(self) - localize() vars table
+	jokers(self)/consumables(self)/booster(self) - modify SMODS.create_card for respective areas
+	vars = arbitrary values for things that could change over time
+]]
+
+ellejokers.rebecca_modifiers.none = {}	-- Nothing :)
+
+ellejokers.rebecca_modifiers.oops = {	-- Oops! All [ConsumableType]
+	init = function(self)
+		self.vars.type = pseudorandom_element(SMODS.ConsumableTypes,'elle_becca_mod_oops').key
+	end,
+	loc_vars = function(self)
+		return {localize("k_"..string.lower(self.vars.type)), colours = {SMODS.ConsumableTypes[self.vars.type].secondary_colour}}
+	end,
+	vars = { type = 'Tarot' },
+	consumables = function(self)
+		return { set = self.vars.type }
+	end
+}
+
+ellejokers.rebecca_modifiers.sale = {
+	cost_mod = function(self,card)
+		return math.max(math.floor(card.cost/3*2),1)
+	end
+}
+
+ellejokers.rebecca_modifiers.modded = {
+	joker = function(self)
+		print("TEST")
+		return {attributes = {"Joker"}, filter = function(pool)
+			local new_pool = {}
+			for k, v in pairs(pool) do
+				if G.P_CENTERS[v.key].original_mod then
+					table.insert(new_pool, v)
+				end
+			end
+		end}
+	end
+}
+
+-- this is definitely NOT the correct way to double values :sob:
+--[[local other_vals = {
+	'choose'
+}
+ellejokers.rebecca_modifiers.plussize = {
+	cardfunc = function(self,card)
+		card.ability.choose = card.ability.choose and card.ability.choose*2
+		if card.ability.consumeable then
+			for _, v in pairs(card.ability.consumeable) do
+				if type(v) == "number" then v = v * 2 end
+				if type(v) == "table" then
+					for _, v2 in pairs(v) do
+						if type(v2) == "number" then v2 = v2 * 2 end
+					end
+				end
+			end
+		end
+
+		if card.ability.extra then
+			if type(card.ability.extra) == "number" then card.ability.extra = card.ability.extra * 2
+			elseif type(card.ability.extra) == "table" then
+				for _, v in pairs(card.ability.extra) do
+					if type(v) == "number" then v = v * 2 end
+				end
+			end
+		end
+	end,
+	cost_mod = function(self,card)
+		return card.cost*2
+	end
+}]]

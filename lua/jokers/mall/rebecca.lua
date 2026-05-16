@@ -1,11 +1,3 @@
--- TO-DO:
---	- Dialogue stuff
---	- Sprite stuff
---	- Dialogue writing
---		- Mention shop info
---			- 1 Pack per ante
---			- 
-
 --[[SMODS.Atlas {
 	key = "rebecca",
 	path = "becca_test.png",

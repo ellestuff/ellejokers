@@ -50,7 +50,7 @@ ellejokers.popup_shop = {
 local igo_hook = Game.init_game_object
 function Game:init_game_object()
 	local g = igo_hook(self)
-	
+
 	-- Add shops here
 	g.elle_popup_shops = {
 		-- Rebecca Shop
@@ -60,7 +60,8 @@ function Game:init_game_object()
 			reroll_cost = 2, -- Cost increase amount
 			reset_on_open = true, -- Whether opening the shop will reroll contents
 			data = {}, -- Store shop contents while shop is closed
-			first_open = true -- If it's the first time opening the shop
+			first_open = true, -- If it's the first time opening the shop
+			modifier = 'none' -- Shop modifier
 		},
 		
 		-- [[BIG SHOP]]

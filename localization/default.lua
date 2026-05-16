@@ -874,6 +874,38 @@ return {
 					"{E:elle_burn}#1#{} burns",
 					"{X:elle_burn,C:white}X#2#{} scoring values"
 				}
+			},
+
+			elle_rebecca_modifier_none = {
+				name = "None",
+				text = {
+					"No Modifier"
+				}
+			},
+
+			elle_rebecca_modifier_oops = {
+				name = "Oops! All #1#s",
+				text = {
+					"All consumables in",
+					"shop are {V:1}#1#s"
+				}
+			},
+
+			elle_rebecca_modifier_sale = {
+				name = "Steam Sale",
+				text = {
+					"All card and packs in",
+					"shop are {C:attention}33%{} off",
+					"{C:inactive}(Rounded down)"
+				}
+			},
+
+			elle_rebecca_modifier_modded = {
+				name = "Secret Menu",
+				text = {
+					"Only {C:attention}Modded{} Jokers",
+					"appear in shop"
+				}
 			}
 		},
 		Tag = {
@@ -1169,7 +1201,10 @@ return {
 				name = 'Rebecca',
 				text = {
 					"Go to a separate {C:attention}Shop",
-					"{C:inactive}(Restocks at end of Ante)"
+					"with a random {C:elle_r_elle_rebecca,E:1}Modifier",
+					"that changes every Ante",
+					"{C:inactive}(Restocks at end of Ante)",
+					"{C:inactive}(Currently {C:elle_r_elle_rebecca,E:1}#1#{C:inactive})"
 				},
 				res_bio = {
 					"Many of {C:elle_r_elle_sarah}Sarah{}'s experiments involve using {C:elle}The",
