@@ -10,5 +10,6 @@ ellejokers.Resident {
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
     end,
-    weight = 0.05
+    weight = 0.05,
+	in_pool = function (self, args) return false end
 }
