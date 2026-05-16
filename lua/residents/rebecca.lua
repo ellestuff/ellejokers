@@ -351,7 +351,6 @@ ellejokers.rebecca_modifiers.sale = {
 
 ellejokers.rebecca_modifiers.modded = {
 	joker = function(self)
-		print("TEST")
 		return {attributes = {"Joker"}, filter = function(pool)
 			local new_pool = {}
 			for k, v in pairs(pool) do
@@ -359,6 +358,7 @@ ellejokers.rebecca_modifiers.modded = {
 					table.insert(new_pool, v)
 				end
 			end
+			return new_pool
 		end}
 	end
 }
