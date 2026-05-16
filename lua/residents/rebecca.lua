@@ -17,7 +17,7 @@ ellejokers.Resident {
 		local modkey = G.GAME.elle_popup_shops.rebecca.modifier
 		local modifier = ellejokers.rebecca_modifiers[modkey]
 		local mod_txt = 'elle_rebecca_modifier_'..modkey
-		info_queue[#info_queue+1] = {set='Other', key=mod_txt, vars=modifier.loc_vars and modifier:loc_vars() or nil}
+		info_queue[#info_queue+1] = modkey ~= 'none' and {set='Other', key=mod_txt, vars=modifier.loc_vars and modifier:loc_vars() or nil} or nil
 
 		return {
 			vars = { localize({set='Other',key=mod_txt, type='name_text',vars=modifier.loc_vars and modifier:loc_vars() or nil}) }
