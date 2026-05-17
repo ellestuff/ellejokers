@@ -36,7 +36,8 @@ function ellejokers.custom_card_areas.resident(game)
 			type = "joker",
 			highlight_limit = 1,
 			no_card_count = false,
-			align_buttons = true
+			align_buttons = true,
+			elle_w_space = .6
 		}
 	)
 end
@@ -47,6 +48,7 @@ SMODS.UndiscoveredSprite{
 	pos = {x=0,y=0},
 	no_overlay = true
 }
+SMODS.UndiscoveredCompat.elle_Resident = true
 
 local gsr = Game.start_run
 function Game:start_run(args, ...)
@@ -111,15 +113,15 @@ function ellejokers.create_UIBox_your_collection_residents()
 		for j = 1, #rows do
 			local rowNode = {n=G.UIT.C, config = {padding = 0.15}, nodes = {}}
 			for i = 1, rows[j] do
+				local center = pool[(i-1)*2+j + (cards_per_page*(page - 1))]
+
 				local c =  CardArea(
 					G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
 					G.CARD_W,
 					G.CARD_H,
-					{card_limit = 1, type = 'title', highlight_limit = 0, collection = true}
+					{card_limit = 1, type = 'title', highlight_limit = 0, collection = true, elle_w_space = center and center.resident_collection_share and 0.3 or nil}
 				)
 				G.your_collection[#G.your_collection+1] = c
-				
-				local center = pool[(i-1)*2+j + (cards_per_page*(page - 1))]
 
 				local bio_lines = {}
 				local bio_title = {}
@@ -132,7 +134,14 @@ function ellejokers.create_UIBox_your_collection_residents()
 					local name_key = loc_vars and loc_vars.key or center.key
 					local bio_key = loc_vars and loc_vars.bio_key or center.key
 					
-					if not center.discovered then
+					local disc = center.discovered
+					if center.resident_collection_share then
+						for _, v in ipairs(center.resident_collection_share) do
+							disc = disc and G.P_CENTERS[v].discovered
+						end
+					end
+					
+					if not disc then
 						name_key = "undiscovered"
 						bio_key = "undiscovered"
 					elseif not (G.localization.descriptions.elle_Resident[center.key] and G.localization.descriptions.elle_Resident[center.key].res_bio) then
@@ -145,11 +154,17 @@ function ellejokers.create_UIBox_your_collection_residents()
 					for _, line in ipairs(bio) do bio_lines[#bio_lines+1] = {n = G.UIT.R, config = {align = "cl"}, nodes = line} end
 					
 					local bt = {}
-					localize({type = 'name', key = bio_key == "shame" and "shame" or name_key, set = 'elle_Resident', nodes = bio_title, vars = loc_vars.vars})
+					localize({type = 'name', key = bio_key == "shame" and "shame" or (G.localization.descriptions.elle_Resident[bio_key].name and bio_key or name_key), set = 'elle_Resident', nodes = bio_title, vars = loc_vars.vars})
 					for _, line in ipairs(bio_title) do bt[#bt+1] = {n = G.UIT.R, config = {align = "cl"}, nodes = line} end
 					bio_title = bt
 
 					c:emplace(card)
+
+					if center.resident_collection_share then
+						for _, v in ipairs(center.resident_collection_share) do
+							c:emplace(Card(c.T.x + c.T.w/2, c.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[v]))
+						end
+					end
 				end
 
 				rowNode.nodes[#rowNode.nodes+1] =
@@ -311,17 +326,16 @@ function G.FUNCS.elle_replace_from_booster(e)
 	return true end}))
 end
 
-local w_offset = 0.6
 local achook = CardArea.align_cards
 function CardArea.align_cards(self)
-	if self == G.elle_resident_area then
-		self.T.x = self.T.x-w_offset
-		self.T.w = self.T.w+w_offset*2
+	if self.config.elle_w_space then
+		self.T.x = self.T.x-self.config.elle_w_space
+		self.T.w = self.T.w+self.config.elle_w_space*2
 		
 		achook(self)
 		
-		self.T.x = self.T.x+w_offset
-		self.T.w = self.T.w-w_offset*2
+		self.T.x = self.T.x+self.config.elle_w_space
+		self.T.w = self.T.w-self.config.elle_w_space*2
 	else achook(self) end
 end
 
@@ -413,20 +427,5 @@ function love.update(dt)
 		for i, v in ipairs(G.elle_resident_area.cards) do
 			if v.ability.extra.anim_timer then v.ability.extra.anim_timer = math.max(v.ability.extra.anim_timer-dt,0) end
 		end
-	end
-end
-
-if SMODS.UndiscoveredCompat then
-	SMODS.UndiscoveredCompat.elle_Resident = true
-else
-	-- i hate that i have to do this
-	local gcui_hook = generate_card_ui
-	function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
-		if _c.set == "elle_Resident" and not G.P_CENTERS[_c.key].discovered then
-			hide_desc = hide_desc or card.area.config.collection
-			card_type = "Undiscovered"
-		end
-	
-		return gcui_hook(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
 	end
 end

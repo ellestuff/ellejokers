@@ -1203,7 +1203,7 @@ return {
 				},
 				res_bio = {
 					"One of the earlier {C:attention}Artificial",
-					"{C:attention}Resident experiments{}, before",
+					"{C:attention}Resident Experiments{}, before",
 					"{C:elle_r_elle_sarah}Sarah{}'s involvement. It was",
 					"discovered early on that they",
 					"can't be brought back from",
@@ -1217,7 +1217,7 @@ return {
 				name = "Prototype #1#23",
 				res_bio = {
 					"One of the earlier {C:attention}Artificial Resident",
-					"{C:attention}experiments{}, before {C:elle_r_elle_sarah}Sarah{}'s",
+					"{C:attention}Experiments{}, before {C:elle_r_elle_sarah}Sarah{}'s",
 					"involvement. It was discovered early",
 					"on that they can't be brought back",
 					"from {C:red,T:c_death}death{} like normal {C:elle}Residents{}, so",
@@ -1245,6 +1245,36 @@ return {
 						"a card {C:red}burns up",
 						"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
 					}
+				}
+			},
+
+			elle_r_elle_p28 = {
+				name = "Prototype #1#28",
+				text = {
+					"smtn with {C:mult}mult{} idk"
+				},
+				res_bio = {""}
+			},
+
+			elle_r_elle_p31 = {
+				name = "Prototype #1#31",
+				text = {
+					"smtn with {C:chips}chips{} idk"
+				}
+			},
+
+			elle_r_elle_28_31_bio = {
+				name = "Prototypes {C:elle}#1#28{}+{C:elle_r_elle_p31}#1#31",
+				res_bio = {
+					"These two {C:attention}Artificial Resident Experiments",
+					"were especially unstable compared to",
+					"others at this stage. {C:elle}#1#28{} was barely able",
+					"to hold itself together, and {C:elle_r_elle_p31}#1#31{} stuck to",
+					"everything it touched, including itself.",
+					"This wasn't helped by its total blindness.",
+					" ",
+					"One day, during testing, they were left",
+					"unattended and got {C:elle_r_elle_p2831}too close...",
 				}
 			},
 

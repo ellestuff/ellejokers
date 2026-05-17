@@ -138,11 +138,14 @@ local residents = {
 	"mint",
 	"spearmint",
 	"spearlamp",
-	"rebecca",
-	"bea",
 	"41",
 	"23",
-	"sophie"
+	"28",
+	"31",
+	"2831",
+	"rebecca",
+	"bea",
+	"sophie",
 }
 
 local crossmod = {
@@ -155,10 +158,10 @@ local decks = {
 
 --#region Atlases
 SMODS.Atlas{
-    key = "modicon",
-    path = "modicon.png",
-    px = 34,
-    py = 34,
+	key = "modicon",
+	path = "modicon.png",
+	px = 34,
+	py = 34,
 }
 SMODS.Atlas {
 	key = "jokers",
@@ -355,14 +358,14 @@ SMODS.Sound {
 
 --#region Font stuff
 SMODS.Font {
-    key = "Determination",
-    path = "determination_mono.otf",
-    render_scale = 100,
-    TEXT_HEIGHT_SCALE = 0.83,
-    TEXT_OFFSET = {x=0,y=0},
-    FONTSCALE = 0.1,
-    squish = 1,
-    DESCSCALE = 1
+	key = "Determination",
+	path = "determination_mono.otf",
+	render_scale = 100,
+	TEXT_HEIGHT_SCALE = 0.83,
+	TEXT_OFFSET = {x=0,y=0},
+	FONTSCALE = 0.1,
+	squish = 1,
+	DESCSCALE = 1
 }
 -- Make this version for Tenna microgames 
 ellejokers.undertale_font = love.graphics.newFont(SMODS.NFS.newFileData( SMODS.current_mod.path .. "assets/fonts/determination_mono.otf"),13,"mono")
@@ -371,7 +374,7 @@ ellejokers.undertale_font = love.graphics.newFont(SMODS.NFS.newFileData( SMODS.c
 --		[[ Config / Optional Features ]]
 -- Optional Features
 SMODS.current_mod.optional_features = function()
-    return {
+	return {
 		retrigger_joker = true,
 		quantum_enhancements = true,
 		object_weights = true
@@ -400,19 +403,19 @@ G.ARGS.LOC_COLOURS.elle_burn = SMODS.Gradient({
 })
 
 SMODS.DynaTextEffect {
-    key = "elle_burn",
-    func = function(dynatext, index, letter)
+	key = "elle_burn",
+	func = function(dynatext, index, letter)
 		local t = G.TIMERS.REAL * 3 + index
 
-        letter.offset = {
+		letter.offset = {
 			x = 0,
-            y = math.cos(t) * 8
-        }
+			y = math.cos(t) * 8
+		}
 
 		local c = math.sin(t * 0.683) + 2
 
-        letter.colour = mix_colours(burn_c[math.ceil(c)], burn_c[math.floor(c)],c%1)
-    end,
+		letter.colour = mix_colours(burn_c[math.ceil(c)], burn_c[math.floor(c)],c%1)
+	end,
 }
 
 -- Badges
@@ -488,7 +491,7 @@ SMODS.ScreenShader {
 }
 
 ellejokers.mod_data.menu_cards = function()
-    return {
+	return {
 		-- Elle on title card
 		{
 			key = "j_elle_elle",
