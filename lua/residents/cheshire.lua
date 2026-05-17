@@ -17,7 +17,6 @@ ellejokers.Resident {
 	elle_tail = { x = 7, y = 1 },
 	calculate = function(self, card, context)
 		if card.ability.extra.active and context.setting_blind and not context.retrigger_joker then
-				print(G.STATE)
 				juice_card_until(card,function(card)
 					return card.ability.extra.active and G.STATE ~= G.STATES.ROUND_EVAL
 				end)
@@ -33,10 +32,10 @@ ellejokers.Resident {
 				return true end}))
 			end
 			
-			if card.ability.extra.xmult ~= 1 or (not card.ability.extra.activee and not context.retrigger_joker) then
+			if card.ability.extra.xmult ~= 1 or (not card.ability.extra.active and not context.retrigger_joker) then
 				return {
 					mult = card.ability.extra.xmult ~= 1 and card.ability.extra.xmult or nil,
-					extra = not card.ability.extra.activee and not context.retrigger_joker and { message = localize("elle_active_refreshed") } or nil
+					extra = not card.ability.extra.active and not context.retrigger_joker and { message = localize("elle_active_refreshed") } or nil
 				}
 			end
 		end

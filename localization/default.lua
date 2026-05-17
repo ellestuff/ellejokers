@@ -290,6 +290,7 @@ return {
 					}
 				}
 			},
+			
 			j_elle_tenna = {
 				name = "It's TV Time!",
 				text = {
@@ -305,7 +306,17 @@ return {
 					}
 				}
 			},
-
+			
+			j_elle_cassie = {
+				name = 'Cassie',
+				text = {
+					"Gains {C:mult}+#1#{} Mult",
+					"at {C:attention}end of round",
+					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+					caption.."Looking for her sister..."
+				}
+			},
+			
 			-- Legendaries
 			j_elle_twy = {
 				name = 'TwyLight',

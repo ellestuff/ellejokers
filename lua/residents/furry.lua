@@ -36,7 +36,7 @@ local furry = ellejokers.Resident {
 			card.ability.extra.count
 		} end,
 		calculate = function(self, card)
-			SMODS:destroy_cards(SMODS.find_card("j_elle_cassie")[1])
+			SMODS.destroy_cards(SMODS.find_card("j_elle_cassie")[1])
 		end,
 		values = function(self, card) return {
 			xmult = 1+(card.ability.extra.mult/card.ability.extra.mult_mod*G.P_CENTERS.elle_r_elle_cheshire.config.extra.xmult_mod),

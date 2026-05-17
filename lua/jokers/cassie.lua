@@ -8,6 +8,7 @@ local cassie = SMODS.Joker {
 	rarity = 1,
 	atlas = 'jokers',
 	pos = { x = 4, y = 4 },
+	soul_pos = { x = 5, y = 3 },
 	cost = 5,
 	blueprint_compat = true
 }

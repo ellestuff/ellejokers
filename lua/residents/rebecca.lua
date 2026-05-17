@@ -14,6 +14,9 @@ ellejokers.Resident {
 	pos = { x = 1, y = 3 },
 	config = { extra = { } },
 	loc_vars = function (self, info_queue, card)
+		if card.area ~= G.elle_resident_area then
+			return {vars = {'???'}}
+		end
 		local modkey = G.GAME.elle_popup_shops.rebecca.modifier
 		local modifier = ellejokers.rebecca_modifiers[modkey]
 		local mod_txt = 'elle_rebecca_modifier_'..modkey
@@ -26,7 +29,7 @@ ellejokers.Resident {
 	calculate = function(self, card, context)
 		if context.main_eval and context.ante_change and not context.retrigger_joker then
 			G.GAME.elle_popup_shops.rebecca.reset_on_open = true
-			ellejokers.set_rebecca_modifier(pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier'))
+			ellejokers.set_rebecca_modifier()
 			return { message = localize("elle_shop_restock") }
 		end
 	end,
@@ -300,6 +303,7 @@ end
 --#endregion
 
 function ellejokers.set_rebecca_modifier(mod_key)
+	modkey = mod_key or pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier')
 	G.GAME.elle_popup_shops.rebecca.modifier = mod_key
 	if ellejokers.rebecca_modifiers[mod_key].init then ellejokers.rebecca_modifiers[mod_key]:init() end
 end
@@ -314,10 +318,12 @@ local oldsetcost = Card.set_cost
 function Card:set_cost()
     oldsetcost(self)
 
-	local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
-	for i, v in ipairs(ellejokers.popup_shop.shop_cardareas.rebecca) do
-		if self.area == G[v] and modifier.cost_mod then
-			self.cost = modifier:cost_mod(self,G[v])
+	if G.GAME.elle_popup_shop_open == "rebecca" and modifier.cost_mod then
+		local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
+		for i, v in ipairs(ellejokers.popup_shop.shop_cardareas.rebecca) do
+			if self.area == G[v] then
+				self.cost = modifier:cost_mod(self,G[v])
+			end
 		end
 	end
 end

@@ -102,7 +102,7 @@ local lib = {
 -- Comment out jokers you want to disable
 local jokers = {
 	"insomniac",
-	--"cassie",
+	"cassie",
 	"carpet",
 	"polyamory",
 	"nitro",
