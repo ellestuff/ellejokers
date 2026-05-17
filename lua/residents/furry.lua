@@ -36,6 +36,7 @@ local furry = ellejokers.Resident {
 			card.ability.extra.count
 		} end,
 		calculate = function(self, card)
+			G.GAME.pool_flags.elle_cassie_death = true
 			SMODS.destroy_cards(SMODS.find_card("j_elle_cassie")[1])
 		end,
 		values = function(self, card) return {

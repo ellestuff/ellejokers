@@ -10,7 +10,8 @@ local cassie = SMODS.Joker {
 	pos = { x = 4, y = 4 },
 	soul_pos = { x = 5, y = 3 },
 	cost = 5,
-	blueprint_compat = true
+	blueprint_compat = true,
+	no_pool_flag = 'elle_cassie_death'
 }
 
 cassie.calculate = function(self, card, context)
