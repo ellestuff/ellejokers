@@ -303,7 +303,7 @@ end
 --#endregion
 
 function ellejokers.set_rebecca_modifier(mod_key)
-	modkey = mod_key or pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier')
+	mod_key = mod_key or pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_modifiers),'elle_rebecca_modifier')
 	G.GAME.elle_popup_shops.rebecca.modifier = mod_key
 	if ellejokers.rebecca_modifiers[mod_key].init then ellejokers.rebecca_modifiers[mod_key]:init() end
 end
