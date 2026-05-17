@@ -318,8 +318,8 @@ local oldsetcost = Card.set_cost
 function Card:set_cost()
     oldsetcost(self)
 
+	local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
 	if G.GAME.elle_popup_shop_open == "rebecca" and modifier.cost_mod then
-		local modifier = ellejokers.rebecca_modifiers[G.GAME.elle_popup_shops.rebecca.modifier]
 		for i, v in ipairs(ellejokers.popup_shop.shop_cardareas.rebecca) do
 			if self.area == G[v] then
 				self.cost = modifier:cost_mod(self,G[v])
