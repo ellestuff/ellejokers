@@ -11,5 +11,6 @@ ellejokers.Resident {
         end
     end,
     weight = 0.05,
+	discovered = true,
 	in_pool = function (self, args) return false end
 }

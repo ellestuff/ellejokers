@@ -519,6 +519,21 @@ ellejokers.mod_data.menu_cards = function()
 							ellejokers.add_burn(card)
 						return true end}))
 					end
+					G.E_MANAGER:add_event(Event({trigger = 'after', delay = .8, func = function()
+						card:juice_up(.4,.4)
+						play_sound("elle_fizz")
+						play_sound("timpani",1,3)
+
+						local pool = {}
+						for i,v in pairs(G.P_CENTER_POOLS.elle_Resident) do
+							if v.discovered then pool[#pool+1] = v end
+						end
+
+						card:set_ability(#pool>0 and pool[math.random(#pool)].key or 'elle_r_elle_marie')
+						card.ability.elle_burns = 0
+						card.children.front:remove()
+						card.children.front = nil
+					return true end}))
 				end
 			return true end}))
 		end

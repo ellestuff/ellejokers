@@ -189,9 +189,14 @@ ellejokers.Resident {
 	atlas = "morefluff",
 	pos = {x=0,y=2},
 	resident_colour = HEX('ff6868'),
-	mf_art_credit = "notmario",
+	--mf_art_credit = "notmario", -- Replacing with ellejokers-style credits
 	config = { extra = { charges = 0, rotarot_bonus = 3, can_destroy = true } },
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue+1] = {set='Other',key='elle_crossover',vars={'notmario','@notmario.'},
+			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=2,y=0} }}
+			info_queue[#info_queue+1] = {set='Other',key='elle_artist',vars={'notmario','@notmario.'},
+			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=2,y=0} }}
+
 		return { vars = {
 			card.ability.extra.rotarot_bonus,
 			card.ability.extra.charges,

@@ -631,6 +631,15 @@ return {
 				}
 			},
 
+			elle_artist = {
+				name = 'Artist',
+				text = {
+					"Art by",
+					"{C:attention}#1#",
+					"{C:inactive,s:0.7}#2#"
+				}
+			},
+
 			ellemicrogame_rhythm = {
 				name = 'Lightners Live',
 				text = {

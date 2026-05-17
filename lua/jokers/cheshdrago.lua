@@ -7,7 +7,7 @@ local cheshdrago = SMODS.Joker {
 	config = { extra = { xmult = 1, xmult_mod = .25, used = false } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = {
-			set = "Other", key = "elle_crossover", specific_vars = {"Drago","@dragothedemon.bsky.social"},
+			set = "Other", key = "elle_crossover", vars = {"Drago","@dragothedemon.bsky.social"},
 			slime_desc_icon = { atlas = "elle_cornericons", pos = {x=0,y=1} }
 		}
 		info_queue[#info_queue+1] = G.P_CENTERS.m_wild
