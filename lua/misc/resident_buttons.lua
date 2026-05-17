@@ -71,10 +71,10 @@ local function create_resident_buttons_ui(card)
 			nodes = buttons
 		},
 		config = {
-			align = 'cr', -- position relative to the card, meaning "center left". Follow the SMODS UI guide for more alignment options
+			align = 'cr',
 			major = card,
 			parent = card,
-			offset = { x = -.5, y = 0 } -- depends on the alignment you want, without an offset the button will look as if floating next to the card, instead of behind it
+			offset = { x = -.5, y = .4 }
 		}
 	}
 end
