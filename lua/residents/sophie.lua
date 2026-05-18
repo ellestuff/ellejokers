@@ -3,16 +3,22 @@ function ellejokers.burn_vars() return {1,3} end -- Can be hooked for silly joke
 function ellejokers.add_burn(card,count)
 	if card.config.center.set == "Default" or card.config.center.set == "Enhanced" then
 		if (card.ability.elle_burns or 0)+(count or 1) > ellejokers.burn_vars()[2] then
-			SMODS.destroy_cards(card)
 			SMODS.calculate_context({
 				elle_burned_up = true,
 				card = card
 			})
+			SMODS.destroy_cards(card)
+			G.E_MANAGER:add_event(Event({func = function()
+				play_sound("elle_fizz")
+			return true end}))
 		else
-			card:juice_up(.4,.4)
 			card.ability.elle_burns = (card.ability.elle_burns or 0) + (count or 1)
+			G.E_MANAGER:add_event(Event({func = function()
+				card:juice_up(.4,.4)
+				card.ability.elle_burn_effect = (card.ability.elle_burn_effect or 0) + (count or 1)
+				play_sound("elle_fizz")
+			return true end}))
 		end
-		play_sound("elle_fizz")
 	end
 end
 
@@ -62,15 +68,8 @@ ellejokers.Resident {
 					end
 				}))
 				for i = 1, #G.hand.highlighted do
-					local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
-					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
-						delay = 0.2,
-						func = function()
-							ellejokers.add_burn(G.hand.highlighted[i])
-							return true
-						end
-					}))
+					delay(0.2)
+					ellejokers.add_burn(G.hand.highlighted[i])
 				end
 				delay(0.2)
 				G.E_MANAGER:add_event(Event({
@@ -117,7 +116,7 @@ function SMODS.calculate_individual_effect(effect, scored_card, key, amount, fro
 
 		local burn_mult = 1+scored_card.ability.elle_burns*ellejokers.burn_vars()[1]
 
-		local new = ((amount or 0)-base)*burn_mult+base
+		local new = type(amount)=="number" and ((amount or 0)-base)*burn_mult+base or amount
 		
 		pcall(function ()	
 			if effect.message then
@@ -138,10 +137,10 @@ local burn_quad = love.graphics.newQuad(0,0,71,95,71,95)
 local cd_hook = Card.draw
 function Card:draw(layer)
 	if self.children.front then
-		self.children.center.config.elle_burns = self.ability.elle_burns or nil
-		self.children.center.config.elle_unique_val = self.ability.elle_burns and self.unique_val or nil
-		self.children.front.config.elle_burns = self.ability.elle_burns or nil
-		self.children.front.config.elle_unique_val = self.ability.elle_burns and self.unique_val or nil
+		self.children.center.config.elle_burns = self.ability.elle_burn_effect or nil
+		self.children.center.config.elle_unique_val = self.ability.elle_burn_effect and self.unique_val or nil
+		self.children.front.config.elle_burns = self.ability.elle_burn_effect or nil
+		self.children.front.config.elle_unique_val = self.ability.elle_burn_effect and self.unique_val or nil
 	end
 	cd_hook(self, layer)
 end

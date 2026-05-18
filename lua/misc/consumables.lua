@@ -50,15 +50,8 @@ SMODS.Consumable {
 			end
 		}))
 		for i = 1, #G.hand.highlighted do
-			local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
-			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
-				delay = 0.2,
-				func = function()
-					ellejokers.add_burn(G.hand.highlighted[i])
-					return true
-				end
-			}))
+			delay(0.2)
+			ellejokers.add_burn(G.hand.highlighted[i])
 		end
 		delay(0.2)
 		G.E_MANAGER:add_event(Event({

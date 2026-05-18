@@ -11,7 +11,7 @@ ellejokers.rebecca_modifiers = {}
 
 ellejokers.Resident {
 	key = 'rebecca',
-	pos = { x = 1, y = 3 },
+	pos = { x = 2, y = 3 },
 	config = { extra = { } },
 	loc_vars = function (self, info_queue, card)
 		if card.area ~= G.elle_resident_area then
@@ -46,7 +46,7 @@ ellejokers.Resident {
 		}
 	},
 	resident_colour = HEX("89ca80"),
-	elle_tail = {x = 2, y = 3},
+	elle_tail = {x = 3, y = 3},
 }
 
 --local becca_obj = Sprite(0,0,192,256,"rebecca",{x=0,y=0})

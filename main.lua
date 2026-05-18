@@ -102,6 +102,9 @@ local lib = {
 -- Comment out jokers you want to disable
 local jokers = {
 	"insomniac",
+	"contract",
+	"flare",
+	"plort",
 	"cassie",
 	"carpet",
 	"polyamory",
@@ -420,10 +423,6 @@ SMODS.DynaTextEffect {
 
 -- Badges
 elle_badges = {
-	mall = {
-		text = "The Mall",
-		colour = HEX('b7a2fd')
-	},
 	friends = {
 		text = "Friends of Elle",
 		colour = HEX('40aeff')
@@ -518,9 +517,8 @@ ellejokers.mod_data.menu_cards = function()
 				end
 				if card then
 					for i = 1, 3 do
-						G.E_MANAGER:add_event(Event({trigger = 'after', delay = (i+1)*.2, func = function()
-							ellejokers.add_burn(card)
-						return true end}))
+						delay((i+1)*.2)
+						ellejokers.add_burn(card)
 					end
 					G.E_MANAGER:add_event(Event({trigger = 'after', delay = .8, func = function()
 						card:juice_up(.4,.4)

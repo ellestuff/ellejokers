@@ -11,6 +11,34 @@ return {
 					"have no {C:elle}Residents"
 				}
 			},
+
+			j_elle_contract = {
+				name = "Contract",
+				text = {
+					"When entering Blind,",
+					"turn a random",
+					"{C:attention}unenhanced{} card",
+					"in deck into",
+					"a {C:attention}Slime Card",
+				}
+			},
+
+			j_elle_flare = {
+				name = "Flare Gun",
+				text = {
+					"{C:attention}Slime Cards{} have",
+					"a {C:green}#1# in #2#{} chance to",
+					"{E:elle_burn}Burn{} when scored"
+				}
+			},
+
+			j_elle_plort = {
+				name = "Pink Plort",
+				text = {
+					"Played {C:attention}Slime Cards",
+					"earn {C:money}$#1#{} when scored"
+				}
+			},
 			
 			j_elle_drago = {
 				name = 'Drago',
@@ -1344,6 +1372,8 @@ return {
 			elle_active_used = "Used",
 			elle_active_available = "Available",
 			elle_active_refreshed = "Refreshed!",
+
+			elle_burn = "Burnt!",
 
 			elle_triangle_destroyed = "Destroyed!",
 		},

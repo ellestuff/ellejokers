@@ -196,65 +196,67 @@ local function create_sophie(key)
 end
 
 SMODS.current_mod.config_tab = function()
-	local localnodes = {
-		nsfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
-			create_option_cycle({opt_callback = "conf_elle_censor_mode",
-				label = "Censor Mode",
-				options = {"Uncensored", "Censor bar", "Featureless"},
-				current_option = ellejokers.mod_data.config.censor_mode,
-				w = 3.8,
-				scale = .8
-			})
-		}},config={}},
+	if ellejokers.mod_data.config.nsfw_discovered then
+		local localnodes = {
+			nsfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+				create_option_cycle({opt_callback = "conf_elle_censor_mode",
+					label = "Censor Mode",
+					options = {"Uncensored", "Censor bar", "Featureless"},
+					current_option = ellejokers.mod_data.config.censor_mode,
+					w = 3.8,
+					scale = .8
+				})
+			}},config={}},
 
-		sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR, padding = 0.1}, nodes = {
-			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "Do not enable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}}},
-			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "There's nudity and shit...", scale = 0.30, colour = G.C.WHITE}}}},
-			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "...Like, immediately-", scale = 0.30, colour = G.C.WHITE}}}},
-			{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "Don't enable if you're a kid either", scale = 0.30, colour = G.C.WHITE}}}}
-		}},config={}}
-	}
-	local localnodes2 = {
-		nsfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
-			{ n = G.UIT.O,
-				config = {
-					original_object_visible = false,
-					original_object = localnodes.nsfw,
-					object = Moveable(),
-					id = "textthing"
-			}}
-		}},config={}},
-		sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
-			{ n = G.UIT.O,
-				config = {
-					original_object_visible = false,
-					original_object = localnodes.sfw,
-					object = Moveable(),
-					id = "textthing2"
-			}}
-		}},config={}}
-	}
-	localnodes.nsfw.states.visible = false
-	localnodes.sfw.states.visible = false
+			sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR, padding = 0.1}, nodes = {
+				{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "Do not enable if streaming, trust me.", scale = 0.30, colour = G.C.WHITE}}}},
+				{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "There's nudity and shit...", scale = 0.30, colour = G.C.WHITE}}}},
+				{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "...Like, immediately-", scale = 0.30, colour = G.C.WHITE}}}},
+				{n=G.UIT.R, config={align = "cm"}, nodes={{n=G.UIT.T, config={text = "Don't enable if you're a kid either", scale = 0.30, colour = G.C.WHITE}}}}
+			}},config={}}
+		}
+		local localnodes2 = {
+			nsfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+				{ n = G.UIT.O,
+					config = {
+						original_object_visible = false,
+						original_object = localnodes.nsfw,
+						object = Moveable(),
+						id = "textthing"
+				}}
+			}},config={}},
+			sfw = UIBox{definition={n=G.UIT.ROOT, config={colour=G.C.CLEAR}, nodes = {
+				{ n = G.UIT.O,
+					config = {
+						original_object_visible = false,
+						original_object = localnodes.sfw,
+						object = Moveable(),
+						id = "textthing2"
+				}}
+			}},config={}}
+		}
+		localnodes.nsfw.states.visible = false
+		localnodes.sfw.states.visible = false
 
-	local n = localnodes2.nsfw:get_UIE_by_ID("textthing")
-	local n2 = localnodes2.sfw:get_UIE_by_ID("textthing2")
+		local n = localnodes2.nsfw:get_UIE_by_ID("textthing")
+		local n2 = localnodes2.sfw:get_UIE_by_ID("textthing2")
 
-	local function toggle_nsfw(args)
-		for _, v in ipairs(nsfw_cards) do
-			G.P_CENTERS[v].pos.y = ellejokers.mod_data.config.nsfw and 1 or 0
+		local function toggle_nsfw(args)
+			for _, v in ipairs(nsfw_cards) do
+				G.P_CENTERS[v].pos.y = ellejokers.mod_data.config.nsfw and 1 or 0
+			end
+			
+			if(ellejokers.mod_data.config.nsfw) then
+				show_element(n)
+				hide_element(n2)
+			else
+				show_element(n2)
+				hide_element(n)
+			end
+			G.OVERLAY_MENU:recalculate()
 		end
-		
-		if(ellejokers.mod_data.config.nsfw) then
-			show_element(n)
-			hide_element(n2)
-		else
-			show_element(n2)
-			hide_element(n)
-		end
-		G.OVERLAY_MENU:recalculate()
+		toggle_nsfw()
 	end
-	toggle_nsfw()
 
 	return {n = G.UIT.ROOT, config = {
 		emboss = 0.05,
@@ -290,7 +292,7 @@ SMODS.current_mod.config_tab = function()
 				{n=G.UIT.T, config={ref_table = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette], ref_value = 'credit', scale = 0.30, colour = G.C.FILTER,func='conf_elle_palette_credit'}}
 			}},
 		}},
-		{n = G.UIT.R,
+		ellejokers.mod_data.config.nsfw_discovered and {n = G.UIT.R,
 			config = {
 				emboss = 0.05,
 				r = 0.1,
@@ -321,7 +323,7 @@ SMODS.current_mod.config_tab = function()
 				}},
 			}},
 			--{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie(pseudorandom_element({"j_elle_sophie","j_elle_fallen"},"elle_nsfw_sophie")) }}}}
-		}}
+		}} or nil
 	}}
 end
 
