@@ -32,6 +32,23 @@ return {
 				}
 			},
 
+			j_elle_slimefarm = {
+				name = "Slime Farm",
+				text = {
+					"{C:attention}Slime Cards{} retrigger",
+					"{C:attention}#1#{} additional time",
+					"when triggered"
+				}
+			},
+
+			j_elle_kingslime = {
+				name = "King Slime",
+				text = {
+					"{C:attention}Slime Face Cards{} gain",
+					"{C:chips}+#1#{} Chips when scored"
+				}
+			},
+
 			j_elle_plort = {
 				name = "Pink Plort",
 				text = {

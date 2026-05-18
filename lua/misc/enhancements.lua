@@ -10,6 +10,12 @@ SMODS.Enhancement {
 	end,
 	calculate = function(self, card, context)
 		if context.repetition and SMODS.pseudorandom_probability(card, 'elle_slime_card', 1, card.ability.extra.odds) then
+			card.elle_slime_trigger = true
+
+			G.E_MANAGER:add_event(Event { func = function()
+				card.elle_slime_trigger = nil
+			return true end})
+			
 			return {
 				message = localize('k_again_ex'),
 				repetitions = card.ability.extra.retriggers
@@ -131,7 +137,7 @@ SMODS.Enhancement {
 
 local has_enhancement_hook = SMODS.has_enhancement
 function SMODS.has_enhancement(card, key)
-    if card.config.center.key == "m_elle_copycat" then
+	if card.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(card)
 		if target then return has_enhancement_hook(target, key) end
 	end
@@ -141,7 +147,7 @@ end
 
 local is_suit_hook = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc, ...)
-    if self.config.center.key == "m_elle_copycat" then
+	if self.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(self)
 		if target then return is_suit_hook(target, suit, bypass_debuff, flush_calc, ...) end
 	end
@@ -152,7 +158,7 @@ end
 
 local get_id_hook = Card.get_id
 function Card:get_id()
-    if self.config.center.key == "m_elle_copycat" then
+	if self.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(self)
 		if target then return get_id_hook(target) end
 	end
@@ -162,7 +168,7 @@ end
 
 local is_face_hook = Card.is_face
 function Card:is_face(from_boss)
-    if self.config.center.key == "m_elle_copycat" then
+	if self.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(self)
 		if target then return is_face_hook(target,from_boss) end
 	end
@@ -172,7 +178,7 @@ end
 
 local set_debuff_hook = Card.set_debuff
 function Card:set_debuff(should_debuff)
-    if self.config.center.key == "m_elle_copycat" then
+	if self.config.center.key == "m_elle_copycat" then
 		local target = ellejokers.get_copycat_target(self)
 		if target then return set_debuff_hook(target,should_debuff) end
 	end

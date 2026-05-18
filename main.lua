@@ -103,8 +103,10 @@ local lib = {
 local jokers = {
 	"insomniac",
 	"contract",
+	"slimefarm",
 	"flare",
 	"plort",
+	"kingslime",
 	"cassie",
 	"carpet",
 	"polyamory",

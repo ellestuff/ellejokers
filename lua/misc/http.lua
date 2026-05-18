@@ -5,7 +5,7 @@ local last_update_time = 0
 local initial = true
 ellejokers.bsky_did = "did:plc:56kaelt4plcrtrztlqa3hfal" -- bsky did/handle to check
 if not succ then
-	sendErrorMessage("HTTP module could not be loaded. " .. tostring(https), "ellejokers.")
+	sendErrorMessage("HTTP module could not be loaded. " .. tostring(https))
 end
 
 local function apply_follower_count(code, body, headers)
