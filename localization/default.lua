@@ -902,7 +902,7 @@ return {
 					"chance you may wake up in {C:elle}The Mall{}, a",
 					"place run by {C:elle}Marie{}. As {C:elle}The Mall{}'s {C:attention}Admin{},",
 					"she has the ability to let people live",
-					"forever there via a {C:attention}contract{}.",
+					"forever there via a {C:attention,T:j_elle_contract}Contract{}.",
 					" ",
 					"{C:elle}The Mall{} is free from capitalism, taxes,",
 					"and other woes of normal life. As a bonus,",
@@ -1242,9 +1242,7 @@ return {
 				name = "Prototype #1#23",
 				text = {
 					"Add {C:attention}#2#{} random {C:attention}discarded",
-					"card#3# to scoring hand,",
-					"increases by {C:attention}#4#{} when",
-					"{C:attention}Boss Blind{} is defeated"
+					"cards to scoring hand"
 				},
 				res_bio = {
 					"One of the earlier {C:attention}Artificial",

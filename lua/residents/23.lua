@@ -1,14 +1,12 @@
 ellejokers.Resident {
 	key = 'p23',
 	pos = { x = 1, y = 1 },
-	config = { extra = { count = 1, mod = 1 } },
+	config = { extra = { count = 2 } },
 	resident_colour = HEX("fd5f55"),
 	loc_vars = function(self, info_queue, card)
 		return { vars = {
 			"#", -- Needed to add a # to the card name
-			card.ability.extra.count,
-			card.ability.extra.count == 1 and "" or "s",
-			card.ability.extra.mod
+			card.ability.extra.count
 		}, bio_key = G.P_CENTERS.elle_r_elle_cheshire.discovered and self.key.."_chesh" or nil }
 	end,
 	calculate = function(self, card, context)
@@ -28,11 +26,6 @@ ellejokers.Resident {
 			if count > 0 then
 				return { message = localize("elle_prototype_activate") }
 			end
-		end
-
-		if context.main_eval and context.ante_change and not context.retrigger_joker then
-			card.ability.extra.count = card.ability.extra.count + card.ability.extra.mod
-			return { message = localize("k_upgrade_ex") }
 		end
 	end
 }
