@@ -777,15 +777,28 @@ return {
 
 			elle_credits_elle = {
 				text = {
-					"hiii,, i'm elle :3",
-					"i'm the main person behind the mod"
+					"hiii,, i'm {C:elle,T:j_elle_elle}elle{} :3",
+					" ",
+					"i'm the main person behind the",
+					"mod, characters, etc",
+					" ",
+					"i also did most of the art :p"
 				}
 			},
 
 			elle_credits_zaza = {
 				text = {
-					"test message",
-					"gotta poke zaza to write a bio here"
+					"Howdy, it's me, {C:attention}Azazel{}.",
+					"You've probably heard of me before.",
+					"I'm known for being the director of playable",
+					"{C:attention}Advendure{} content, as one of {C:attention}Adven Team{}'s",
+					"original four.",
+					" ",
+					"Here I'm really good at breaking {C:elle,T:j_elle_elle}elle{}'s mod by",
+					"looking at it funny, and helping {C:elle,T:j_elle_elle}elle{} with ideas",
+					"and some art",
+					" ",
+					"{E:elle_burn,s:.65}Burns{} are my fault. Sowwy."
 				}
 			},
 
