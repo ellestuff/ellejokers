@@ -12,6 +12,7 @@ end
 {n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card('j_elle_cheshire') }}}}
 ]]
 
+--#region Mod Info
 local function upgrade_tree_example(t)
 	local r = {}
 	for i, v in ipairs(t) do
@@ -162,10 +163,21 @@ local function toggle_palette(args)
 	check_for_unlock({type = "elle_toggle_palette"})
 end
 
+function G.FUNCS.conf_elle_palette(args)
+	ellejokers.mod_data.config.pixel_shader.palette = args.cycle_config.current_option
+end
+
+function G.FUNCS.conf_elle_palette_credit(args)
+	args.config.ref_table = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
+end
+--#endregion
+
+--#region Config
 -- this was originally gonna be a separate mod
 -- you're welcome :giggle_hehe:
 
 -- thanks to @sleepy.g11 for helping me with this lol
+-- (even if you're kinda an ass to systems TwT)
 local function show_element(container)
 	if container and not container.config.original_object_visible then
 		container.config.original_object_visible = true
@@ -190,7 +202,7 @@ local function hide_element(container)
 end
 
 local function create_sophie(key)
-	local c = slimeutils.create_display_card(key or "j_elle_sophie")
+	local c = slimeutils.create_display_card(key or "elle_r_elle_sophie")
 	c.ability.extra.charges = 6
 	return c
 end
@@ -321,19 +333,30 @@ SMODS.current_mod.config_tab = function()
 					}, nodes={}},
 				}},
 			}},
-			--{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie(pseudorandom_element({"j_elle_sophie","j_elle_fallen"},"elle_nsfw_sophie")) }}}}
+			{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie() }}}}
 		}} or nil
 	}}
-end
-
-function G.FUNCS.conf_elle_palette(args)
-	ellejokers.mod_data.config.pixel_shader.palette = args.cycle_config.current_option
-end
-
-function G.FUNCS.conf_elle_palette_credit(args)
-	args.config.ref_table = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette]
 end
 
 function G.FUNCS.conf_elle_censor_mode(args)
 	ellejokers.mod_data.config.censor_mode = args.cycle_config.current_option
 end
+--#endregion
+
+--#region Credits
+local function create_credits_tab()
+	return {
+		label = 'My Label',
+		tab_definition_function = function()
+			return {n = G.UIT.ROOT, config = {
+			}, nodes = {
+			}}
+		end,
+	}
+end
+
+
+function SMODS.current_mod.extra_tabs()
+	return { create_credits_tab() }
+end
+--#endregion

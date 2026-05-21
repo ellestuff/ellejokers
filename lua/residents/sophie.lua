@@ -54,7 +54,7 @@ ellejokers.Resident {
 
 		if context.joker_main and card.ability.extra.xmult ~= 1 then
 			return {
-				mult = card.ability.extra.xmult,
+				xmult = card.ability.extra.xmult,
 			}
 		end
 	end,

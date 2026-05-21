@@ -34,7 +34,7 @@ ellejokers.Resident {
 			
 			if card.ability.extra.xmult ~= 1 or (not card.ability.extra.active and not context.retrigger_joker) then
 				return {
-					mult = card.ability.extra.xmult ~= 1 and card.ability.extra.xmult or nil,
+					xmult = card.ability.extra.xmult ~= 1 and card.ability.extra.xmult or nil,
 					extra = not card.ability.extra.active and not context.retrigger_joker and { message = localize("elle_active_refreshed") } or nil
 				}
 			end
