@@ -45,10 +45,16 @@ ellejokers.Resident {
 			}
 		end
 
-		if context.elle_burned_up then
+		if context.elle_burned_up and not context.retrigger_joker then
 			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
 			return {
 				message = localize("k_upgrade_ex")
+			}
+		end
+
+		if context.joker_main and card.ability.extra.xmult ~= 1 then
+			return {
+				mult = card.ability.extra.xmult,
 			}
 		end
 	end,
