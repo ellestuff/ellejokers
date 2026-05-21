@@ -773,6 +773,26 @@ return {
 					"Enhanced, Sealed {C:attention}Playing Cards",
 					"appear instead of {C:attention}Consumables"
 				}
+			},
+
+			elle_credits_elle = {
+				text = {
+					"hiii,, i'm elle :3",
+					"i'm the main person behind the mod"
+				}
+			},
+
+			elle_credits_zaza = {
+				text = {
+					"test message",
+					"gotta poke zaza to write a bio here"
+				}
+			},
+
+			elle_credits_mf = {
+				text = {
+					"ts credits me"
+				}
 			}
 		},
 		Tag = {

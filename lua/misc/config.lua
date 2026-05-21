@@ -201,9 +201,9 @@ local function hide_element(container)
 	end
 end
 
-local function create_sophie(key)
-	local c = slimeutils.create_display_card(key or "elle_r_elle_sophie")
-	c.ability.extra.charges = 6
+local function create_furry(key)
+	local c = slimeutils.create_display_card(key or "elle_r_elle_furry")
+	c.ability.extra.eaten = 4
 	return c
 end
 
@@ -277,7 +277,7 @@ SMODS.current_mod.config_tab = function()
 		padding = 0.2,
 		colour = G.C.BLACK
 	}, nodes = {
-		{n=G.UIT.R, config={
+		{n=G.UIT.C, config={
 			emboss = 0.05,
 			r = 0.1,
 			minw = 6,
@@ -303,7 +303,7 @@ SMODS.current_mod.config_tab = function()
 				{n=G.UIT.T, config={ref_table = ellejokers.palettes[ellejokers.mod_data.config.pixel_shader.palette], ref_value = 'credit', scale = 0.30, colour = G.C.FILTER,func='conf_elle_palette_credit'}}
 			}},
 		}},
-		ellejokers.mod_data.config.nsfw_discovered and {n = G.UIT.R,
+		ellejokers.mod_data.config.nsfw_discovered and {n = G.UIT.C,
 			config = {
 				emboss = 0.05,
 				r = 0.1,
@@ -333,7 +333,7 @@ SMODS.current_mod.config_tab = function()
 					}, nodes={}},
 				}},
 			}},
-			{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_sophie() }}}}
+			{n = G.UIT.C, config = { align = "cm" }, nodes = {{n = G.UIT.O, config = { object = create_furry() }}}}
 		}} or nil
 	}}
 end
@@ -344,19 +344,207 @@ end
 --#endregion
 
 --#region Credits
-local function create_credits_tab()
-	return {
-		label = 'My Label',
-		tab_definition_function = function()
-			return {n = G.UIT.ROOT, config = {
-			}, nodes = {
-			}}
-		end,
-	}
+function G.FUNCS.elle_site_link(args)
+	love.system.openURL("https://"..args.config.link)
 end
 
+local bios = {
+	{
+		name = "ellestuff.",
+		bio = "elle",
+		link = "ellestuff.dev",
+		icon = {x=2,y=1},
+		site = true
+	},
+	{
+		name = "That Azazel Fire",
+		bio = "zaza",
+		link = "thatazazelfire.bsky.social",
+		icon = {x=0,y=0}
+	},
+	{
+		name = "notmario.",
+		bio = "mf",
+		link = "notmario.xyz",
+		icon = {x=2,y=0},
+		site = true
+	}
+}
+
+local function create_credits_tab()
+	local r = {}
+
+	for _, v in ipairs(bios) do
+		local sprites = {
+			icon = Sprite(0,0,.9,.9,G.ASSET_ATLAS.elle_cornericons, v.icon),
+			bsky = Sprite(0,0,.6,.6,G.ASSET_ATLAS.elle_cornericons, {x=3,y=0}),
+			site = v.site and Sprite(0,0,.6,.6,G.ASSET_ATLAS.elle_cornericons, {x=3,y=1}) or nil
+		}
+
+		local bio = {}
+		localize({set='Other',key='elle_credits_'..v.bio,type='descriptions',nodes=bio})
+		
+		local bio_nodes = {}
+		for _, v in ipairs(bio) do
+			bio_nodes[#bio_nodes+1] = {
+				n = G.UIT.R,
+				config = { align = 'cl' },
+				nodes = v
+			}
+		end
+
+
+		r[#r+1] = {
+			n = G.UIT.C,
+			config = {},
+			nodes = {
+				{ -- Main Box
+					n = G.UIT.R,
+					config = {
+						emboss = 0.05,
+						r = 0.1,
+						align = "cm",
+						padding = 0.1,
+						colour = G.C.L_BLACK
+					},
+					nodes = {
+						{ -- Name + Icon
+							n = G.UIT.R,
+							config = { align = 'cm', padding = .1 },
+							nodes = {
+								{ -- Icon
+									n = G.UIT.C,
+									config = { align = 'cm', r=.1, colour = G.C.BLACK, padding=.05 },
+									nodes = {{
+										n = G.UIT.O,
+										config = {
+											object = sprites.icon
+								}}}},
+								{ -- Text
+									n = G.UIT.C,
+									config = { align = 'cl', minw = 3, maxw = 3 },
+									nodes = {{
+										n = G.UIT.T,
+										config = {
+											text = v.name,
+											colour = G.C.WHITE,
+											scale = 0.5
+						}}}}}},
+						{ -- Bio
+							n= G.UIT.R,
+							config = { padding=.1 },
+							nodes = {{
+								n = G.UIT.R,
+								config = {
+									minw = 4.2,
+									maxw = 4.2,
+									emboss = -.05,
+									r = .1,
+									align = 'tl',
+									padding = .1,
+									colour = G.C.WHITE
+								},
+								nodes = {{
+									n = G.UIT.R,
+									config = {
+										minh = 2,
+										maxh = 2
+									},
+									nodes = bio_nodes
+							}}}}},
+							{ -- Links
+								n = G.UIT.R,
+								config = {
+									align = "cr",
+									padding = -.5,
+									no_fill = true
+								},
+								nodes = {{
+									n=G.UIT.R,
+									config = {padding = .1},
+									nodes = {
+										v.site and { -- Site Link
+											n = G.UIT.C,
+											config = {
+												colour = G.C.GREY,
+												padding = .05,
+												r = .1,
+												emboss = .05,
+												align = "cm",
+												button = 'elle_site_link',
+												link = v.link
+											},
+											nodes = {{
+											n = G.UIT.O,
+											config = {
+												object = sprites.site
+										}}}} or nil,
+										{ -- Bsky Link
+											n = G.UIT.C,
+											config = {
+												colour = HEX('295ef6'),
+												padding = .05,
+												r = .1,
+												emboss = .05,
+												align = "cm",
+												button = 'elle_site_link',
+												link = "bsky.app/profile/"..v.link
+											},
+											nodes = {{
+											n = G.UIT.O,
+											config = {
+												object = sprites.bsky
+									}}}}}
+								}}
+							}
+			}},
+				
+			}
+		}
+	end
+	--[[{n = G.UIT.R,
+		config = {
+			emboss = 0.05,
+			r = 0.1,
+			minw = 6,
+			minh = 2.4,
+			align = "cm",
+			padding = 0.1,
+			colour = G.C.L_BLACK
+		}, nodes = {
+		{n = G.UIT.C, nodes = {{n = G.UIT.O, config = { object = slimeutils.create_display_card('j_elle_elle') }}}},
+		{n = G.UIT.C, config = {align = "cl", padding = 0.1, minw = 4}, nodes = {
+			{n = G.UIT.R, nodes = {
+				{n = G.UIT.T, config = {text = "A mod by ", scale = .4, colour = G.C.WHITE}},
+				{n = G.UIT.T, config = {text = "ellestuff.", scale = .4, colour = G.ARGS.LOC_COLOURS.elle}}
+			}},
+			{n = G.UIT.R, nodes = {{n = G.UIT.T, config = {text = "(and featuring her characters)", scale = .3, colour = G.C.WHITE}}}}
+	}}}}]]
+
+
+	return {
+		n = G.UIT.ROOT,
+		config = {
+			emboss = 0.05,
+			r = 0.2,
+			align = "cm",
+			colour = G.C.BLACK,
+			padding = -.15
+		},
+		nodes = {
+			{n = G.UIT.R,
+				config = {
+					align = "cm",
+					padding = 0.4
+				},
+				nodes = r
+	}}}
+end
 
 function SMODS.current_mod.extra_tabs()
-	return { create_credits_tab() }
+	return { {
+		label = 'Credits',
+		tab_definition_function = create_credits_tab,
+	}}
 end
 --#endregion

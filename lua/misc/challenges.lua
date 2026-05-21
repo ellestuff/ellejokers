@@ -105,23 +105,6 @@ local shopless = SMODS.Challenge {
 }
 if next(SMODS.find_mod("Cryptid")) then shopless.restrictions.banned_cards[#shopless.restrictions.banned_cards+1] = {id="c_cry_run"} end
 
-SMODS.Challenge {
-	key = "pay2play",
-	rules = {
-		custom = {
-			{id = "elle_beat_credit", value = "VMan_2002"}
-		}
-	},
-	jokers = {
-		{ id = "j_elle_diamond_pickaxe", eternal=true, edition="negative", ability={extra={ mult = 1 }} },
-		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 16 }} },
-		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 32 }} },
-		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 48 }} },
-		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 64 }} },
-		{ id = "j_elle_cobblestone", eternal=true, ability={extra={ mult = 1, value = 80 }} },
-	}
-}
-
 function ellejokers.calculate.challenge(context)
 	if G.GAME.modifiers.elle_not_all and context.modify_hand then
 		local all_rank = true

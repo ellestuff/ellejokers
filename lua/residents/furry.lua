@@ -50,17 +50,25 @@ local furry = ellejokers.Resident {
 
 furry.calculate = function(self, card, context)
 	if context.before and #G.hand.cards > 0 then
-		local target = pseudorandom_element(G.hand.cards,"elle_furry_eat")
-		SMODS.destroy_cards(target)
-		G.E_MANAGER:add_event(Event({func=function()
-			card.ability.extra.eaten = card.ability.extra.eaten + 1
-			card.ability.extra.count = card.ability.extra.count + 1
-		return true end}))
+		local pool = {}
+		for _, v in ipairs(G.hand.cards) do
+			if not card.getting_sliced then pool[#pool+1] = v end
+		end
 
-		return {
-			message = "+1",
-			sound = "slice1"
-		}
+		local target = pseudorandom_element(pool,"elle_furry_eat")
+
+		if target then
+			SMODS.destroy_cards(target)
+			G.E_MANAGER:add_event(Event({func=function()
+				card.ability.extra.eaten = card.ability.extra.eaten + 1
+				card.ability.extra.count = card.ability.extra.count + 1
+			return true end}))
+
+			return {
+				message = "+1",
+				sound = "slice1"
+			}
+		end
 	end
 
 	if context.joker_main and card.ability.extra.mult ~= 0 then

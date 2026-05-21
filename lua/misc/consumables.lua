@@ -150,7 +150,11 @@ SMODS.Consumable {
 		return #G.jokers.highlighted == 1 and G.jokers.highlighted[1].edition and G.jokers.highlighted[1].edition.key ~= "e_negative" and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
 	end,
 	in_pool = function (self, args)
-		return next(SMODS.Edition:get_edition_cards(G.jokers, true))
+		local r = false
+		for _, v in ipairs(G.jokers) do
+			r = v.edition and not v.edition.negative or r
+		end
+		return r
 	end
 }
 
