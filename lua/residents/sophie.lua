@@ -30,7 +30,7 @@ end
 ellejokers.Resident {
 	key = 'sophie',
 	pos = { x = 3, y = 1 },
-	config = { extra = { charges = 0, xmult=1, xmult_mod = 0.25 } },
+	config = { extra = { charges = 0, xmult=1, xmult_mod = 0.2 } },
 	resident_colour = HEX("ffcce9"),
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = ellejokers.burn_desc()
