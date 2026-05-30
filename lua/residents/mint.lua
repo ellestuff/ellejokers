@@ -18,7 +18,7 @@ ellejokers.Resident {
 			bio_key = G.P_CENTERS.elle_r_elle_cheshire.discovered and self.key.."_chesh" or nil
 		}
 	end,
-	config = { extra = { suit = 'Spades', rank = 'Ace', xmult = 1.3 } },
+	config = { extra = { suit = 'Spades', rank = 'Ace', xmult = 1.25 } },
 	resident_colour = HEX("65e6d4"),
 	in_pool = function (self, args) return false end,
 	calculate = function(self, card, context)

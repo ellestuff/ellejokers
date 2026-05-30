@@ -1071,8 +1071,8 @@ return {
 						"rank during scoring",
 						"{C:inactive}(Open to {C:attention}Edit{C:inactive})"
 					}, {
-						"Each played #2# of",
-						"{V:1}#1#{} give",
+						"Each played actual",
+						"{C:attention}#2#{} of {V:1}#1#{} gives",
 						"{C:white,X:mult}X#3#{} Mult when scored"
 					}
 				},
