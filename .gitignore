@@ -1,4 +1,4 @@
 *.code-workspace
-.luarc.json
+luarc.json
 .lovelyignore
 /.vscode
