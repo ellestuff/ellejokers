@@ -1,4 +1,4 @@
-local function create_UIbox_sarah(card)
+function ellejokers.create_UIbox_sarah(card)
 	local key = SMODS.Suits[card.ability.extra.suit].card_key.."_"..SMODS.Ranks[tostring(card.ability.extra.rank)].card_key
 
 	local c = SMODS.create_card({ key = "c_base", front = key })
