@@ -24,40 +24,59 @@ local function create_UIbox_sarah(card)
 			{ n = G.UIT.C, config = {padding = .1}, nodes = {
 				{ n = G.UIT.C, config = { align = "cm" }, nodes = {{ n=G.UIT.O, config = {object = c} }}},
 				{ n = G.UIT.C, config = { padding = -.1}, nodes = {
-					{ n = G.UIT.C, config = { padding = .1 }, nodes = {
-						{ n = G.UIT.R, config = { colour=G.C.WHITE, r = 0.1, minh=.7, align = 'cm' }, nodes = {
+					{ n = G.UIT.C, config = { padding = .2 }, nodes = {
+						{ n = G.UIT.R, config = { colour= G.C.WHITE, r = 0.1, minh=.5, align = 'cm' }, nodes = {
 							{ n = G.UIT.T, config = {ref_table = card.ability.extra, ref_value = "suit", scale = .3, colour = G.C.UI.TEXT_DARK, func='elle_sarah_uitext' }},
 							{ n = G.UIT.T, config = {text = ' act as ', scale = .3, colour = G.C.UI.TEXT_DARK }},
 							{ n = G.UIT.T, config = {ref_table = card.ability.extra, ref_value = "rank", scale = .3, colour = G.C.IMPORTANT }},
 							{ n = G.UIT.T, config = {text = 's', scale = .3, colour = G.C.IMPORTANT }}
 						}},
-						create_option_cycle({opt_callback = "elle_sarah_uisuit",
+						-- create_option_cycle({opt_callback = "elle_sarah_uisuit",
+						-- 	options = SMODS.Suit.obj_buffer,
+						-- 	current_option = suit_o,
+						-- 	w = 3,
+						-- 	no_pips = true,
+						-- 	scale = 0.8,
+
+						-- 	card = card,
+						-- 	display_card = c
+						-- }),
+						SMODS.GUI.dropdown_select({
 							options = SMODS.Suit.obj_buffer,
-							current_option = suit_o,
-							w = 3,
-							no_pips = true,
-							scale = 0.8,
-
-							card = card,
-							display_card = c
+							close_on_select = true,
+							max_menu_h = 4,
+							callback = "elle_sarah_uisuit",
+							minw = 2,
+							display_card = c,
+							ref_table = card.ability.extra,
+							ref_value = "suit",
+							align = "cl",
 						}),
-						create_option_cycle({opt_callback = "elle_sarah_uirank",
+						SMODS.GUI.dropdown_select({
 							options = SMODS.Rank.obj_buffer,
-							current_option = rank_o,
-							w = 3,
-							no_pips = true,
-							scale = 0.8,
+							close_on_select = true,
+							max_menu_h = 4,
+							callback = "elle_sarah_uirank",
+							minw = 2,
+							display_card = c,
+							ref_table = card.ability.extra,
+							ref_value = "rank",
+							align = "cl",
+						}),
+						-- create_option_cycle({opt_callback = "elle_sarah_uirank",
+						-- 	options = SMODS.Rank.obj_buffer,
+						-- 	current_option = rank_o,
+						-- 	w = 3,
+						-- 	no_pips = true,
+						-- 	scale = 0.8,
 
-							card = card,
-							display_card = c
-						})
-			}}}}}}
-		}},
-		{ n=G.UIT.R, config={align = "cm", minw = 2.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.ORANGE, button = "exit_overlay_menu", shadow = true}, nodes={
-			{ n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true}, nodes={
-				{ n=G.UIT.T, config={text = "Back", scale = 0.5, colour = G.C.UI.TEXT_LIGHT} }
-		}}}},
-	}
+						-- 	card = card,
+						-- 	display_card = c
+						-- })
+						{ n=G.UIT.R, config={align = "cm", minw = 2.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.ORANGE, button = "exit_overlay_menu", shadow = true}, nodes={
+							{ n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true}, nodes={
+								{ n=G.UIT.T, config={text = "Back", scale = 0.5, colour = G.C.UI.TEXT_LIGHT} }
+	}}}}}}}}}}}}}
 	return create_UIBox_generic_options({
 		no_back = true,
 		contents = t
@@ -69,20 +88,16 @@ function G.FUNCS.elle_sarah_uitext(e)
 end
 
 function G.FUNCS.elle_sarah_uisuit(e)
-	e.cycle_config.card.ability.extra.suit = e.cycle_config.current_option_val
-
 	G.E_MANAGER:add_event(Event({func = function()
-		e.cycle_config.display_card:juice_up(.3,.3)
-		SMODS.change_base(e.cycle_config.display_card, e.cycle_config.current_option_val)
+		e.config.args_table.display_card:juice_up(.3,.3)
+		SMODS.change_base(e.config.args_table.display_card, e.config.args_table.ref_table["suit"])
 	return true end}))
 end
 
 function G.FUNCS.elle_sarah_uirank(e)
-	e.cycle_config.card.ability.extra.rank = e.cycle_config.current_option_val
-
 	G.E_MANAGER:add_event(Event({func = function()
-		e.cycle_config.display_card:juice_up(.3,.3)
-		SMODS.change_base(e.cycle_config.display_card, nil, e.cycle_config.current_option_val)
+		e.config.args_table.display_card:juice_up(.3,.3)
+		SMODS.change_base(e.config.args_table.display_card, nil, e.config.args_table.ref_table["rank"])
 	return true end}))
 end
 
