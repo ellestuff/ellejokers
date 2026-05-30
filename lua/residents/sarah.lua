@@ -119,7 +119,7 @@ ellejokers.Resident {
 		{
 			text = "Edit",
 			can_use = function(self, card) return G.STATE ~= G.STATES.HAND_PLAYED end,
-			use = function(self,card) G.FUNCS.overlay_menu({ definition = create_UIbox_sarah(card) }) end,
+			use = function(self,card) G.FUNCS.overlay_menu({ definition = ellejokers.create_UIbox_sarah(card) }) end,
 			colour = HEX("81cefd"),
 			scale = 1.6,
 			close = true
