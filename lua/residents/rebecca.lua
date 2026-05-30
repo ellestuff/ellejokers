@@ -45,8 +45,7 @@ ellejokers.Resident {
 			close = true
 		}
 	},
-	resident_colour = HEX("89ca80"),
-	elle_tail = {x = 3, y = 3},
+	resident_colour = HEX("89ca80")
 }
 
 --local becca_obj = Sprite(0,0,192,256,"rebecca",{x=0,y=0})

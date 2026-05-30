@@ -1064,22 +1064,34 @@ return {
 			},
 			elle_r_elle_mint = {
 				name = '{st:elle_r_elle_cheshire}Sarah{C:elle_r_elle_mint} Mint',
+				text = {
+					{
+						"{V:1}#1#{} act as {C:attention}#2#s{}",
+						"instead of its displayed",
+						"rank during scoring",
+						"{C:inactive}(Open to {C:attention}Edit{C:inactive})"
+					}, {
+						"Each played #2# of",
+						"{V:1}#1#{} give",
+						"{C:white,X:mult}X#3#{} Mult when scored"
+					}
+				},
 				res_bio = {
-					"When {V:1}you{} start forgetting",
+					"When {V:2}you{} start forgetting",
 					"everything, at what point do",
-					"{V:2}you{} stop being {V:3}yourself{}? When",
-					"do {V:4}you{} start noticing that",
-					"{V:5}you{}'re forgetting? At what",
-					"point do {V:6}you{} forget that there",
+					"{V:3}you{} stop being {V:4}yourself{}? When",
+					"do {V:5}you{} start noticing that",
+					"{V:6}you{}'re forgetting? At what",
+					"point do {V:7}you{} forget that there",
 					"was anything to forget?"
 				}
 			},
 			elle_r_elle_mint_chesh = {
 				res_bio = {
-					"When {V:1}you{} start forgetting everything, at",
-					"what point do {V:2}you{} stop being {V:3}yourself{}?",
-					"When do {V:4}you{} start noticing that {V:5}you're",
-					"forgetting? At what point do {V:6}you{} forget",
+					"When {V:2}you{} start forgetting everything, at",
+					"what point do {V:3}you{} stop being {V:4}yourself{}?",
+					"When do {V:5}you{} start noticing that {V:6}you're",
+					"forgetting? At what point do {V:7}you{} forget",
 					"that there was anything to forget?",
 					" ",
 					"{C:elle_r_elle_cheshire}A very fitting end if I say so myself,",

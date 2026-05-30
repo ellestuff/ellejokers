@@ -128,8 +128,26 @@ ellejokers.Resident {
 	set_ability = function(self, card, initial, delay_sprites)
 		card.ability.extra.suit = pseudorandom_element(SMODS.Suit.obj_buffer,'elle_sarah_suit')
 		card.ability.extra.rank = pseudorandom_element(SMODS.Rank.obj_buffer,'elle_sarah_rank')
-	end
+	end,
+	slime_upgrade = {
+		card = "elle_r_elle_mint",
+		can_use = function(self, card) return true end, -- idk what the actual condition should be
+		loc_vars = function(self, card) return {} end,
+		values = function(self, card) return {
+			suit = card.ability.extra.suit,
+			rank = card.ability.extra.rank
+		} end
+	}
 }
+
+-- Get actual ID, for use in Mint
+local sarah_bypass = false
+function ellejokers.sarah_get_id(card)
+	sarah_bypass = true
+	local r = card:get_id()
+	sarah_bypass = false
+	return r
+end
 
 -- Prevents Flush Fives
 local during_hand_calc = false
@@ -143,7 +161,7 @@ end
 
 local gid_hook = Card.get_id
 function Card:get_id()
-	if not during_hand_calc and next(SMODS.find_card('elle_r_elle_sarah')) then
+	if not sarah_bypass and not during_hand_calc and next(SMODS.find_card('elle_r_elle_sarah')) then
 		local r
 		for i,v in ipairs(SMODS.find_card('elle_r_elle_sarah')) do
 			if self:is_suit(v.ability.extra.suit) then

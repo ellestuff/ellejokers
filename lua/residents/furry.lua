@@ -25,7 +25,6 @@ local furry = ellejokers.Resident {
 		card.ability.extra.mult
 	},bio_key = G.P_CENTERS.elle_r_elle_cheshire.discovered and self.key.."_chesh" or nil} end,
 	in_pool = function (self, args) return false end,
-	elle_tail = { x = 7, y = 0 },
 	resident_colour = HEX("ffa747"),
 	slime_upgrade = {
 		card = "elle_r_elle_cheshire",

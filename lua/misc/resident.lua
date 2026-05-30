@@ -339,7 +339,8 @@ function CardArea.align_cards(self)
 	else achook(self) end
 end
 
-SMODS.DrawStep {
+-- No longer in use due to resident card redesign
+--[[SMODS.DrawStep {
 	key = 'elle_resident_tail',
 	order = -200, -- before the Card and UI buttons are drawn
 	func = function(self)
@@ -358,7 +359,7 @@ SMODS.DrawStep {
 		end
 	end,
 	conditions = { vortex = false, facing = 'front' },
-}
+}]]
 
 local cae = CardArea.emplace
 function CardArea:emplace(card,...)

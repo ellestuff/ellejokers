@@ -14,7 +14,6 @@ ellejokers.Resident {
 		}}
 	end,
 	in_pool = function (self, args) return false end,
-	elle_tail = { x = 7, y = 1 },
 	calculate = function(self, card, context)
 		if card.ability.extra.active and context.setting_blind and not context.retrigger_joker then
 				juice_card_until(card,function(card)

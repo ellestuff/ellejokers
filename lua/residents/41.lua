@@ -73,6 +73,5 @@ ellejokers.Resident {
 			ret[#ret+1] = SMODS.blueprint_effect(card, get_by_sortid(v), context)
 		end
 		return SMODS.merge_effects(ret)
-	end,
-	elle_tail = {x = 4, y = 1},
+	end
 }
