@@ -74,7 +74,7 @@ local function create_resident_buttons_ui(card)
 			align = 'cr',
 			major = card,
 			parent = card,
-			offset = { x = -.5, y = .4 }
+			offset = { x = -.5, y = 0 }
 		}
 	}
 end

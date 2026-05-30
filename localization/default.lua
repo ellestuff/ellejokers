@@ -804,7 +804,11 @@ return {
 
 			elle_credits_mf = {
 				text = {
-					"ts credits me"
+					"ts credits me",
+					" ",
+					"{C:elle}(made the resident for morefluff",
+					"{C:elle}crossmod and helped with ideas",
+					"{C:elle}and code issues)"
 				}
 			}
 		},
@@ -1040,6 +1044,12 @@ return {
 			},
 			elle_r_elle_sarah = {
 				name = 'Sarah',
+				text = {
+					"{V:1}#1#{} act as {C:attention}#2#s{}",
+					"instead of its displayed",
+					"rank during scoring",
+					"{C:inactive}(Open to {C:attention}Edit{C:inactive})"
+				},
 				res_bio = {
 					"{C:elle}The Mall{}'s smartest mind and {C:elle_r_elle_chloe}Chloe{}'s",
 					"girlfriend. As a surprise, she",
