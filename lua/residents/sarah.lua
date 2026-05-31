@@ -175,7 +175,7 @@ function Card:get_id()
 		-- Mint
 		if next(SMODS.find_card('elle_r_elle_mint')) then
 			for i,v in ipairs(SMODS.find_card('elle_r_elle_mint')) do
-				if self:is_suit(v.ability.extra.suit) and SMODS.pseudorandom_probability(v, 'elle_mint_trigger',1,v.ability.extra.odds,nil,true) then
+				if self:is_suit(v.ability.extra.suit) and SMODS.pseudorandom_probability(self, 'elle_mint_trigger',1,v.ability.extra.odds or 2,nil,true) then
 					r = SMODS.Ranks[v.ability.extra.rank].id
 				end
 			end
