@@ -161,11 +161,23 @@ end
 
 local gid_hook = Card.get_id
 function Card:get_id()
-	if not sarah_bypass and not during_hand_calc and next(SMODS.find_card('elle_r_elle_sarah')) then
+	if not sarah_bypass and not during_hand_calc then
 		local r
-		for i,v in ipairs(SMODS.find_card('elle_r_elle_sarah')) do
-			if self:is_suit(v.ability.extra.suit) then
-				r = SMODS.Ranks[v.ability.extra.rank].id
+		-- Sarah
+		if next(SMODS.find_card('elle_r_elle_sarah')) then
+			for i,v in ipairs(SMODS.find_card('elle_r_elle_sarah')) do
+				if self:is_suit(v.ability.extra.suit) then
+					r = SMODS.Ranks[v.ability.extra.rank].id
+				end
+			end
+		end
+
+		-- Mint
+		if next(SMODS.find_card('elle_r_elle_mint')) then
+			for i,v in ipairs(SMODS.find_card('elle_r_elle_mint')) do
+				if self:is_suit(v.ability.extra.suit) and SMODS.pseudorandom_probability(v, 'elle_mint_trigger',1,v.ability.extra.odds,nil,true) then
+					r = SMODS.Ranks[v.ability.extra.rank].id
+				end
 			end
 		end
 		return r or gid_hook(self)

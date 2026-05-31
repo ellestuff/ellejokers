@@ -1046,7 +1046,7 @@ return {
 				name = 'Sarah',
 				text = {
 					"{V:1}#1#{} act as {C:attention}#2#s{}",
-					"instead of its displayed",
+					"instead of its actual",
 					"rank during scoring",
 					"{C:inactive}(Open to {C:attention}Edit{C:inactive})"
 				},
@@ -1066,8 +1066,8 @@ return {
 				name = '{st:elle_r_elle_cheshire}Sarah{C:elle_r_elle_mint} Mint',
 				text = {
 					{
-						"{V:1}#1#{} act as {C:attention}#2#s{}",
-						"instead of its displayed",
+						"{V:1}#1#{C:green} sometimes{} act as",
+						"{C:attention}#2#s{} instead of its actual",
 						"rank during scoring",
 						"{C:inactive}(Open to {C:attention}Edit{C:inactive})"
 					}, {
