@@ -5,7 +5,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 {
 	vec4 tex = Texel(texture, texture_coords);
 	float dist = distance(texture_coords*dims,pos);
-	tex = mix(tex, tex*0.75, clamp((dist-100.)/10.,0.,1.)); // Uses mix instead of ternary to achieve antialiasing
+	tex = dist<100. ? tex : tex*0.75; // Uses mix instead of ternary to achieve antialiasing
 	return tex;
 }
 
