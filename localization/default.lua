@@ -857,6 +857,12 @@ return {
 					"{C:elle}Resident{} cards can",
 					"appear in shop"
 				}
+			},
+			v_elle_friendship = {
+				name = "Friendship",
+				text = {
+					"{C:attention}+#1#{} {C:elle}Resident{} slots"
+				}
 			}
 		},
 		Back={

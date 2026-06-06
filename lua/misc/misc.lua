@@ -125,7 +125,7 @@ SMODS.Voucher {
 SMODS.Voucher {
 	key = 'friendship',
 	atlas = "vouchers",
-	requires = {"v_elle_slumber"},
+	requires = {"v_elle_sleepshopper"},
 	pos = { x = 1, y = 1 },
 	config = { extra = { slots = 1 } },
 	loc_vars = function(self, info_queue, card)
