@@ -7,16 +7,13 @@ function ellejokers.get_marie_pool()
 
 	for _,v in ipairs(ellejokers.marie_rarities) do
 		local p = SMODS.get_clean_pool('Joker',v)
-		print(v)
-		print(#p)
 		for _,v2 in ipairs(p) do
 			pool_check[v2] = true
 		end
 	end
-	print("Total: "..#pool_check)
 
 	for i,j in ipairs(G.P_CENTER_POOLS.Joker) do
-		local inpool = not j.no_collection and j.discovered and pool_check[j.key]
+		local inpool = not j.no_collection and j.discovered and pool_check[j.key] and not j.elle_no_marie
 		pool[#pool+1] = inpool and j or nil
 	end
 
@@ -226,3 +223,6 @@ function Card.highlight(self, is_highlighted)
 
 	return highlight_ref(self, is_highlighted)
 end
+
+-- remove showman from marie's shop
+SMODS.Joker:take_ownership('ring_master', {elle_no_marie = true}, true)
