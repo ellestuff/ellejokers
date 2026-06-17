@@ -1,20 +1,33 @@
-ellejokers.marie_rarities = {
-	[1] = true,
-	[2] = true,
-	[3] = true
-}
+ellejokers.marie_rarities = {"Common", "Uncommon", "Rare"}
+
 function ellejokers.get_marie_pool()
 	local pool = {}
 
+	local pool_check = {}
+
+	for _,v in ipairs(ellejokers.marie_rarities) do
+		local p = SMODS.get_clean_pool('Joker',v)
+		print(v)
+		print(#p)
+		for _,v2 in ipairs(p) do
+			pool_check[v2] = true
+		end
+	end
+	print("Total: "..#pool_check)
+
 	for i,j in ipairs(G.P_CENTER_POOLS.Joker) do
-		local inpool = ellejokers.marie_rarities[j.rarity] and not j.no_collection and j.discovered and (not next(SMODS.find_card(j.key)) or SMODS.showman(j.key))
+		local inpool = not j.no_collection and j.discovered and pool_check[j.key]
 		pool[#pool+1] = inpool and j or nil
 	end
 
 	return pool
 end
 
+local pool = {}
+
 function ellejokers.create_UIbox_marie(card)
+	G.GAME.elle_popup_shop_open = "marie"
+
 	local deck_tables = {}
 
 	G.elle_marie_collection = {}
@@ -23,7 +36,7 @@ function ellejokers.create_UIbox_marie(card)
 			G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
 			5*G.CARD_W,
 			0.95*G.CARD_H, 
-			{card_limit = 5, type = 'title', highlight_limit = 1, highlighted_limit = 1, elle_marie = true, elle_marie_card = card})
+			{card_limit = 5, type = 'title', highlight_limit = 1, highlighted_limit = 1, collection = true, elle_marie = true, elle_marie_card = card})
 		table.insert(deck_tables, 
 		{n=G.UIT.R, config={align = "cm", padding = 0.07, no_fill = true}, nodes={
 			{n=G.UIT.O, config={object = G.elle_marie_collection[j]}}
@@ -31,7 +44,7 @@ function ellejokers.create_UIbox_marie(card)
 		)
 	end
 
-	local pool = ellejokers.get_marie_pool()
+	pool = ellejokers.get_marie_pool()
 
 	for i = 1, 5 do
 		for j = 1, #G.elle_marie_collection do
@@ -65,7 +78,6 @@ end
 
 G.FUNCS.elle_marie_collection_page = function(args)
 	if not args or not args.cycle_config then return end
-	local pool = ellejokers.get_marie_pool()
 
 	for j = 1, #G.elle_marie_collection do
 		for i = #G.elle_marie_collection[j].cards,1, -1 do

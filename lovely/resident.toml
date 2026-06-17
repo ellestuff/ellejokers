@@ -58,7 +58,7 @@ match_indent = true
 target = 'functions/common_events.lua'
 pattern = "elseif _type == 'Edition' then _pool[#_pool + 1] = \"e_foil\""
 position = "after"
-payload = "elseif _type == 'elle_Resident' then _pool[#_pool + 1] = 'elle_r_elle_jimbo'"
+payload = "elseif _type == 'elle_Resident' then _pool[#_pool + 1] = 'elle_r_elle_chloe'"
 match_indent = true
 
 # Put residents in the correct area when buying from the shop
