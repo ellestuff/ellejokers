@@ -33,7 +33,7 @@ ellejokers.Resident {
 	resident_buttons = {
 		{
 			text = "Edit",
-			can_use = function(self, card) return G.STATE ~= G.STATES.HAND_PLAYED end,
+			can_use = function(self, card) return true end,
 			use = function(self,card) G.FUNCS.overlay_menu({ definition = ellejokers.create_UIbox_sarah(card) }) end,
 			colour = HEX("65e6d4"),
 			scale = 1.6,

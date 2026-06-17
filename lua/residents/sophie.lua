@@ -61,7 +61,7 @@ ellejokers.Resident {
 	resident_buttons = {
 		{
 			text = "Burn",
-			can_use = function(self, card) return slimeutils.can_use(card,G.elle_resident_area) and card.ability.extra.charges >= #G.hand.highlighted and #G.hand.highlighted > 0 end,
+			can_use = function(self, card) return card.ability.extra.charges >= #G.hand.highlighted and #G.hand.highlighted > 0 end,
 			use = function(self, card)
 				card.ability.extra.charges = card.ability.extra.charges - #G.hand.highlighted
 				G.E_MANAGER:add_event(Event({

@@ -11,7 +11,7 @@ local wordle = SMODS.Joker {
 			inactive = false
 	}}},
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult } }
+		return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult, card.ability.extra.wordle.inactive and card.ability.extra.wordle.word or "?????" } }
 	end,
 	rarity = 3,
 	atlas = 'jokers',

@@ -17,7 +17,7 @@ end
 
 function G.FUNCS.elle_resident_button_func(e)
 	--local button = e.config.button_thingy
-	local yes = e.config.button_thingy:can_use(e.config.ref_table)
+	local yes = e.config.button_thingy:can_use(e.config.ref_table) and slimeutils.can_use(e.config.ref_table,G.elle_resident_area)
 
 	e.config.colour = yes and (e.config.button_thingy.colour or G.C.RED) or G.C.UI.BACKGROUND_INACTIVE
 	e.config.button = yes and 'elle_resident_button' or nil
@@ -48,7 +48,6 @@ local function create_resident_buttons_ui(card)
 					button = 'elle_resident_button',
 					func = 'elle_resident_button_func',
 					ref_table = card,
-					ref_value = "resident_buttons",
 					button_thingy = bTable
 				},
 				nodes = {

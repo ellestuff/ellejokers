@@ -326,7 +326,8 @@ return {
 						"Type in words and",
 						"press {C:attention}Enter{} to guess",
 						"the {C:attention}Hidden Word",
-						"{C:inactive}(Resets at end of Ante)"
+						"{C:inactive}(Resets at end of Ante)",
+						"{C:inactive}({C:attention}#3#{C:inactive})"
 					},
 					{
 						"{C:white,X:mult}X#1#{} Mult per",
@@ -651,13 +652,6 @@ return {
 				}
 			},
 
-			elle_marie_upgrade = {
-				name = 'Slimeify',
-				text = {
-					"Pay {C:money}$#1#"
-				}
-			},
-
 			elle_cameo = {
 				name = 'Cameo',
 				text = {
@@ -935,10 +929,18 @@ return {
 			elle_r_elle_marie = {
 				name = 'Marie',
 				text = {
-					"Once per {C:attention}Ante{}, use to",
-					"create a {C:common}Common{},",
-					"{C:uncommon}Uncommon{}, or {C:rare}Rare",
-					"{C:attention}Joker{} of your choice"
+					{
+						"Once per {C:attention}Ante{}, use to",
+						"create a {C:common}Common{},",
+						"{C:uncommon}Uncommon{}, or {C:rare}Rare",
+						"{C:attention}Joker{} of your choice",
+						"{C:inactive}(Currently {C:attention}#1#{C:inactive})"
+					},
+					{
+						"{C:attention}Owned{} and {C:attention}Undiscovered",
+						"Jokers are not listed",
+						"{C:inactive}(Affected by {C:attention}Showman{C:inactive})"
+					}
 				},
 				res_bio = {
 					"When you fall asleep at night, there's a",
@@ -1025,7 +1027,7 @@ return {
 						"Once per hand,",
 						"use to #1# a", -- #1# -> destroy/eat
 						"{C:attention}selected{} playing card",
-						"{C:attention}#6#"
+						"{C:inactive}(Currently {C:attention}#6#{C:inactive})"
 					},{
 						"At end of round,",
 						"gain {X:mult,C:white}X#2#{} Mult per",

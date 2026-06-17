@@ -17,7 +17,7 @@ local spamton_sets = {
 	big = {
 		"Joker",
 		"Booster",
-		"Voucher"
+		--"Voucher" -- Crashes with certain vouchers
 	}
 }
 
@@ -199,7 +199,7 @@ end
 local oldsetcost = Card.set_cost
 function Card:set_cost()
     local g = oldsetcost(self)
-    if self.area and self.area == G.elle_spamton_shop then
+    if self.area and self.area == G.elle_spamton_shop and not self.spamHold then
 		self.cost = pseudorandom("elle_spamton_price_" .. self.sort_id, 1, 100)
     end
     return g
@@ -223,4 +223,16 @@ function love.update(dt)
         end
     end
     return g
+end
+
+local buyhook = G.FUNCS.buy_from_shop
+
+function G.FUNCS.buy_from_shop(a)
+	if (G.GAME.elle_popup_shop_open == "spamton") then a.config.ref_table.spamHold = true end
+	
+	buyhook(a)
+	
+	G.E_MANAGER:add_event(Event({func = function()
+		a.config.ref_table.spamHold = nil
+	return true end}))
 end
