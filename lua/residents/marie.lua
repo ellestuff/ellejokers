@@ -33,7 +33,7 @@ function ellejokers.create_UIbox_marie(card)
 			G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
 			5*G.CARD_W,
 			0.95*G.CARD_H, 
-			{card_limit = 5, type = 'title', highlight_limit = 1, highlighted_limit = 1, collection = true, elle_marie = true, elle_marie_card = card})
+			{card_limit = 5, type = 'title', highlight_limit = 1, highlighted_limit = 1, elle_marie = true, elle_marie_card = card})
 		table.insert(deck_tables, 
 		{n=G.UIT.R, config={align = "cm", padding = 0.07, no_fill = true}, nodes={
 			{n=G.UIT.O, config={object = G.elle_marie_collection[j]}}
@@ -88,7 +88,6 @@ G.FUNCS.elle_marie_collection_page = function(args)
 			local center = pool[i+(j-1)*5 + (5*#G.elle_marie_collection*(args.cycle_config.current_option - 1))]
 			if not center then break end
 			local card = Card(G.elle_marie_collection[j].T.x + G.elle_marie_collection[j].T.w/2, G.elle_marie_collection[j].T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center)
-			card.sticker = get_joker_win_sticker(center)
 			G.elle_marie_collection[j]:emplace(card)
 		end
 	end
