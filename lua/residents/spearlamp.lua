@@ -51,7 +51,7 @@ local lamp = ellejokers.Resident {
 	resident_colour = HEX("81cefd"),
 	set_ability = function(self, card, initial, delay_sprites)
 		-- 1 in 5 chance of silly lamp
-		if pseudorandom("elle_do_lamp_tf",1,5)==1 then card.ability.extra.variant = pseudorandom("elle_lamp_tf",1,#ellejokers.lamps)+1 end
+		if math.random(5)==1 then card.ability.extra.variant = math.random(#ellejokers.lamps)+1 end
 		if not slimeutils.card_obscured(card) then
 			card.children.center:set_sprite_pos({x = card.ability.extra.variant-1, y = ellejokers.mod_data.config.nsfw and 1 or 0})
 	end end,
