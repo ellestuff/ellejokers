@@ -382,6 +382,34 @@ ellejokers.rebecca_modifiers.pcards = {
 	end
 }
 
+ellejokers.rebecca_attributes = {
+	mult = "Mult",
+	chips = "Chips",
+	xmult = "XMult",
+	scaling = "Scaling",
+	suit = "Suit-Based",
+	hand_type = "Hand-Based",
+	rank = "Rank-Based",
+	face = "Face Card",
+	economy = "Economy",
+	generation = "Generation",
+	discard = "Discard",
+	passive = "Passive"
+}
+
+ellejokers.rebecca_modifiers.attribute = {
+	init = function(self)
+		self.vars.type = pseudorandom_element(ellejokers.table_keys(ellejokers.rebecca_attributes),'elle_becca_mod_attribute')
+	end,
+	loc_vars = function(self)
+		return {ellejokers.rebecca_attributes[self.vars.type]}
+	end,
+	vars = { type = 'mult' },
+	joker = function(self)
+		return { attributes = {self.vars.type} }
+	end
+}
+
 -- this is definitely NOT the correct way to double values :sob:
 --[[local other_vals = {
 	'choose'

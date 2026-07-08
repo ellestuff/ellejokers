@@ -230,7 +230,7 @@ return {
 				name = 'Powerscaler',
 				text = {
 					"This Joker gains {X:mult,C:white}X#1#{} Mult",
-					"when {C:attention}Upgrading{} a Joker",
+					"when {C:blue,E:1}Upgrading{} a card",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
 				}
 			},
@@ -766,6 +766,14 @@ return {
 				text = {
 					"Enhanced, Sealed {C:attention}Playing Cards",
 					"appear instead of {C:attention}Consumables"
+				}
+			},
+
+			elle_rebecca_modifier_attribute = {
+				name = "Themed Event",
+				text = {
+					"Only {C:attention}#1#{} Jokers",
+					"appear in shop"
 				}
 			},
 

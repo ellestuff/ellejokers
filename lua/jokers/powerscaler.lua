@@ -1,7 +1,7 @@
 local powerscaler = SMODS.Joker {
 	key = 'powerscaler',
 	blueprint_compat = true,
-	config = { extra = { xmult_mod = .5 } },
+	config = { extra = { xmult_mod = .75 } },
 	loc_vars = function(self, info_queue, card) 
 		return { vars = { card.ability.extra.xmult_mod, G.GAME.elle_upgrade_count*card.ability.extra.xmult_mod + 1 } }
 	end,
