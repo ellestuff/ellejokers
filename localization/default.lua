@@ -1392,6 +1392,14 @@ return {
 				}
 			},
 
+			elle_r_elle_p2831 = {
+				name = "Elly",
+				text = {
+					"28 + 31's effects combined",
+					"or smtn like that idk"
+				}
+			},
+
 
 			-- Crossmod :)
 			elle_r_elle_triangle = {
