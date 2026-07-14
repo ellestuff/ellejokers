@@ -21,6 +21,10 @@ ellejokers.Resident = SMODS.Center:extend {
 		-- call the parent function to ensure all pools are set
 		SMODS.Center.inject(self)
 		G.ARGS.LOC_COLOURS[self.key] = self.resident_colour
+	end,
+	
+	pre_inject_class = function(self)
+		G.P_CENTER_POOLS[self.set] = {}
 	end
 }
 G.C.SET.elle_Resident = HEX("ff53a9")
