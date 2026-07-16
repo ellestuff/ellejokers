@@ -919,8 +919,15 @@ return {
 			undiscovered = {
 				name="Not Discovered",
 				res_bio = {
-					"Purchase or use this resident in",
-					"an unseeded run to learn more",
+					"Purchase or obtain this resident",
+					"in an unseeded run to learn more",
+				}
+			},
+			undiscovered_plural = {
+				name="Not Discovered",
+				res_bio = {
+					"Purchase or obtain these residents",
+					"in an unseeded run to learn more",
 				}
 			},
 
@@ -1400,6 +1407,27 @@ return {
 				}
 			},
 
+			elle_r_elle_gantra = {
+				name = "Gantra",
+				text = {
+					"{C:green}#1# in #2#{} chance to #3# a",
+					"{C:attention}Slime Card{} when it retriggers",
+					"and gain {X:chips,C:white}X#4#{} Chips",
+					"{C:inactive}(Currently {X:chips,C:white}X#5#{C:inactive} Chips)"
+				},
+				res_bio = {
+					"{C:elle,s:1.4}(Non-Canon Crossover)",
+					" ",
+					"A Pink Algae Plantoid from the",
+					"Swamplands, whom moved to the Capital",
+					"seeking something more grand.",
+					" ",
+					"Gantra is still searching for her spark,",
+					"whether or not she'll find it here is",
+					"yet to be seen."
+				}
+			},
+
 
 			-- Crossmod :)
 			elle_r_elle_triangle = {
@@ -1462,6 +1490,7 @@ return {
 			elle_furry_destroy = "Destroy",
 			elle_furry_eaten = "eaten",
 			elle_furry_destroyed = "destroyed",
+			elle_gantra_absorb = "Absorb",
 
 			elle_active_used = "Used",
 			elle_active_available = "Available",

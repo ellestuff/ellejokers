@@ -151,6 +151,9 @@ local residents = {
 	"rebecca",
 	"bea",
 	"sophie",
+	--"sophieferi",
+	--"cheshdrago",
+	"gantra"
 }
 
 local crossmod = {

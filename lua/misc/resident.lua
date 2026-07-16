@@ -147,7 +147,7 @@ function ellejokers.create_UIBox_your_collection_residents()
 					
 					if not disc then
 						name_key = "undiscovered"
-						bio_key = "undiscovered"
+						bio_key = center.resident_collection_share and "undiscovered_plural" or "undiscovered"
 					elseif not (G.localization.descriptions.elle_Resident[center.key] and G.localization.descriptions.elle_Resident[center.key].res_bio) then
 						name_key = "shame"
 						bio_key = "shame"
