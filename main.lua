@@ -385,7 +385,8 @@ SMODS.current_mod.optional_features = function()
 	return {
 		retrigger_joker = true,
 		quantum_enhancements = true,
-		object_weights = true
+		object_weights = true,
+		sprite_steps = true
 	}
 end
 
