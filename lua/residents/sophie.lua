@@ -146,11 +146,15 @@ end
 local burn_shader = love.graphics.newShader(SMODS.NFS.newFileData(SMODS.current_mod.path ..
 	"assets/shaders/burns.fs"):getString())
 
+local burn_shader_old = love.graphics.newShader(SMODS.NFS.newFileData(SMODS.current_mod.path ..
+	"assets/shaders/burnsold.fs"):getString())
+
 SMODS.SpriteStep {
 	key = "burns",
 	order = 1,
 	func = function(self, image, quad, sprite)
-		love.graphics.setShader(burn_shader)
+		local s = burn_shader_old--love.keyboard.isDown("lshift") and burn_shader_old or burn_shader
+		love.graphics.setShader(s)
 
 		local card = sprite.parent or sprite.role.major
 		local b = card.ability.elle_burn_effect or card.ability.elle_burns
@@ -158,10 +162,13 @@ SMODS.SpriteStep {
 		local w,h = quad:getTextureDimensions()
 		local sw,sh = quad:getViewport()
 
-		burn_shader:send("offset", {w,h,sw,sh})
-		burn_shader:send("seed", card.unique_val)
-		burn_shader:send("amp", b)
-		
+		s:send("offset", {w,h,sw,sh})
+		s:send("seed", card.unique_val)
+		s:send("amp", b)
+		s:send("size", {sprite.scale.x,sprite.scale.y})
+
+		--print(sprite.scale)
+
 		love.graphics.draw(image,quad,0,0)
 	end,
 	should_apply = function(self, sprite)

@@ -9,8 +9,6 @@ vec2 random(vec2 value){
 	return -1.0 + 2.0 * fract(sin(value) * 43758.5453123);
 }
 
-const float Pi = 6.28318530718;//pi * 2
-
 float seamless_noise(vec2 uv, vec2 _period) {
 	uv = uv * 40.;
 	vec2 cellsMinimum = floor(uv);
@@ -45,36 +43,18 @@ vec3 getColour(int id) {
 	return colours[id];
 }
 
-float getDist(Image texture, vec2 texture_coords, float radius, int quality, int dirs) {
-	float c = Texel(texture, texture_coords).a;
-	float s = Texel(texture, texture_coords).a;
-	for( float d=0.0;d<Pi;d+=Pi/float(dirs) ) {
-		for( float i=1.0/float(quality);i<=1.0;i+=1.0/float(quality) ) {
-			vec2 pos = texture_coords+vec2(cos(d),sin(d))*radius*i;
-			
-			c += Texel(texture, pos).a * cos(d);
-			s += Texel(texture, pos).a * sin(d);
-		}
-	}
-
-	c /= 1;
-	s /= 1;
-	
-	return min(c,s);
-}
-
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords ) {
 	vec2 coord = vec2((texture_coords.x-offset.b/offset.r)*offset.r,(texture_coords.y-offset.a/offset.g)*offset.g);
 
 	vec2 uv = coord/size;
 	vec4 col = Texel(texture,texture_coords);
 
-	float dist = getDist(texture, texture_coords, min(size.x, size.y)/2, 8, 16);
-	//dist = 1.-dist*3/(amp*0.2)+amp*0.3;
-
+	vec2 diff = size * 0.5 - abs(coord - size * 0.5);
+	float dist = 1.-min(diff.x, diff.y)/10./(amp*0.2)+amp*0.3;
+	
 	float noise = seamless_noise(uv*size/300.,vec2(40.,0.));
 	
-	float burn = 1.-(noise-(dist));
+	float burn = 1.-(noise-((dist+.5)/2.));
 	
 	burn = floor(burn*10.)/10.; // Banding effect for stylization
 	
@@ -84,5 +64,5 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 	
 	col = dist>noise ? vec4(0.) : vec4(mix(col.xyz,burnc,clamp(burn*1.7,0.,1.)),col.a);
 
-	return vec4(dist,0,0,1)+col*.001;
+	return vec4(min(diff.x, diff.y)/min(size.x, size.y),0,0,1)+col*.001;
 }
