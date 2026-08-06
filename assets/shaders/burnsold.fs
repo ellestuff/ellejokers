@@ -64,5 +64,5 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 	
 	col = dist>noise ? vec4(0.) : vec4(mix(col.xyz,burnc,clamp(burn*1.7,0.,1.)),col.a);
 
-	return vec4(min(diff.x, diff.y)/min(size.x, size.y),0,0,1)+col*.001;
+	return col;
 }

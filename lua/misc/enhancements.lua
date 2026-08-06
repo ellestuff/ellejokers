@@ -78,7 +78,7 @@ SMODS.Enhancement {
 }
 --#endregion
 
---#region Copycat cards
+--[[--#region Copycat cards
 function ellejokers.get_copycat_target(card)
 	if not (card.area and card.area.cards) then return end
 	
@@ -186,3 +186,4 @@ function Card:set_debuff(should_debuff)
 	set_debuff_hook(self,should_debuff)
 end
 --#endregion
+]]

@@ -157,7 +157,7 @@ SMODS.Consumable {
 		return r
 	end
 }
-
+--[[
 -- Doppelgänger (Spectral)
 SMODS.Consumable {
 	key = 'doppel',
@@ -171,3 +171,4 @@ SMODS.Consumable {
 		return { vars = { card.ability.max_highlighted } }
 	end
 }
+]]
